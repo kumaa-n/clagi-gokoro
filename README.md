@@ -151,3 +151,7 @@
 |国際化|rails-i18n, devise-i18n|
 |開発環境|Docker|
 |本番環境|Render, Neon|
+
+## 画面遷移図
+
+[Figma画面遷移図](https://www.figma.com/design/qVmGomC2VVMsr2hfnn5Q9U/clagi-gokoro?m=auto&t=CDy97zOKIwAHEPGv-1)
