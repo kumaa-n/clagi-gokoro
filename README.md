@@ -154,4 +154,4 @@
 
 ## 画面遷移図
 
-[Figma画面遷移図](https://www.figma.com/design/qVmGomC2VVMsr2hfnn5Q9U/%E3%82%AF%E3%83%A9%E3%82%AE%E3%81%94%E3%81%93%E3%82%8D?m=auto&t=aqpEVqoCf6Kny4vt-6)
+[Figma画面遷移図](https://www.figma.com/design/qVmGomC2VVMsr2hfnn5Q9U/clagi-gokoro?m=auto&t=CDy97zOKIwAHEPGv-1)
