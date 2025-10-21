@@ -1,0 +1,82 @@
+Table users {
+  id integer [pk]
+  name varchar [unique, not null, note: 'ニックネーム']
+  email varchar [unique, not null, note: 'メールアドレス']
+  encrypted_password varchar [not null, note: '暗号化済みパスワード']
+  reset_password_token varchar [note: 'パスワードリセットトークン']
+  reset_password_sent_at datetime [note: 'リセットメール送信日時']
+  remember_created_at datetime [note: 'ログイン記憶日時']
+  self_introduction text [note: '自己紹介']
+  created_at datetime [not null]
+  updated_at datetime [not null]
+
+  Note: '登録ユーザーの基本情報（Devise認証）'
+}
+
+Table reviews {
+  id integer [pk]
+  user_id integer [not null, ref: > users.id]
+  song_id integer [not null, ref: > songs.id]
+  tempo_rating integer [not null, note: 'テンポ評価']
+  fingering_technique_rating integer [not null, note: '運指技巧評価']
+  plucking_technique_rating integer [not null, note: '弾弦技巧評価']
+  expression_rating integer [not null, note: '表現力評価']
+  memorization_rating integer [not null, note: '暗譜・構成理解評価']
+  overall_rating integer [not null, note: '総合評価']
+  summary text [note: '総評コメント']
+  created_at datetime [not null]
+  updated_at datetime [not null]
+
+  Note: '曲へのレビュー'
+}
+
+Table review_favorites {
+  id integer [pk]
+  user_id integer [not null, ref: > users.id]
+  review_id integer [not null, ref: > reviews.id]
+  created_at datetime [not null]
+  updated_at datetime [not null]
+
+  Note: 'お気に入りレビュー'
+}
+
+Table review_comments {
+  id integer [pk]
+  user_id integer [not null, ref: > users.id]
+  review_id integer [not null, ref: > reviews.id]
+  content text [not null, note: 'コメント内容']
+  created_at datetime [not null]
+  updated_at datetime [not null]
+
+  Note: 'レビューへのコメント'
+}
+
+Table songs {
+  id integer [pk]
+  title varchar [not null, note: 'タイトル']
+  composer varchar [note: '作曲者']
+  arranger varchar [note: '編曲者']
+  created_at datetime [not null]
+  updated_at datetime [not null]
+
+  Note: '曲マスタ'
+}
+
+Table song_tags {
+  id integer [pk]
+  song_id integer [not null, ref: > songs.id]
+  tag_id integer [not null, ref: > tags.id]
+  created_at datetime [not null]
+  updated_at datetime [not null]
+
+  Note: '曲マスタとタグマスタの中間テーブル'
+}
+
+Table tags {
+  id integer [pk]
+  name varchar [not null, unique, note: 'タグ名']
+  created_at datetime [not null]
+  updated_at datetime [not null]
+
+  Note: 'タグマスタ'
+}
