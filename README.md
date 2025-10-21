@@ -155,3 +155,8 @@
 ## 画面遷移図
 
 [Figma画面遷移図](https://www.figma.com/design/qVmGomC2VVMsr2hfnn5Q9U/clagi-gokoro?m=auto&t=CDy97zOKIwAHEPGv-1)
+
+## ER図
+
+![ER図](db_clagi_gokoro.svg)
+- 詳細は、[dbdiagramファイル](dbdiagram)で確認できます
