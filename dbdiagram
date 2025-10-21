@@ -1,5 +1,5 @@
 Table users {
-  id uuid [pk]
+  id integer [pk]
   name varchar [unique, not null, note: 'ニックネーム']
   email varchar [unique, not null, note: 'メールアドレス']
   encrypted_password varchar [not null, note: '暗号化済みパスワード']
@@ -15,7 +15,7 @@ Table users {
 
 Table reviews {
   id integer [pk]
-  user_id uuid [not null, ref: > users.id]
+  user_id integer [not null, ref: > users.id]
   song_id integer [not null, ref: > songs.id]
   tempo_rating integer [not null, note: 'テンポ評価']
   fingering_technique_rating integer [not null, note: '運指技巧評価']
@@ -32,7 +32,7 @@ Table reviews {
 
 Table review_favorites {
   id integer [pk]
-  user_id uuid [not null, ref: > users.id]
+  user_id integer [not null, ref: > users.id]
   review_id integer [not null, ref: > reviews.id]
   created_at datetime [not null]
   updated_at datetime [not null]
@@ -42,7 +42,7 @@ Table review_favorites {
 
 Table review_comments {
   id integer [pk]
-  user_id uuid [not null, ref: > users.id]
+  user_id integer [not null, ref: > users.id]
   review_id integer [not null, ref: > reviews.id]
   content text [not null, note: 'コメント内容']
   created_at datetime [not null]
