@@ -39,3 +39,7 @@
 
 /node_modules
 /vendor/bundle
+
+.idea/
+.DS_Store
+*.Zone.Identifier
