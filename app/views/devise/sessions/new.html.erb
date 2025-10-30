@@ -1,17 +1,17 @@
 <div class="flex-1 flex justify-center items-center min-h-full px-4 py-8">
   <div class="p-10 rounded-lg shadow-sm w-full max-w-lg bg-base-100 border border-base-300">
-    <h2 class="text-3xl font-semibold text-center mb-8 text-primary">ログイン</h2>
+    <h2 class="text-3xl font-semibold text-center mb-8 text-primary"><%= t("devise.sessions.new.sign_in") %></h2>
 
     <%= form_with model: resource, as: resource_name, url: session_path(resource_name) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="mb-6">
-        <%= f.label :email, "メールアドレス", class: "label" %>
+        <%= f.label :email, class: "label" %>
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full input" %>
       </div>
 
       <div class="mb-6">
-        <%= f.label :password, "パスワード", class: "label" %>
+        <%= f.label :password, class: "label" %>
         <%= f.password_field :password, autocomplete: "new-password", class: "w-full input" %>
       </div>
 
@@ -23,7 +23,7 @@
       <% end %>
 
       <div class="mt-8">
-        <%= f.submit "ログイン", class: "w-full btn btn-primary" %>
+        <%= f.submit t("devise.sessions.new.sign_in"), class: "w-full btn btn-primary" %>
       </div>
     <% end %>
 
