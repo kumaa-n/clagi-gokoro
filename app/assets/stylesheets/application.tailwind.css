@@ -1,2 +1,36 @@
 @import "tailwindcss";
 @plugin "daisyui";
+@plugin "daisyui/theme" {
+  name: "clagi-gokoro";
+  default: true;
+  prefersdark: false;
+  color-scheme: "light";
+  --color-base-100: #FFFFFF;
+  --color-base-200: #FCF7F3;
+  --color-base-300: #DDDDDD;
+  --color-base-content: oklch(40% 0.0081 61.42);
+  --color-primary: #402712;
+  --color-primary-content: #FFFFFF;
+  --color-secondary: #8B5A3C;
+  --color-secondary-content: #FFFFFF;
+  --color-accent: #C8A97E;
+  --color-accent-content: #FFFFFF;
+  --color-neutral: #333333;
+  --color-neutral-content: #FFFFFF;
+  --color-info: oklch(0.806 0.071 222.7);
+  --color-info-content: oklch(30.39% 0.1148 241.68);
+  --color-success: oklch(0.701 0.150 142.5);
+  --color-success-content: oklch(23.92% 0.0901 136.87);
+  --color-warning: #E2B765;
+  --color-warning-content: oklch(43.92% 0.1085 80);
+  --color-error: oklch(0.631 0.143 33.7);
+  --color-error-content: oklch(35.1% 0.1814 22.37);
+  --radius-selector: 2rem;
+  --radius-field: 0.5rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 2px;
+  --depth: 1;
+  --noise: 0;
+}
