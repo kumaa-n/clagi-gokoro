@@ -1,0 +1,26 @@
+<header class="navbar bg-base-200 shadow-sm">
+  <div class="flex-1">
+    <%= link_to "クラギごころ", root_path, class: "btn btn-ghost text-xl text-primary" %>
+  </div>
+  <div class="flex-none">
+    <ul class="menu menu-horizontal px-1 gap-1">
+      <li><%= link_to "ホーム", root_path, class: "text-primary" %></li>
+      <li><%= link_to "曲一覧", "#", class: "text-primary" %></li>
+
+      <% if user_signed_in? %>
+        <li>
+          <details class="dropdown dropdown-end">
+            <summary class="text-primary font-bold"><%= current_user.name %></summary>
+            <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-40 p-2 shadow">
+              <li><%= link_to "プロフィール", "#", class: "text-primary text-sm" %></li>
+              <li><%= link_to "ログアウト", "#", class: "text-primary text-sm" %></li>
+            </ul>
+          </details>
+        </li>
+      <% else %>
+        <li><%= link_to "ログイン", new_user_session_path, class: "bg-primary text-base-100" %></li>
+        <li><%= link_to "新規登録", new_user_registration_path, class: "bg-primary text-base-100" %></li>
+      <% end %>
+    </ul>
+  </div>
+</header>
