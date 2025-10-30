@@ -1,5 +1,5 @@
 <div class="flex-1 flex justify-center items-center min-h-full px-4 py-8">
-  <div class="p-10 rounded-lg shadow-sm w-full max-w-lg bg-base-100 border border-base-300">
+  <div class="p-10 rounded-lg w-full max-w-lg bg-base-100 border border-base-300">
     <h2 class="text-3xl font-semibold text-center mb-8 text-primary"><%= t("devise.sessions.new.sign_in") %></h2>
 
     <%= form_with model: resource, as: resource_name, url: session_path(resource_name) do |f| %>
@@ -18,7 +18,7 @@
       <% if devise_mapping.rememberable? %>
         <div class="field">
           <%= f.check_box :remember_me %>
-          <%= f.label :remember_me %>
+          <%= f.label :remember_me, class: "text-neutral" %>
         </div>
       <% end %>
 
@@ -27,7 +27,7 @@
       </div>
     <% end %>
 
-    <div class="text-center mt-6 text-primary">
+    <div class="text-center mt-6 text-neutral">
       <%= render "devise/shared/links" %>
     </div>
   </div>
