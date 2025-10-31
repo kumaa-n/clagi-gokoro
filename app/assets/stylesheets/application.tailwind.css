@@ -1,21 +1,31 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+@layer base {
+  html, body {
+    font-family: 'Noto Sans JP', ui-sans-serif, system-ui, sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+  }
+}
+
 @plugin "daisyui/theme" {
   name: "clagi-gokoro";
   default: true;
   prefersdark: false;
   color-scheme: "light";
-  --color-base-100: #FFFFFF;
-  --color-base-200: #FCF7F3;
+  --color-base-100: #FDFCFA;
+  --color-base-200: #F7F2E8;
   --color-base-300: #DDDDDD;
   --color-base-content: oklch(40% 0.0081 61.42);
-  --color-primary: #402712;
+  --color-primary: #5C4033;
   --color-primary-content: #FFFFFF;
   --color-secondary: #8B5A3C;
   --color-secondary-content: #FFFFFF;
   --color-accent: #C8A97E;
   --color-accent-content: #FFFFFF;
-  --color-neutral: #333333;
+  --color-neutral: oklch(0.4 0.0081 61.42);
   --color-neutral-content: #FFFFFF;
   --color-info: oklch(0.806 0.071 222.7);
   --color-info-content: oklch(30.39% 0.1148 241.68);

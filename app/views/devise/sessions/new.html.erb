@@ -7,12 +7,12 @@
 
       <div class="mb-6">
         <%= f.label :email, class: "label" %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full input" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "メールアドレスを入力", class: "w-full input" %>
       </div>
 
       <div class="mb-6">
         <%= f.label :password, class: "label" %>
-        <%= f.password_field :password, autocomplete: "new-password", class: "w-full input" %>
+        <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワードを入力", class: "w-full input" %>
       </div>
 
       <% if devise_mapping.rememberable? %>

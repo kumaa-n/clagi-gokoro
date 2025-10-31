@@ -1,8 +1,8 @@
-en:
+ja:
   activerecord:
     errors:
       models:
         user:
           attributes:
             email:
-              taken: "Failed to register the email address"
+              taken: "メールアドレスの登録に失敗しました"
