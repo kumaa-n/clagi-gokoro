@@ -24,14 +24,14 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <% @songs.each do |song| %>
             <div class="card bg-base-100 border border-base-300">
-              <div class="card-body">
-                <h3 class="card-title text-lg text-neutral mb-2"><%= song.title %></h3>
+              <div class="card-body flex flex-col">
+                <h3 class="card-title text-lg text-neutral mb-2 line-clamp-2 break-all"><%= song.title %></h3>
 
-                <div class="text-sm text-neutral mb-1">
+                <div class="text-sm text-neutral mb-1 line-clamp-1 break-all">
                   <span>作曲者：</span><%= song.composer.presence || "ー" %>
                 </div>
 
-                <div class="text-sm text-neutral mb-1">
+                <div class="text-sm text-neutral mb-1 line-clamp-1 break-all">
                   <span>編曲者：</span><%= song.arranger.presence || "ー" %>
                 </div>
 
@@ -52,7 +52,7 @@
                 <p class="text-sm text-error mb-1">レビュー数：0</p>
                 -->
 
-                <div class="card-actions justify-end mt-4">
+                <div class="card-actions justify-end mt-auto">
                   <%= link_to "詳細を見る", "#", class: "btn bg-primary text-base-100" %>
                 </div>
               </div>
