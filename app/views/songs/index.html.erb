@@ -1,0 +1,70 @@
+<div class="flex-1 justify-center items-center min-h-full px-4 py-8">
+  <!-- ヘッダーセクション -->
+  <section class="bg-base-100 py-8">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center">
+        <h1 class="text-4xl font-bold text-primary">曲一覧</h1>
+
+        <% if user_signed_in? %>
+          <%= link_to new_song_path, class: "btn bg-primary text-base-100" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            新しい曲を追加
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+
+  <!-- カードセクション -->
+  <section class="bg-base-100 py-8">
+    <div class="container mx-auto px-4">
+      <% if @songs.any? %>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <% @songs.each do |song| %>
+            <div class="card bg-base-100 border border-base-300">
+              <div class="card-body">
+                <h3 class="card-title text-lg text-neutral mb-2"><%= song.title %></h3>
+
+                <div class="text-sm text-neutral mb-1">
+                  <span>作曲者：</span><%= song.composer.presence || "ー" %>
+                </div>
+
+                <div class="text-sm text-neutral mb-1">
+                  <span>編曲者：</span><%= song.arranger.presence || "ー" %>
+                </div>
+
+                <!-- 平均総合難易度（将来実装予定） -->
+                <!--
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-sm text-neutral">平均総合難易度：</span>
+                  <div class="rating rating-sm">
+                    <% 5.times do |i| %>
+                      <input type="radio" class="mask mask-star-2 bg-amber-500" disabled />
+                    <% end %>
+                  </div>
+                </div>
+                -->
+
+                <!-- レビュー数（将来実装予定） -->
+                <!--
+                <p class="text-sm text-error mb-1">レビュー数：0</p>
+                -->
+
+                <div class="card-actions justify-end mt-4">
+                  <%= link_to "詳細を見る", "#", class: "btn bg-primary text-base-100" %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="text-center py-12">
+          <p class="text-xl text-neutral mb-4">まだ曲が登録されていません</p>
+          <%= link_to "最初の曲を追加する", new_song_path, class: "btn bg-primary text-base-100" %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+</div>
