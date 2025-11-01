@@ -5,7 +5,7 @@
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1 gap-1">
       <li><%= link_to "ホーム", root_path, class: "text-primary" %></li>
-      <li><%= link_to "曲一覧", "#", class: "text-primary" %></li>
+      <li><%= link_to "曲一覧", songs_path, class: "text-primary" %></li>
 
       <% if user_signed_in? %>
         <li>

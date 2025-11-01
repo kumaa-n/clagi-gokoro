@@ -18,7 +18,7 @@
         </div>
       </div>
     -->
-    </div>
+  </div>
 </div>
 
 <section class="py-15 bg-base-200">
@@ -110,7 +110,7 @@
     </div>
 
     <% if user_signed_in? %>
-      <%= link_to "曲一覧へ", "#", class: "btn btn-lg bg-primary text-base-100 px-12" %>
+      <%= link_to "曲一覧へ", songs_path, class: "btn btn-lg bg-primary text-base-100 px-12" %>
     <% else %>
       <%= link_to "新規登録する", new_user_registration_path, class: "btn btn-lg bg-primary text-base-100 px-12" %>
     <% end %>
