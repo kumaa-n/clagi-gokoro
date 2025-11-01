@@ -1,4 +1,10 @@
 class SongsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:index]
+
+  def index
+    @songs = Song.order(created_at: :desc)
+  end
+
   def new
     @song = Song.new
   end
