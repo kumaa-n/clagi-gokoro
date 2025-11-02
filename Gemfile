@@ -51,6 +51,7 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
   gem "rails_live_reload"
+  gem "swimming_fish", "~> 0.2.2"
 end
 
 group :test do
@@ -62,3 +63,4 @@ end
 gem "devise"
 gem "rails-i18n"
 gem "devise-i18n"
+gem "gon"
