@@ -1,0 +1,17 @@
+<div class="mb-6">
+  <label class="font-semibold block mb-2"><%= label %></label>
+  <div class="rating rating-lg gap-1 mb-2">
+    <% (1..5).each do |i| %>
+      <%= f.radio_button field, i,
+        class: "mask mask-star-2 bg-orange-400",
+        id: "review_#{field}_#{i}",
+        data: { action: "change->review-form#updatePreview" } %>
+    <% end %>
+  </div>
+  <details class="text-sm text-base-content/70">
+    <summary class="cursor-pointer hover:text-base-content">評価の目安 +</summary>
+    <div class="mt-2 pl-4">
+      <p><%= description %></p>
+    </div>
+  </details>
+</div>
