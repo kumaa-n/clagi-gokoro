@@ -1,5 +1,7 @@
 class ReviewsController < ApplicationController
   before_action :set_song
+  before_action :set_review, only: %i[edit update]
+  before_action :authorize_review, only: %i[edit update]
   skip_before_action :authenticate_user!, only: %i[index]
 
   def index
@@ -21,10 +23,30 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def edit; end
+
+  def update
+    if @review.update(review_params)
+      redirect_to song_reviews_path(@song), notice: "レビューが更新されました。"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def set_song
     @song = Song.find(params[:song_id])
+  end
+
+  def set_review
+    @review = @song.reviews.find(params[:id])
+  end
+
+  def authorize_review
+    unless @review.user == current_user
+      redirect_to song_reviews_path(@song), alert: "他のユーザーのレビューは編集できません。"
+    end
   end
 
   def review_params
