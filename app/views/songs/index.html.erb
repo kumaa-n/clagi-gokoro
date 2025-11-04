@@ -1,4 +1,24 @@
 <div class="flex-1 justify-center items-center min-h-full px-4 py-8">
+  <% if @prompt_song.present? %>
+    <div data-controller="auto-modal" data-auto-modal-open-value="true">
+      <dialog id="review_prompt_modal" class="modal" data-auto-modal-target="dialog">
+        <div class="modal-box">
+          <h3 class="font-bold text-lg mb-4">レビューを投稿しますか？</h3>
+          <p class="py-4">あなたの感じた難易度をシェアしましょう。</p>
+          <div class="modal-action">
+            <form method="dialog">
+              <button class="btn">あとで</button>
+            </form>
+            <%= link_to "レビューを投稿する", new_song_review_path(@prompt_song), class: "btn bg-primary text-base-100" %>
+          </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
+    </div>
+  <% end %>
+
   <!-- ヘッダーセクション -->
   <section class="bg-base-100 py-8">
     <div class="container mx-auto px-4">

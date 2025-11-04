@@ -15,3 +15,6 @@ application.register("review-chart", ReviewChartController)
 
 import FlashController from "./flash_controller"
 application.register("flash", FlashController)
+
+import AutoModalController from "./auto_modal_controller"
+application.register("auto-modal", AutoModalController)
