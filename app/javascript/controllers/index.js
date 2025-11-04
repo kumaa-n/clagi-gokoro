@@ -10,5 +10,8 @@ application.register("hello", HelloController)
 import ReviewFormController from "./review_form_controller"
 application.register("review-form", ReviewFormController)
 
+import ReviewChartController from "./review_chart_controller"
+application.register("review-chart", ReviewChartController)
+
 import FlashController from "./flash_controller"
 application.register("flash", FlashController)

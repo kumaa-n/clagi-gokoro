@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { Chart, RadarController, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend } from 'chart.js'
+import { Chart, RadarController, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend } from "chart.js"
 
 Chart.register(RadarController, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend)
 
@@ -25,7 +25,7 @@ export default class extends Controller {
   }
 
   initializeChart() {
-    const ctx = this.chartTarget.getContext('2d')
+    const ctx = this.chartTarget.getContext("2d")
     const initialData = Array(this.constructor.RATING_ITEMS.length).fill(0)
 
     this.chart = new Chart(ctx, {

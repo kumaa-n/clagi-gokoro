@@ -1,5 +1,10 @@
 class ReviewsController < ApplicationController
   before_action :set_song
+  skip_before_action :authenticate_user!, only: %i[index]
+
+  def index
+    @reviews = @song.reviews.includes(:user).order(created_at: :desc)
+  end
 
   def new
     @review = @song.reviews.build
