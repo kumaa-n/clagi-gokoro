@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
   before_action :set_song
-  before_action :set_review, only: %i[edit update]
-  before_action :authorize_review, only: %i[edit update]
+  before_action :set_review, only: %i[edit update destroy]
+  before_action :authorize_review, only: %i[edit update destroy]
   skip_before_action :authenticate_user!, only: %i[index]
 
   def index
@@ -31,6 +31,11 @@ class ReviewsController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @review.destroy!
+    redirect_to song_reviews_path(@song), notice: "レビューが削除されました。"
   end
 
   private
