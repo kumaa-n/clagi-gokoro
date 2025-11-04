@@ -23,6 +23,16 @@
           <div class="card bg-base-100 border border-base-300 rounded-lg overflow-hidden" data-controller="review-chart">
             <!-- グラフエリア -->
             <div class="bg-base-200 p-2 flex items-center justify-center" style="height: 180px;">
+              <div style="width: 100%; height: 100%; max-width: 180px; max-height: 180px;">
+                <canvas
+                  data-review-chart-target="canvas"
+                  data-tempo="<%= review.tempo_rating %>"
+                  data-fingering="<%= review.fingering_technique_rating %>"
+                  data-plucking="<%= review.plucking_technique_rating %>"
+                  data-expression="<%= review.expression_rating %>"
+                  data-memorization="<%= review.memorization_rating %>"
+                ></canvas>
+              </div>
             </div>
 
             <!-- カード情報 -->
