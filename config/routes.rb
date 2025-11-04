@@ -14,6 +14,6 @@ Rails.application.routes.draw do
   root "static_pages#top"
 
   resources :songs, only: %i[index new create] do
-    resources :reviews, only: %i[index new create]
+    resources :reviews, only: %i[index new create update edit]
   end
 end
