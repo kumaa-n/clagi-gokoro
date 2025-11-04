@@ -1,0 +1,21 @@
+<div class="flex-1 px-4 py-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex justify-between items-start mb-8">
+      <div>
+        <h2 class="text-3xl text-primary font-semibold mb-6">レビュー一覧</h2>
+        <p class="text-xl text-primary font-semibold mb-2"><%= @song.title %></p>
+        <p class="text-primary">作曲：<%= @song.composer || "－" %></p>
+        <p class="text-primary">編曲：<%= @song.arranger || "－" %></p>
+      </div>
+      <% if user_signed_in? %>
+        <%= link_to new_song_review_path(@song), class: "btn bg-primary text-base-100 px-6" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+          </svg>
+          レビューを投稿
+        <% end %>
+      <% end %>
+    </div>
+
+  </div>
+</div>
