@@ -99,7 +99,7 @@
 
       <!-- ボタン -->
       <div class="flex justify-center gap-4 mt-8">
-        <%= link_to "キャンセル", songs_path, class: "btn bg-neutral text-base-100 px-8" %>
+        <%= link_to "キャンセル", song_reviews_path(@song), class: "btn bg-neutral text-base-100 px-8" %>
         <%= f.submit "評価を投稿する", class: "btn bg-primary text-base-100 px-8" %>
       </div>
     <% end %>
