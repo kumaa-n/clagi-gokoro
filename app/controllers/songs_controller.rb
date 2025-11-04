@@ -3,6 +3,7 @@ class SongsController < ApplicationController
 
   def index
     @songs = Song.order(created_at: :desc)
+    @prompt_song = Song.find_by(id: params[:review_prompt_song_id]) if params[:review_prompt_song_id].present?
   end
 
   def new
@@ -12,7 +13,7 @@ class SongsController < ApplicationController
   def create
     @song = Song.new(song_params)
     if @song.save
-      redirect_to root_path, notice: "曲が投稿されました。"
+      redirect_to songs_path(review_prompt_song_id: @song.id)
     else
       render :new, status: :unprocessable_entity
     end
