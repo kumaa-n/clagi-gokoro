@@ -61,8 +61,14 @@
         </div>
       <% else %>
         <div class="text-center py-12">
-          <p class="text-xl text-neutral mb-4">まだ曲が登録されていません</p>
-          <%= link_to "最初の曲を追加する", new_song_path, class: "btn bg-primary text-base-100" %>
+          <p class="text-2xl text-neutral mb-4">まだ曲が登録されていません</p>
+
+          <% if user_signed_in? %>
+            <%= link_to "最初の曲を追加する", new_song_path, class: "btn bg-primary text-base-100" %>
+          <% else %>
+            <p class="text-base text-neutral mb-4">曲を追加するには、ログインまたは新規登録が必要です</p>
+            <%= link_to "ログイン / 新規登録", new_user_session_path, class: "btn bg-primary text-base-100" %>
+          <% end %>
         </div>
       <% end %>
     </div>
