@@ -66,7 +66,7 @@
 
               <div class="mt-1">
                 <div class="flex gap-2 items-center">
-                  <%= link_to "詳細を見る", "#", class: "btn bg-primary text-base-100 flex-1" %>
+                  <%= link_to "詳細を見る", song_review_path(@song, review), class: "btn bg-primary text-base-100 flex-1" %>
                   <% if user_signed_in? && current_user == review.user %>
                     <div class="tooltip" data-tip="編集">
                       <%= link_to edit_song_review_path(@song, review), class: "btn btn-sm bg-primary text-base-100 w-10 h-10 min-h-0 p-0 flex items-center justify-center", aria: { label: "レビューを編集" } do %>
