@@ -1,0 +1,259 @@
+<div class="flex-1 px-4 py-8">
+  <div class="max-w-7xl mx-auto">
+    <!-- ヘッダー部分 -->
+    <div class="flex justify-between items-start mb-6">
+      <div>
+        <h2 class="text-3xl text-primary font-semibold mb-4">レビュー詳細</h2>
+        <p class="text-2xl text-primary font-semibold mb-2"><%= @song.title %></p>
+        <p class="text-xl text-primary">作曲：<%= @song.composer || "－" %></p>
+        <p class="text-xl text-primary">編曲：<%= @song.arranger || "－" %></p>
+      </div>
+      <% if user_signed_in? && current_user == @review.user %>
+        <div class="flex gap-2">
+          <%= link_to "編集", edit_song_review_path(@song, @review), class: "btn bg-primary text-base-100 px-6" %>
+          <div data-controller="auto-modal">
+            <button data-action="auto-modal#show" class="btn bg-error text-base-100 px-6">削除</button>
+            <dialog class="modal" data-auto-modal-target="dialog">
+              <div class="modal-box">
+                <h3 class="font-bold text-lg mb-4">レビューの削除</h3>
+                <p class="py-4">本当にこのレビューを削除しますか？<br>この操作は取り消せません。</p>
+                <div class="modal-action">
+                  <form method="dialog">
+                    <button class="btn">キャンセル</button>
+                  </form>
+                  <%= button_to "削除する",
+                    song_review_path(@song, @review),
+                    method: :delete,
+                    class: "btn bg-error text-base-100",
+                    form: { data: { action: "submit->auto-modal#hide" } } %>
+                </div>
+              </div>
+              <form method="dialog" class="modal-backdrop">
+                <button>close</button>
+              </form>
+            </dialog>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- 投稿者情報と総合難易度 -->
+    <div class="flex justify-between items-start mb-6">
+      <div>
+        <p class="text-primary">投稿者：<%= @review.user.name %></p>
+        <p class="text-primary">投稿日：<%= @review.created_at.strftime('%Y/%m/%d') %></p>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-primary text-lg">総合難易度：</span>
+        <div class="rating rating-sm">
+          <% 5.times do |i| %>
+            <% if i + 1 == @review.overall_rating %>
+              <div class="mask mask-star-2 bg-orange-400" aria-label="<%= i + 1 %> star" aria-current="true"></div>
+            <% else %>
+              <div class="mask mask-star-2 bg-orange-400" aria-label="<%= i + 1 %> star"></div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- 難易度評価と各項目の評価 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <!-- 各項目の評価 -->
+      <div class="card bg-base-100 border border-base-300">
+        <div class="card-body">
+          <h3 class="text-xl text-primary font-semibold mb-4">各項目の評価</h3>
+
+          <!-- テンポ -->
+          <div class="mb-6">
+            <label class="font-semibold block mb-2">テンポ</label>
+            <div class="rating rating-lg gap-1 mb-2">
+              <% 5.times do |i| %>
+                <% if i + 1 == @review.tempo_rating %>
+                  <div class="mask mask-star-2 bg-orange-400" aria-label="<%= i + 1 %> star" aria-current="true"></div>
+                <% else %>
+                  <div class="mask mask-star-2 bg-orange-400" aria-label="<%= i + 1 %> star"></div>
+                <% end %>
+              <% end %>
+            </div>
+            <details class="text-sm text-base-content/70">
+              <summary class="cursor-pointer hover:text-base-content">評価の目安 +</summary>
+              <div class="mt-2 pl-4 space-y-2">
+                <p class="text-neutral">曲の速さやリズムの取りやすさ、安定したテンポ維持の難易度を意識して評価してください。</p>
+                <ul class="space-y-1">
+                  <li><span class="font-semibold">★1</span>：テンポはゆっくり（60～80 bpm）。一定のビートを保ちやすく、拍感を掴みやすい。</li>
+                  <li><span class="font-semibold">★2</span>：テンポは中程度（80～100 bpm）。落ち着いた速さで、適度な緊張感がある。</li>
+                  <li><span class="font-semibold">★3</span>：テンポは標準（100～120 bpm）。速さの変化に対応しながら、安定したリズム維持が求められる。</li>
+                  <li><span class="font-semibold">★4</span>：テンポは速め（120～140 bpm）。細かなリズムやシンコペーションを正確に刻む必要がある。</li>
+                  <li><span class="font-semibold">★5</span>：高速テンポ（140 bpm以上）。体力・集中力を要し、長時間の正確なリズム維持が難しい。</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+
+          <!-- 運指技巧 -->
+          <div class="mb-6">
+            <label class="font-semibold block mb-2">運指技巧</label>
+            <div class="rating rating-lg gap-1 mb-2">
+              <% 5.times do |i| %>
+                <% if i + 1 == @review.fingering_technique_rating %>
+                  <div class="mask mask-star-2 bg-orange-400" aria-label="<%= i + 1 %> star" aria-current="true"></div>
+                <% else %>
+                  <div class="mask mask-star-2 bg-orange-400" aria-label="<%= i + 1 %> star"></div>
+                <% end %>
+              <% end %>
+            </div>
+            <details class="text-sm text-base-content/70">
+              <summary class="cursor-pointer hover:text-base-content">評価の目安 +</summary>
+              <div class="mt-2 pl-4 space-y-2">
+                <p class="text-neutral">ポジション移動や押弦の複雑さ、左手の安定感を基準に判断しましょう。</p>
+                <ul class="space-y-1">
+                  <li><span class="font-semibold">★1</span>：オープンポジション中心。ポジション移動やセーハはほぼなし。</li>
+                  <li><span class="font-semibold">★2</span>：短いポジション移動や部分セーハが登場。基本フォームを保てれば対応可能。</li>
+                  <li><span class="font-semibold">★3</span>：5〜7ポジションへの移動、全セーハ、スラーを組み合わせる場面が増える。</li>
+                  <li><span class="font-semibold">★4</span>：高ポジションへの頻繁な移動やストレッチ、連続スライドが要求される。</li>
+                  <li><span class="font-semibold">★5</span>：広範囲の跳躍移動や複雑な運指分割、高速ポジションチェンジを正確にこなす必要がある。</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+
+          <!-- 弾弦技巧 -->
+          <div class="mb-6">
+            <label class="font-semibold block mb-2">弾弦技巧</label>
+            <div class="rating rating-lg gap-1 mb-2">
+              <% 5.times do |i| %>
+                <% if i + 1 == @review.plucking_technique_rating %>
+                  <div class="mask mask-star-2 bg-orange-400" aria-label="<%= i + 1 %> star" aria-current="true"></div>
+                <% else %>
+                  <div class="mask mask-star-2 bg-orange-400" aria-label="<%= i + 1 %> star"></div>
+                <% end %>
+              <% end %>
+            </div>
+            <details class="text-sm text-base-content/70">
+              <summary class="cursor-pointer hover:text-base-content">評価の目安 +</summary>
+              <div class="mt-2 pl-4 space-y-2">
+                <p class="text-neutral">右手の独立性、アルペジオや特殊奏法など弦を弾く技術の難度を評価してください。</p>
+                <ul class="space-y-1">
+                  <li><span class="font-semibold">★1</span>：単音メロディーや基本的なアルペジオ。右手の独立性はほぼ不要。</li>
+                  <li><span class="font-semibold">★2</span>：単純な分散和音やベース音との同時発音。右手の指替えがゆっくり行える。</li>
+                  <li><span class="font-semibold">★3</span>：メロディー・ベース・内声を同時に扱い、指替えや弦移動が連続する。</li>
+                  <li><span class="font-semibold">★4</span>：高速アルペジオ、トレモロ、ラスゲアード風の奏法など高度なコントロールが求められる。</li>
+                  <li><span class="font-semibold">★5</span>：多声部を完全に独立して扱い、音色・ダイナミクスの細密なコントロールと特殊奏法を織り交ぜる。</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+
+          <!-- 表現力 -->
+          <div class="mb-6">
+            <label class="font-semibold block mb-2">表現力</label>
+            <div class="rating rating-lg gap-1 mb-2">
+              <% 5.times do |i| %>
+                <% if i + 1 == @review.expression_rating %>
+                  <div class="mask mask-star-2 bg-orange-400" aria-label="<%= i + 1 %> star" aria-current="true"></div>
+                <% else %>
+                  <div class="mask mask-star-2 bg-orange-400" aria-label="<%= i + 1 %> star"></div>
+                <% end %>
+              <% end %>
+            </div>
+            <details class="text-sm text-base-content/70">
+              <summary class="cursor-pointer hover:text-base-content">評価の目安 +</summary>
+              <div class="mt-2 pl-4 space-y-2">
+                <p class="text-neutral">フレーズの抑揚や音色変化、感情表現の幅広さをどれだけ求められるかで判断してください。</p>
+                <ul class="space-y-1">
+                  <li><span class="font-semibold">★1</span>：基本的な強弱変化のみ。フレーズごとの自然な山と谷を作れば十分。</li>
+                  <li><span class="font-semibold">★2</span>：緩やかなルバートやアクセント付けを織り交ぜ、曲想を整える必要がある。</li>
+                  <li><span class="font-semibold">★3</span>：フレーズ内での音色変化、ビブラートの活用など中程度の表現幅が求められる。</li>
+                  <li><span class="font-semibold">★4</span>：多声部のバランス調整や微細なダイナミクス操作で立体感を作る。</li>
+                  <li><span class="font-semibold">★5</span>：高度な解釈力と即応性が必要。多彩な音色変化・緻密なニュアンスを瞬時に切り替える。</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+
+          <!-- 暗譜・構成理解 -->
+          <div class="mb-6">
+            <label class="font-semibold block mb-2">暗譜・構成理解</label>
+            <div class="rating rating-lg gap-1 mb-2">
+              <% 5.times do |i| %>
+                <% if i + 1 == @review.memorization_rating %>
+                  <div class="mask mask-star-2 bg-orange-400" aria-label="<%= i + 1 %> star" aria-current="true"></div>
+                <% else %>
+                  <div class="mask mask-star-2 bg-orange-400" aria-label="<%= i + 1 %> star"></div>
+                <% end %>
+              <% end %>
+            </div>
+            <details class="text-sm text-base-content/70">
+              <summary class="cursor-pointer hover:text-base-content">評価の目安 +</summary>
+              <div class="mt-2 pl-4 space-y-2">
+                <p class="text-neutral">曲の構造理解や暗譜の負担感、セクションの複雑さを基準に評価してください。</p>
+                <ul class="space-y-1">
+                  <li><span class="font-semibold">★1</span>：短い楽曲で反復が多い。A-Bなど単純な構成で暗譜しやすい。</li>
+                  <li><span class="font-semibold">★2</span>：2〜3セクションの構成。簡単な変化や転調があり、流れを把握すれば覚えられる。</li>
+                  <li><span class="font-semibold">★3</span>：複数テーマや変奏を含み、セクションごとの役割を整理する必要がある。</li>
+                  <li><span class="font-semibold">★4</span>：長尺で展開が多彩。転調や再現部の位置関係を理解しないと記憶が難しい。</li>
+                  <li><span class="font-semibold">★5</span>：高度に複雑な構成。多数のモチーフ・転調・リズム変化を分析して整理する必要がある。</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+
+      <!-- 難易度評価グラフ -->
+      <div class="card bg-base-100 border border-base-300">
+        <div class="card-body">
+          <h3 class="text-xl text-primary font-semibold mb-4">難易度評価</h3>
+          <div class="bg-base-200 rounded-lg p-8 flex items-center justify-center min-h-[300px]" data-controller="review-detail-chart">
+            <canvas
+              data-review-detail-chart-target="canvas"
+              class="max-w-full"
+              data-tempo="<%= @review.tempo_rating %>"
+              data-fingering="<%= @review.fingering_technique_rating %>"
+              data-plucking="<%= @review.plucking_technique_rating %>"
+              data-expression="<%= @review.expression_rating %>"
+              data-memorization="<%= @review.memorization_rating %>"
+            ></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- レビュー本文 -->
+    <div class="card bg-base-100 border border-base-300 mb-6">
+      <div class="card-body">
+        <h3 class="text-xl text-primary font-semibold mb-4">レビュー</h3>
+        <p class="text-primary whitespace-pre-wrap"><%= @review.summary %></p>
+      </div>
+    </div>
+
+    <!-- コメントセクション -->
+    <div class="card bg-base-100 border border-base-300 mb-6">
+      <div class="card-body">
+        <h3 class="text-xl text-primary font-semibold mb-4">コメント</h3>
+        <textarea class="textarea textarea-bordered w-full h-32 mb-4" placeholder="コメントを入力してください"></textarea>
+        <div class="flex justify-end">
+          <button class="btn bg-primary text-base-100">コメントを投稿する</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- コメント一覧 -->
+    <div class="space-y-4">
+      <!-- サンプルコメント1 -->
+      <div class="card bg-base-100 border border-base-300">
+        <div class="card-body">
+          <div class="flex justify-between items-start mb-2">
+            <p class="text-primary font-semibold">ニックネーム</p>
+            <div class="flex gap-2">
+              <button class="btn btn-sm bg-primary text-base-100">編集</button>
+              <button class="btn btn-sm bg-error text-base-100">削除</button>
+            </div>
+          </div>
+          <p class="text-primary">ダミーテキスト　ダミーテキスト　ダミーテキスト　ダミーテキスト　ダミーテキスト　ダミーテキスト　ダミーテキスト　ダミーテキスト　ダミーテキスト　ダミーテキスト</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

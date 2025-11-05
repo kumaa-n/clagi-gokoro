@@ -1,4 +1,4 @@
-<div class="mb-6">
+<div class="mb-6 <%= 'outline outline-2 outline-error rounded-lg p-4' if f.object.errors[field].any? %>">
   <label class="font-semibold block mb-2"><%= label %></label>
   <div class="rating rating-lg gap-1 mb-2">
     <% (1..5).each do |i| %>

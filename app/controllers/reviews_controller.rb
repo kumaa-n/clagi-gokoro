@@ -1,13 +1,15 @@
 class ReviewsController < ApplicationController
   before_action :set_song
-  before_action :set_review, only: %i[edit update destroy]
+  before_action :set_review, only: %i[show edit update destroy]
   before_action :authorize_review, only: %i[edit update destroy]
-  skip_before_action :authenticate_user!, only: %i[index]
+  skip_before_action :authenticate_user!, only: %i[index show]
 
   def index
     @reviews = @song.reviews.includes(:user).order(created_at: :desc)
     @user_review = current_user&.reviews&.find_by(song: @song)
   end
+
+  def show; end
 
   def new
     @review = @song.reviews.build
@@ -18,7 +20,7 @@ class ReviewsController < ApplicationController
     @review.user = current_user
 
     if @review.save
-      redirect_to song_reviews_path(@song), notice: "レビューが投稿されました。"
+      redirect_to song_review_path(@song, @review), notice: "レビューが投稿されました。"
     else
       render :new, status: :unprocessable_entity
     end
@@ -28,7 +30,7 @@ class ReviewsController < ApplicationController
 
   def update
     if @review.update(review_params)
-      redirect_to song_reviews_path(@song), notice: "レビューが更新されました。"
+      redirect_to song_review_path(@song, @review), notice: "レビューが更新されました。"
     else
       render :edit, status: :unprocessable_entity
     end
