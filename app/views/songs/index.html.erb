@@ -44,8 +44,8 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <% @songs.each do |song| %>
             <div class="card bg-base-100 border border-base-300">
-              <div class="card-body">
-                <h3 class="card-title text-stone-800 mb-2 line-clamp-2 break-all"><%= song.title %></h3>
+              <div class="card-body flex flex-col">
+                <h3 class="card-title text-stone-800 line-clamp-2 break-all min-h-14 mb-2"><%= song.title %></h3>
 
                 <p class="text-sm text-neutral mb-1 line-clamp-1 break-all">
                   作曲者：<%= song.composer.presence || "ー" %>
@@ -62,6 +62,8 @@
                   song.reviews.average(:overall_rating)
                 end %>
                 <% reviews_total = reviews_count.to_i %>
+
+                <div class="border-t border-base-300 my-3"></div>
 
                 <div class="flex items-center gap-1 mb-2">
                   <span class="text-sm text-neutral">平均総合難易度：</span>
@@ -83,7 +85,7 @@
 
                 <p class="text-sm text-red-600 mb-4">レビュー数：<%= reviews_total %></p>
 
-                <div class="card-actions justify-end">
+                <div class="card-actions justify-end mt-auto">
                   <%= link_to "詳細を見る", song_reviews_path(song), class: "btn bg-primary text-base-100" %>
                 </div>
               </div>
