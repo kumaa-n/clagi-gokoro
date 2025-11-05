@@ -13,6 +13,9 @@ application.register("review-form", ReviewFormController)
 import ReviewChartController from "./review_chart_controller"
 application.register("review-chart", ReviewChartController)
 
+import ReviewDetailChartController from "./review_detail_chart_controller"
+application.register("review-detail-chart", ReviewDetailChartController)
+
 import FlashController from "./flash_controller"
 application.register("flash", FlashController)
 
