@@ -1,13 +1,15 @@
 class ReviewsController < ApplicationController
   before_action :set_song
-  before_action :set_review, only: %i[edit update destroy]
+  before_action :set_review, only: %i[show edit update destroy]
   before_action :authorize_review, only: %i[edit update destroy]
-  skip_before_action :authenticate_user!, only: %i[index]
+  skip_before_action :authenticate_user!, only: %i[index show]
 
   def index
     @reviews = @song.reviews.includes(:user).order(created_at: :desc)
     @user_review = current_user&.reviews&.find_by(song: @song)
   end
+
+  def show; end
 
   def new
     @review = @song.reviews.build
