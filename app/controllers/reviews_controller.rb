@@ -6,6 +6,7 @@ class ReviewsController < ApplicationController
 
   def index
     @reviews = @song.reviews.includes(:user).order(created_at: :desc)
+    @user_review = current_user&.reviews&.find_by(song: @song)
   end
 
   def new
