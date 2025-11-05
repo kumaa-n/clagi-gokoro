@@ -20,7 +20,7 @@ class ReviewsController < ApplicationController
     @review.user = current_user
 
     if @review.save
-      redirect_to song_reviews_path(@song), notice: "レビューが投稿されました。"
+      redirect_to song_review_path(@song, @review), notice: "レビューが投稿されました。"
     else
       render :new, status: :unprocessable_entity
     end
@@ -30,7 +30,7 @@ class ReviewsController < ApplicationController
 
   def update
     if @review.update(review_params)
-      redirect_to song_reviews_path(@song), notice: "レビューが更新されました。"
+      redirect_to song_review_path(@song, @review), notice: "レビューが更新されました。"
     else
       render :edit, status: :unprocessable_entity
     end
