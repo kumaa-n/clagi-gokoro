@@ -44,35 +44,46 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <% @songs.each do |song| %>
             <div class="card bg-base-100 border border-base-300">
-              <div class="card-body flex flex-col">
-                <h3 class="card-title text-lg text-neutral mb-2 line-clamp-2 break-all"><%= song.title %></h3>
+              <div class="card-body">
+                <h3 class="card-title text-stone-800 mb-2 line-clamp-2 break-all"><%= song.title %></h3>
 
-                <div class="text-sm text-neutral mb-1 line-clamp-1 break-all">
-                  <span>作曲者：</span><%= song.composer.presence || "ー" %>
-                </div>
+                <p class="text-sm text-neutral mb-1 line-clamp-1 break-all">
+                  作曲者：<%= song.composer.presence || "ー" %>
+                </p>
 
-                <div class="text-sm text-neutral mb-1 line-clamp-1 break-all">
-                  <span>編曲者：</span><%= song.arranger.presence || "ー" %>
-                </div>
+                <p class="text-sm text-neutral mb-3 line-clamp-1 break-all">
+                  編曲者：<%= song.arranger.presence || "ー" %>
+                </p>
 
-                <!-- 平均総合難易度（将来実装予定） -->
-                <!--
-                <div class="flex items-center gap-2 mb-2">
+                <% reviews_count = song.has_attribute?(:reviews_count) ? song.read_attribute(:reviews_count) : song.reviews.size %>
+                <% average_overall_rating = if song.has_attribute?(:average_overall_rating)
+                  song.read_attribute(:average_overall_rating)
+                else
+                  song.reviews.average(:overall_rating)
+                end %>
+                <% reviews_total = reviews_count.to_i %>
+
+                <div class="flex items-center gap-1 mb-2">
                   <span class="text-sm text-neutral">平均総合難易度：</span>
-                  <div class="rating rating-sm">
-                    <% 5.times do |i| %>
-                      <input type="radio" class="mask mask-star-2 bg-amber-500" disabled />
-                    <% end %>
-                  </div>
+                  <% if average_overall_rating.present? && reviews_total.positive? %>
+                    <% rounded_average = average_overall_rating.to_f %>
+                    <div class="rating">
+                      <% 5.times do |star| %>
+                        <% if star + 1 == rounded_average %>
+                          <div class="mask mask-star-2 bg-amber-500" aria-label="<%= star + 1 %> star" aria-current="true"></div>
+                        <% else %>
+                          <div class="mask mask-star-2 bg-amber-500" aria-label="<%= star + 1 %> star"></div>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  <% else %>
+                    <span class="text-sm text-neutral">ー</span>
+                  <% end %>
                 </div>
-                -->
 
-                <!-- レビュー数（将来実装予定） -->
-                <!--
-                <p class="text-sm text-error mb-1">レビュー数：0</p>
-                -->
+                <p class="text-sm text-red-600 mb-4">レビュー数：<%= reviews_total %></p>
 
-                <div class="card-actions justify-end mt-auto">
+                <div class="card-actions justify-end">
                   <%= link_to "詳細を見る", song_reviews_path(song), class: "btn bg-primary text-base-100" %>
                 </div>
               </div>
