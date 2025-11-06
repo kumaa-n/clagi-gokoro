@@ -1,64 +1,30 @@
-<div class="relative h-100">
+<div class="relative h-64 md:h-80 lg:h-96">
   <%= image_tag "hero-guitar.png", class: "absolute inset-0 w-full h-full" %>
-  <div class="relative flex flex-col items-center justify-center h-full text-base-100 px-4">
-    <h2 class="text-4xl md:text-5xl font-light text-center mb-4">
+  <div class="relative flex items-center justify-center h-full text-base-100 px-4">
+    <h2 class="text-3xl md:text-4xl lg:text-5xl font-light text-center">
       クラシックギターの難易度をシェアしてみよう
     </h2>
   </div>
 </div>
 
-<section class="py-15 bg-base-200">
-  <h3 class="text-3xl text-center mb-12 font-bold text-primary">クラギごころとは？</h3>
+<section class="py-8 md:py-12 lg:py-16 bg-base-200 px-4">
+  <h3 class="text-2xl md:text-3xl text-center mb-8 md:mb-12 font-bold text-primary">クラギごころとは？</h3>
 
-  <div class="text-primary text-center">
-    <p class="mb-2">クラギごころは、クラシックギターの曲を「テンポ」「運指技巧」「弾弦技巧」「表現力」「暗譜・構成理解」の</p>
-    <p class="mb-2">5つの項目で評価し、レーダーチャートとして可視化できるWebサービスです。</p>
-    <p class="mb-2">「この曲、自分にも弾けるかな？」という悩みを、他の演奏者の評価と比較することで解決します。</p>
-    <p class="mb-2">まだ知られていない曲との出会いや、演奏者同士のゆるやかな交流が生まれる場所を目指しています。</p>
+  <div class="text-primary text-center max-w-4xl mx-auto">
+    <p class="mb-3 md:mb-2">クラギごころは、クラシックギターの曲を「テンポ」「運指技巧」「弾弦技巧」「表現力」「暗譜・構成理解」の5つの項目で評価し、レーダーチャートとして可視化できるWebサービスです。</p>
+    <p class="mb-3 md:mb-2">「この曲、自分にも弾けるかな？」という悩みを、他の演奏者の評価と比較することで解決します。</p>
+    <p class="mb-3 md:mb-2">まだ知られていない曲との出会いや、演奏者同士のゆるやかな交流が生まれる場所を目指しています。</p>
   </div>
 </section>
 
-<section class="pt-15 pb-10 bg-base-100">
+<section class="py-8 md:py-12 lg:py-16 bg-base-100">
   <div class="container mx-auto px-4">
-    <h3 class="text-3xl mb-12 font-bold text-primary">レビューの多い曲</h3>
+    <h3 class="text-2xl md:text-3xl mb-8 md:mb-12 font-bold text-primary">レビューの多い曲</h3>
 
     <% if @most_reviewed_songs.any? %>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <% @most_reviewed_songs.each do |song| %>
-          <% reviews_count = song.has_attribute?(:reviews_count) ? song.read_attribute(:reviews_count) : song.reviews.size %>
-          <% average_overall_rating = if song.has_attribute?(:average_overall_rating)
-            song.read_attribute(:average_overall_rating)
-          else
-            song.reviews.average(:overall_rating)
-          end %>
-          <% reviews_total = reviews_count.to_i %>
-
-          <div class="card bg-base-100 border border-base-300">
-            <div class="card-body flex flex-col">
-              <h3 class="card-title text-neutral line-clamp-2 break-all min-h-14 mb-2"><%= song.title %></h3>
-              <p class="text-sm text-neutral line-clamp-1 break-all mb-1">作曲者：<%= song.composer.presence || "ー" %></p>
-              <p class="text-sm text-neutral line-clamp-1 break-all mb-3">編曲者：<%= song.arranger.presence || "ー" %></p>
-              <div class="border-t border-base-300 my-3"></div>
-              <div class="flex items-center gap-1">
-                <span class="text-sm text-neutral">平均総合難易度：</span>
-                <% if average_overall_rating.present? && reviews_total.positive? %>
-                  <% rounded_average = average_overall_rating.to_f %>
-                  <div class="rating">
-                    <% 5.times do |star| %>
-                      <% filled = rounded_average >= star + 1 %>
-                      <div class="mask mask-star-2 <%= filled ? "bg-amber-500" : "bg-base-300" %>"></div>
-                    <% end %>
-                  </div>
-                <% else %>
-                  <span class="text-sm text-neutral">ー</span>
-                <% end %>
-              </div>
-              <p class="text-sm text-red-600">レビュー数：<%= reviews_total %></p>
-              <div class="card-actions justify-end mt-auto">
-                <%= link_to "詳細を見る", song_reviews_path(song), class: "btn bg-primary text-base-100" %>
-              </div>
-            </div>
-          </div>
+          <%= render "shared/song_card", song: song %>
         <% end %>
       </div>
     <% else %>
@@ -67,72 +33,38 @@
   </div>
 </section>
 
-<section class="py-10 bg-base-100">
+<section class="py-8 md:py-12 lg:py-16 bg-base-100">
   <div class="container mx-auto px-4">
-    <h3 class="text-3xl mb-12 font-bold text-primary">最近追加された曲</h3>
+    <h3 class="text-2xl md:text-3xl mb-8 md:mb-12 font-bold text-primary">最近追加された曲</h3>
 
     <% if @recent_songs.any? %>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <% @recent_songs.each do |song| %>
-          <% reviews_count = song.has_attribute?(:reviews_count) ? song.read_attribute(:reviews_count) : song.reviews.size %>
-          <% average_overall_rating = if song.has_attribute?(:average_overall_rating)
-            song.read_attribute(:average_overall_rating)
-          else
-            song.reviews.average(:overall_rating)
-          end %>
-          <% reviews_total = reviews_count.to_i %>
-
-          <div class="card bg-base-100 border border-base-300">
-            <div class="card-body flex flex-col">
-              <h3 class="card-title text-stone-800 line-clamp-2 break-all min-h-14 mb-2"><%= song.title %></h3>
-              <p class="text-neutral line-clamp-1 break-all text-sm mb-1">作曲者：<%= song.composer.presence || "ー" %></p>
-              <p class="text-neutral line-clamp-1 break-all text-sm mb-3">編曲者：<%= song.arranger.presence || "ー" %></p>
-              <div class="border-t border-base-300 my-3"></div>
-              <div class="flex items-center gap-1">
-                <span class="text-sm text-neutral">平均総合難易度：</span>
-                <% if average_overall_rating.present? && reviews_total.positive? %>
-                  <% rounded_average = average_overall_rating.to_f %>
-                  <div class="rating">
-                    <% 5.times do |star| %>
-                      <% filled = rounded_average >= star + 1 %>
-                      <div class="mask mask-star-2 <%= filled ? "bg-amber-500" : "bg-base-300" %>"></div>
-                    <% end %>
-                  </div>
-                <% else %>
-                  <span class="text-sm text-neutral">ー</span>
-                <% end %>
-              </div>
-              <p class="text-sm text-red-600">レビュー数：<%= reviews_total %></p>
-              <div class="card-actions justify-end mt-auto">
-                <%= link_to "詳細を見る", song_reviews_path(song), class: "btn bg-primary text-base-100" %>
-              </div>
-            </div>
-          </div>
+          <%= render "shared/song_card", song: song %>
         <% end %>
       </div>
     <% else %>
-      <p class="text-center text-neutral">まだ曲が登録されていません。</p>
+      <p class="text-center text-neutral">まだ曲が投稿されていません。</p>
     <% end %>
   </div>
 </section>
 
-<section class="pt-10 pb-15 bg-base-100">
-  <div class="container mx-auto text-center border border-base-300 rounded-lg p-10">
-    <h3 class="text-3xl mb-8 font-bold text-primary">
+<section class="py-8 md:py-12 lg:py-16 bg-base-100 px-4">
+  <div class="container mx-auto text-center border border-base-300 rounded-lg p-6 md:p-10">
+    <h3 class="text-2xl md:text-3xl mb-6 md:mb-8 font-bold text-primary">
       難易度をシェアし、他のギタリストとつながろう
     </h3>
 
-    <div class="max-w-3xl mx-auto mb-8 text-primary text-center">
-      <p class="mb-2">あなたが感じた曲の難しさを星評価で投稿し、レーダーチャートで可視化できます。</p>
-      <p class="mb-2">「テンポは速いけど、運指はシンプル」「表現力は求められるけど、暗譜は簡単」といった、</p>
-      <p class="mb-2">曲の特徴を多角的に把握することで、自分に合った次の一曲が見つかります。</p>
-      <p class="mb-2">一人で練習することが多いクラシックギターだからこそ、感じ方を共有し、つながりましょう。</p>
+    <div class="max-w-3xl mx-auto mb-6 md:mb-8 text-primary text-center">
+      <p class="mb-3 md:mb-2">あなたが感じた曲の難しさを星評価で投稿し、レーダーチャートで可視化できます。</p>
+      <p class="mb-3 md:mb-2">「テンポは速いけど、運指はシンプル」「表現力は求められるけど、暗譜は簡単」といった、曲の特徴を多角的に把握することで、自分に合った次の一曲が見つかります。</p>
+      <p class="mb-3 md:mb-2">一人で練習することが多いクラシックギターだからこそ、感じ方を共有し、つながりましょう。</p>
     </div>
 
     <% if user_signed_in? %>
-      <%= link_to "曲一覧へ", songs_path, class: "btn btn-lg bg-primary text-base-100 px-12" %>
+      <%= link_to "曲一覧へ", songs_path, class: "btn md:btn-lg bg-primary text-base-100 px-8 md:px-12" %>
     <% else %>
-      <%= link_to "新規登録する", new_user_registration_path, class: "btn btn-lg bg-primary text-base-100 px-12" %>
+      <%= link_to "新規登録する", new_user_registration_path, class: "btn md:btn-lg bg-primary text-base-100 px-8 md:px-12" %>
     <% end %>
   </div>
 </section>
