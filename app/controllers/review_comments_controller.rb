@@ -1,7 +1,8 @@
 class ReviewCommentsController < ApplicationController
   before_action :set_song
   before_action :set_review
-  before_action :set_review_comment, only: %i[show]
+  before_action :set_review_comment, only: %i[show edit update]
+  before_action :authorize_review_comment!, only: %i[edit update]
 
   def create
     @review_comment = @review.review_comments.build(review_comment_params)
@@ -35,6 +36,22 @@ class ReviewCommentsController < ApplicationController
     end
   end
 
+  def edit; end
+
+  def update
+    respond_to do |format|
+      if @review_comment.update(review_comment_params)
+        format.turbo_stream { flash.now[:notice] = "コメントを更新しました。" }
+        format.html { redirect_to song_review_path(@song, @review), notice: "コメントを更新しました。" }
+      else
+        format.turbo_stream do
+          render :edit, formats: :html, status: :unprocessable_entity
+        end
+        format.html { render :edit, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
 
   def set_song
@@ -47,6 +64,13 @@ class ReviewCommentsController < ApplicationController
 
   def set_review_comment
     @review_comment = @review.review_comments.find(params[:id])
+  end
+
+  def authorize_review_comment!
+    return if @review_comment.user == current_user
+
+    redirect_to song_review_path(@song, @review), alert: "他のユーザーのコメントは削除できません。"
+    return
   end
 
   def review_comment_params
