@@ -1,26 +1,63 @@
-<header class="navbar bg-base-200 shadow-sm">
-  <div class="flex-1">
-    <%= link_to "クラギごころ", root_path, class: "btn btn-ghost text-xl text-primary" %>
+<div class="drawer drawer-end">
+  <input id="mobile-menu" type="checkbox" class="drawer-toggle" />
+
+  <div class="drawer-content">
+    <header class="navbar bg-base-200 shadow-sm">
+      <div class="flex-1">
+        <%= link_to "クラギごころ", root_path, class: "btn btn-ghost text-lg md:text-xl text-primary" %>
+      </div>
+
+      <!-- ハンバーガーメニューボタン -->
+      <div class="flex-none md:hidden">
+        <label for="mobile-menu" class="btn btn-ghost btn-square">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current text-primary">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </label>
+      </div>
+
+      <!-- デスクトップメニュー -->
+      <div class="flex-none hidden md:flex">
+        <ul class="menu menu-horizontal px-1 gap-1">
+          <li><%= link_to "ホーム", root_path, class: "text-primary" %></li>
+          <li><%= link_to "曲一覧", songs_path, class: "text-primary" %></li>
+
+          <% if user_signed_in? %>
+            <li>
+              <details class="dropdown dropdown-end">
+                <summary class="text-primary font-bold"><%= current_user.name %></summary>
+                <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-40 p-2 shadow">
+                  <%# TODO. プロフィール編集をMVPリリース後に追加 %>
+                  <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-primary text-sm" %></li>
+                </ul>
+              </details>
+            </li>
+          <% else %>
+            <li><%= link_to "ログイン", new_user_session_path, class: "bg-primary text-base-100" %></li>
+            <li><%= link_to "新規登録", new_user_registration_path, class: "bg-primary text-base-100" %></li>
+          <% end %>
+        </ul>
+      </div>
+    </header>
   </div>
-  <div class="flex-none">
-    <ul class="menu menu-horizontal px-1 gap-1">
-      <li><%= link_to "ホーム", root_path, class: "text-primary" %></li>
-      <li><%= link_to "曲一覧", songs_path, class: "text-primary" %></li>
+
+  <!-- モバイルサイドメニュー -->
+  <div class="drawer-side z-50">
+    <label for="mobile-menu" aria-label="close sidebar" class="drawer-overlay"></label>
+    <ul class="menu p-4 w-52 min-h-full bg-base-200">
+      <li><%= link_to "ホーム", root_path, class: "text-primary text-base mb-2" %></li>
+      <li><%= link_to "曲一覧", songs_path, class: "text-primary text-base mb-2" %></li>
 
       <% if user_signed_in? %>
-        <li>
-          <details class="dropdown dropdown-end">
-            <summary class="text-primary font-bold"><%= current_user.name %></summary>
-            <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-40 p-2 shadow">
-              <%# TODO. プロフィール編集をMVPリリース後に追加 %>
-              <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-primary text-sm" %></li>
-            </ul>
-          </details>
+        <li class="menu-title text-primary mt-4">
+          <span><%= current_user.name %></span>
         </li>
+        <%# TODO. プロフィール編集をMVPリリース後に追加 %>
+        <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-primary text-base" %></li>
       <% else %>
-        <li><%= link_to "ログイン", new_user_session_path, class: "bg-primary text-base-100" %></li>
-        <li><%= link_to "新規登録", new_user_registration_path, class: "bg-primary text-base-100" %></li>
+        <li><%= link_to "ログイン", new_user_session_path, class: "text-primary text-base mb-2 mt-4" %></li>
+        <li><%= link_to "新規登録", new_user_registration_path, class: "text-primary text-base" %></li>
       <% end %>
     </ul>
   </div>
-</header>
+</div>
