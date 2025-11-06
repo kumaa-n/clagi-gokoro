@@ -80,7 +80,6 @@ class ReviewCommentsController < ApplicationController
     return if @review_comment.user == current_user
 
     redirect_to song_review_path(@song, @review), alert: "他のユーザーのコメントは削除できません。"
-    return
   end
 
   def review_comment_params
