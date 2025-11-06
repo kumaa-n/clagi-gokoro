@@ -1,0 +1,43 @@
+<%= turbo_frame_tag dom_id(review_comment) do %>
+  <div class="card bg-base-100 border border-base-300 mb-4">
+    <div class="card-body">
+      <div class="flex justify-between items-start mb-2">
+        <div>
+          <p class="text-primary font-semibold"><%= review_comment.user.name %></p>
+          <p class="text-sm text-base-content/70"><%= review_comment.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+        </div>
+        <% if user_signed_in? && review_comment.user == current_user %>
+          <div class="flex gap-2">
+            <%= link_to "編集",
+                  edit_song_review_review_comment_path(review_comment.review.song, review_comment.review, review_comment),
+                  data: { turbo_frame: dom_id(review_comment) },
+                  class: "btn btn-sm bg-primary text-base-100" %>
+            <div data-controller="auto-modal">
+              <button class="btn btn-sm bg-error text-base-100" data-action="auto-modal#show">削除</button>
+              <dialog class="modal" data-auto-modal-target="dialog" id="<%= dom_id(review_comment, :delete_modal) %>">
+                <div class="modal-box">
+                  <h3 class="font-bold text-lg mb-4">コメントの削除</h3>
+                  <p class="py-2">コメントを削除すると元に戻せません。よろしいですか？</p>
+                  <div class="modal-action">
+                    <form method="dialog">
+                      <button class="btn">キャンセル</button>
+                    </form>
+                    <%= button_to "削除する",
+                          song_review_review_comment_path(review_comment.review.song, review_comment.review, review_comment),
+                          method: :delete,
+                          class: "btn bg-error text-base-100",
+                          form: { data: { action: "submit->auto-modal#hide" } } %>
+                  </div>
+                </div>
+                <form method="dialog" class="modal-backdrop">
+                  <button>close</button>
+                </form>
+              </dialog>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <p class="text-primary whitespace-pre-wrap break-words"><%= review_comment.content %></p>
+    </div>
+  </div>
+<% end %>
