@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :songs, only: %i[index new create] do
     resources :reviews do
-      resources :review_comments, only: %i[create show]
+      resources :review_comments, only: %i[create show edit update]
     end
   end
 end
