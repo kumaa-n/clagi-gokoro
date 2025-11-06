@@ -1,8 +1,8 @@
 class ReviewCommentsController < ApplicationController
   before_action :set_song
   before_action :set_review
-  before_action :set_review_comment, only: %i[show edit update]
-  before_action :authorize_review_comment!, only: %i[edit update]
+  before_action :set_review_comment, only: %i[show edit update destroy]
+  before_action :authorize_review_comment!, only: %i[edit update destroy]
 
   def create
     @review_comment = @review.review_comments.build(review_comment_params)
@@ -49,6 +49,16 @@ class ReviewCommentsController < ApplicationController
         end
         format.html { render :edit, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def destroy
+    @review_comment.destroy!
+    @comments_remaining = @review.review_comments.exists?
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to song_review_path(@song, @review), notice: "コメントを削除しました。" }
     end
   end
 
