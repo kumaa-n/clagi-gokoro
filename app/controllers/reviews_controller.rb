@@ -9,7 +9,10 @@ class ReviewsController < ApplicationController
     @user_review = current_user&.reviews&.find_by(song: @song)
   end
 
-  def show; end
+  def show
+    @review_comments = @review.review_comments.includes(:user).order(created_at: :desc)
+    @review_comment = @review.review_comments.build
+  end
 
   def new
     @review = @song.reviews.build

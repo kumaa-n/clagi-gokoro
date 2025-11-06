@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :reviews, dependent: :destroy
+  has_many :review_comments, dependent: :destroy
 
   validates :name, presence: true
   validates :name, uniqueness: true, length: { in: 2..15 }, allow_blank: true

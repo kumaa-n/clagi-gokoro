@@ -1,0 +1,12 @@
+<%= turbo_stream.remove "review_comments_empty_state" %>
+
+<%= turbo_stream.prepend "review_comments" do %>
+  <%= render @review_comment %>
+<% end %>
+
+<%= turbo_stream.replace "review_comment_form" do %>
+  <%= render "form_frame",
+             review_comment: @new_review_comment,
+             song: @song,
+             review: @review %>
+<% end %>
