@@ -2,7 +2,7 @@ class ReviewCommentsController < ApplicationController
   before_action :set_song
   before_action :set_review
   before_action :set_review_comment, only: %i[show edit update destroy]
-  before_action :authorize_review_comment!, only: %i[edit update destroy]
+  before_action :authorize_review_comment, only: %i[edit update destroy]
 
   def create
     @review_comment = @review.review_comments.build(review_comment_params)
@@ -76,10 +76,10 @@ class ReviewCommentsController < ApplicationController
     @review_comment = @review.review_comments.find(params[:id])
   end
 
-  def authorize_review_comment!
+  def authorize_review_comment
     return if @review_comment.user == current_user
 
-    redirect_to song_review_path(@song, @review), alert: "他のユーザーのコメントは削除できません。"
+    redirect_to song_review_path(@song, @review), alert: t("defaults.flash_message.forbidden")
   end
 
   def review_comment_params
