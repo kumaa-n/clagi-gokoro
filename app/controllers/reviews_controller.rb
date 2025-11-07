@@ -23,7 +23,7 @@ class ReviewsController < ApplicationController
     @review.user = current_user
 
     if @review.save
-      redirect_to song_review_path(@song, @review), notice: "レビューが投稿されました。"
+      redirect_to song_review_path(@song, @review), notice: t("defaults.flash_message.created", resource: Review.model_name.human)
     else
       render :new, status: :unprocessable_entity
     end
@@ -33,7 +33,7 @@ class ReviewsController < ApplicationController
 
   def update
     if @review.update(review_params)
-      redirect_to song_review_path(@song, @review), notice: "レビューが更新されました。"
+      redirect_to song_review_path(@song, @review), notice: t("defaults.flash_message.updated", resource: Review.model_name.human)
     else
       render :edit, status: :unprocessable_entity
     end
@@ -41,7 +41,7 @@ class ReviewsController < ApplicationController
 
   def destroy
     @review.destroy!
-    redirect_to song_reviews_path(@song), notice: "レビューが削除されました。"
+    redirect_to song_reviews_path(@song), notice: t("defaults.flash_message.destroyed", resource: Review.model_name.human)
   end
 
   private
@@ -55,9 +55,9 @@ class ReviewsController < ApplicationController
   end
 
   def authorize_review
-    unless @review.user == current_user
-      redirect_to song_reviews_path(@song), alert: "他のユーザーのレビューは編集できません。"
-    end
+    return if @review.user == current_user
+
+    redirect_to song_reviews_path(@song), alert: t("defaults.flash_message.forbidden")
   end
 
   def review_params

@@ -1,8 +1,37 @@
 ja:
   activerecord:
+    models:
+      song: 曲
+      review: レビュー
+      review_comment: コメント
+    attributes:
+      song:
+        title: 曲名
+        composer: 作曲者
+        arranger: 編曲者
+      review:
+        song_id: 曲
+        tempo_rating: テンポ
+        fingering_technique_rating: 運指技巧
+        plucking_technique_rating: 弾弦技巧
+        expression_rating: 表現力
+        memorization_rating: 暗譜・構成理解
+        overall_rating: 総合評価
+        summary: 投稿者コメント
+      review_comment:
+        content: コメント
     errors:
       models:
         user:
           attributes:
             email:
-              taken: "メールアドレスの登録に失敗しました"
+              taken: "の登録に失敗しました"
+  defaults:
+    flash_message:
+      created: "%{resource}を投稿しました。"
+      updated: "%{resource}を更新しました。"
+      destroyed: "%{resource}を削除しました。"
+      forbidden: "権限がありません。"
+  errors:
+    messages:
+      not_saved: "入力内容に不備があります。以下をご確認ください。"

@@ -14,7 +14,7 @@ class Review < ApplicationRecord
   validates *RATING_ATTRIBUTES, presence: true
   validates *RATING_ATTRIBUTES, inclusion: { in: 1..5 }, allow_blank: true
 
-  validates :user_id, uniqueness: { scope: :song_id, message: "この曲に既にレビューを投稿しています" }
+  validates :song_id, uniqueness: { scope: :user_id, message: "に対してレビュー済みです。" }
 
   before_save :calc_overall_rating
 

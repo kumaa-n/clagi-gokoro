@@ -27,7 +27,6 @@
               <details class="dropdown dropdown-end">
                 <summary class="text-primary font-bold"><%= current_user.name %></summary>
                 <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-40 p-2 shadow">
-                  <%# TODO. プロフィール編集をMVPリリース後に追加 %>
                   <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-primary text-sm" %></li>
                 </ul>
               </details>
@@ -52,7 +51,6 @@
         <li class="menu-title text-primary mt-4">
           <span><%= current_user.name %></span>
         </li>
-        <%# TODO. プロフィール編集をMVPリリース後に追加 %>
         <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-primary text-base" %></li>
       <% else %>
         <li><%= link_to "ログイン", new_user_session_path, class: "text-primary text-base mb-2 mt-4" %></li>
