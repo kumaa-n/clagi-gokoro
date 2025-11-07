@@ -13,7 +13,7 @@
 @plugin "daisyui/theme" {
   name: "clagi-gokoro";
   default: true;
-  prefersdark: false;
+  prefersdark: true;
   color-scheme: "light";
   --color-base-100: #FDFCFA;
   --color-base-200: #F7F2E8;
