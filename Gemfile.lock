@@ -135,6 +135,9 @@ GEM
       request_store (>= 1.0)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
+    inline_svg (1.10.0)
+      activesupport (>= 3.0)
+      nokogiri (>= 1.6)
     io-console (0.8.1)
     irb (1.15.2)
       pp (>= 0.6.0)
@@ -378,6 +381,7 @@ DEPENDENCIES
   devise
   devise-i18n
   gon
+  inline_svg
   jbuilder
   jsbundling-rails
   pg (~> 1.1)
