@@ -1,21 +1,13 @@
-<% reviews_count = song.has_attribute?(:reviews_count) ? song.read_attribute(:reviews_count) : song.reviews.size %>
-<% average_overall_rating = if song.has_attribute?(:average_overall_rating)
-  song.read_attribute(:average_overall_rating)
-else
-  song.reviews.average(:overall_rating)
-end %>
-<% reviews_total = reviews_count.to_i %>
-
 <div class="card bg-base-100 border border-base-300">
   <div class="card-body flex flex-col p-4 md:p-6">
     <h3 class="card-title text-neutral line-clamp-2 break-all min-h-12 md:min-h-14 mb-1"><%= song.title %></h3>
-    <p class="text-sm text-neutral line-clamp-1 break-all mb-1">作曲者：<%= song.composer.presence || "ー" %></p>
-    <p class="text-sm text-neutral line-clamp-1 break-all">編曲者：<%= song.arranger.presence || "ー" %></p>
+    <p class="text-sm text-neutral line-clamp-1 break-all mb-1">作曲者：<%= song.composer_or_dash %></p>
+    <p class="text-sm text-neutral line-clamp-1 break-all">編曲者：<%= song.arranger_or_dash %></p>
     <div class="border-t border-base-300 my-2 md:my-3"></div>
     <div class="flex items-center gap-1 mb-1">
       <span class="text-sm text-neutral">平均総合難易度：</span>
-      <% if average_overall_rating.present? && reviews_total.positive? %>
-        <% rounded_average = average_overall_rating.round %>
+      <% if song.has_average? %>
+        <% rounded_average = song.rounded_average %>
         <div class="rating rating-sm">
           <% 5.times do |i| %>
             <% star = i + 1 %>
@@ -30,7 +22,7 @@ end %>
         <span class="text-sm text-neutral">ー</span>
       <% end %>
     </div>
-    <p class="text-sm text-red-600">レビュー数：<%= reviews_total %></p>
+    <p class="text-sm text-red-600">レビュー数：<%= song.reviews_count %></p>
     <div class="card-actions justify-end mt-auto">
       <%= link_to "レビュー一覧を見る", song_reviews_path(song), class: "btn bg-primary text-base-100" %>
     </div>
