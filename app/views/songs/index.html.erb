@@ -1,29 +1,10 @@
 <div class="flex-1 justify-center items-center min-h-full px-4 py-8">
-  <% if @prompt_song.present? %>
-    <div data-controller="auto-modal" data-auto-modal-open-value="true">
-      <dialog id="review_prompt_modal" class="modal" data-auto-modal-target="dialog">
-        <div class="modal-box">
-          <h3 class="font-bold text-lg mb-4">レビューを投稿しますか？</h3>
-          <p class="py-4">あなたの感じた難易度をシェアしましょう。</p>
-          <div class="modal-action">
-            <form method="dialog">
-              <button class="btn">あとで</button>
-            </form>
-            <%= link_to "レビューを投稿する", new_song_review_path(@prompt_song), class: "btn bg-primary text-base-100" %>
-          </div>
-        </div>
-        <form method="dialog" class="modal-backdrop">
-          <button>close</button>
-        </form>
-      </dialog>
-    </div>
-  <% end %>
+  <%= render "songs/review_prompt_modal", song: @prompt_song %>
 
-  <!-- ヘッダーセクション -->
   <section class="bg-base-100 py-8">
     <div class="container mx-auto px-4">
       <div class="flex justify-between items-center">
-        <h1 class="text-4xl font-bold text-primary">曲一覧</h1>
+        <h2 class="text-4xl font-bold text-primary">曲一覧</h2>
 
         <% if user_signed_in? %>
           <%= link_to new_song_path, class: "btn bg-primary text-base-100" do %>
@@ -37,59 +18,12 @@
     </div>
   </section>
 
-  <!-- カードセクション -->
   <section class="bg-base-100 py-8">
     <div class="container mx-auto px-4">
       <% if @songs.any? %>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <% @songs.each do |song| %>
-            <div class="card bg-base-100 border border-base-300">
-              <div class="card-body flex flex-col">
-                <h3 class="card-title text-stone-800 line-clamp-2 break-all min-h-14 mb-2"><%= song.title %></h3>
-
-                <p class="text-sm text-neutral mb-1 line-clamp-1 break-all">
-                  作曲者：<%= song.composer.presence || "ー" %>
-                </p>
-
-                <p class="text-sm text-neutral mb-3 line-clamp-1 break-all">
-                  編曲者：<%= song.arranger.presence || "ー" %>
-                </p>
-
-                <% reviews_count = song.has_attribute?(:reviews_count) ? song.read_attribute(:reviews_count) : song.reviews.size %>
-                <% average_overall_rating = if song.has_attribute?(:average_overall_rating)
-                  song.read_attribute(:average_overall_rating)
-                else
-                  song.reviews.average(:overall_rating)
-                end %>
-                <% reviews_total = reviews_count.to_i %>
-
-                <div class="border-t border-base-300 my-3"></div>
-
-                <div class="flex items-center gap-1 mb-2">
-                  <span class="text-sm text-neutral">平均総合難易度：</span>
-                  <% if average_overall_rating.present? && reviews_total.positive? %>
-                    <% rounded_average = average_overall_rating.to_f %>
-                    <div class="rating">
-                      <% 5.times do |star| %>
-                        <% if star + 1 == rounded_average %>
-                          <div class="mask mask-star-2 bg-amber-500" aria-label="<%= star + 1 %> star" aria-current="true"></div>
-                        <% else %>
-                          <div class="mask mask-star-2 bg-amber-500" aria-label="<%= star + 1 %> star"></div>
-                        <% end %>
-                      <% end %>
-                    </div>
-                  <% else %>
-                    <span class="text-sm text-neutral">ー</span>
-                  <% end %>
-                </div>
-
-                <p class="text-sm text-red-600 mb-4">レビュー数：<%= reviews_total %></p>
-
-                <div class="card-actions justify-end mt-auto">
-                  <%= link_to "詳細を見る", song_reviews_path(song), class: "btn bg-primary text-base-100" %>
-                </div>
-              </div>
-            </div>
+            <%= render "shared/song_card", song: song %>
           <% end %>
         </div>
       <% else %>
