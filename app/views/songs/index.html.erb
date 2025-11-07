@@ -8,10 +8,7 @@
 
         <% if user_signed_in? %>
           <%= link_to new_song_path, class: "btn bg-primary text-base-100" do %>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-            </svg>
-            新しい曲を追加
+            <%= inline_svg_tag("plus.svg") %>新しい曲を追加
           <% end %>
         <% end %>
       </div>
