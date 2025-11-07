@@ -1,10 +1,10 @@
 <div class="flex-1 justify-center items-center min-h-full px-4 py-8">
   <%= render "songs/review_prompt_modal", song: @prompt_song %>
 
-  <section class="bg-base-100 py-8">
+  <section class="bg-base-100 py-8 md:py-12 lg:py-16">
     <div class="container mx-auto px-4">
       <div class="flex justify-between items-center">
-        <h2 class="text-4xl font-bold text-primary">曲一覧</h2>
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-primary">曲一覧</h2>
 
         <% if user_signed_in? %>
           <%= link_to new_song_path, class: "btn bg-primary text-base-100" do %>
@@ -15,7 +15,7 @@
     </div>
   </section>
 
-  <section class="bg-base-100 py-8">
+  <section class="bg-base-100 py-8 md:py-12 lg:py-16">
     <div class="container mx-auto px-4">
       <% if @songs.any? %>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
