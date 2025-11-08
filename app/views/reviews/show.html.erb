@@ -10,7 +10,7 @@
       </div>
       <% if user_signed_in? && current_user == @review.user %>
         <div class="flex gap-2 flex-shrink-0">
-          <%= link_to "編集", edit_song_review_path(@song, @review), class: "btn bg-primary text-base-100 px-6" %>
+          <%= link_to "編集", edit_review_path(@review), class: "btn bg-primary text-base-100 px-6" %>
           <div data-controller="auto-modal">
             <button data-action="auto-modal#show" class="btn bg-error text-base-100 px-6">削除</button>
             <dialog class="modal" data-auto-modal-target="dialog">
@@ -22,7 +22,7 @@
                     <button class="btn">キャンセル</button>
                   </form>
                   <%= button_to "削除する",
-                    song_review_path(@song, @review),
+                    review_path(@review),
                     method: :delete,
                     class: "btn bg-error text-base-100",
                     form: { data: { action: "submit->auto-modal#hide" } } %>

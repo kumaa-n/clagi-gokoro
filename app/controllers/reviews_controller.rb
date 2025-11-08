@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :set_song
+  before_action :set_song, only: %i[index new create]
   before_action :set_review, only: %i[show edit update destroy]
   before_action :authorize_review, only: %i[edit update destroy]
   skip_before_action :authenticate_user!, only: %i[index show]
@@ -23,7 +23,7 @@ class ReviewsController < ApplicationController
     @review.user = current_user
 
     if @review.save
-      redirect_to song_review_path(@song, @review), notice: t("defaults.flash_message.created", resource: Review.model_name.human)
+      redirect_to review_path(@review), notice: t("defaults.flash_message.created", resource: Review.model_name.human)
     else
       render :new, status: :unprocessable_entity
     end
@@ -33,7 +33,7 @@ class ReviewsController < ApplicationController
 
   def update
     if @review.update(review_params)
-      redirect_to song_review_path(@song, @review), notice: t("defaults.flash_message.updated", resource: Review.model_name.human)
+      redirect_to review_path(@review), notice: t("defaults.flash_message.updated", resource: Review.model_name.human)
     else
       render :edit, status: :unprocessable_entity
     end
@@ -51,7 +51,8 @@ class ReviewsController < ApplicationController
   end
 
   def set_review
-    @review = @song.reviews.find(params[:id])
+    @review = Review.find(params[:id])
+    @song = @review.song
   end
 
   def authorize_review

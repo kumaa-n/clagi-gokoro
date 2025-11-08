@@ -9,7 +9,7 @@
         <% if user_signed_in? && review_comment.user == current_user %>
           <div class="flex gap-2">
             <%= link_to "編集",
-                  edit_song_review_review_comment_path(review_comment.review.song, review_comment.review, review_comment),
+                  edit_review_comment_path(review_comment),
                   data: { turbo_frame: dom_id(review_comment) },
                   class: "btn btn-sm bg-primary text-base-100" %>
             <div data-controller="auto-modal">
@@ -23,7 +23,7 @@
                       <button class="btn">キャンセル</button>
                     </form>
                     <%= button_to "削除する",
-                          song_review_review_comment_path(review_comment.review.song, review_comment.review, review_comment),
+                          review_comment_path(review_comment),
                           method: :delete,
                           class: "btn bg-error text-base-100",
                           form: { data: { action: "submit->auto-modal#hide" } } %>

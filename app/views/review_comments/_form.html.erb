@@ -5,7 +5,8 @@
 <% song = local_assigns.fetch(:song, review_comment.review&.song) %>
 <% review = local_assigns.fetch(:review, review_comment.review) %>
 
-<%= form_with model: [song, review, review_comment] do |f| %>
+<% form_url = review_comment.persisted? ? review_comment_path(review_comment) : review_review_comments_path(review) %>
+<%= form_with model: review_comment, url: form_url do |f| %>
   <div class="mb-4">
     <%= f.text_area :content,
                     class: "textarea textarea-bordered w-full h-32 resize-none",

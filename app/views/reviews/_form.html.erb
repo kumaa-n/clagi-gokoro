@@ -7,7 +7,8 @@
       <p class="text-xl text-primary">編曲：<%= song.arranger || "－" %></p>
     </div>
 
-    <%= form_with model: [song, review], data: { controller: "review-form" } do |f| %>
+    <% form_url = review.persisted? ? review_path(review) : song_reviews_path(song) %>
+    <%= form_with model: review, url: form_url, data: { controller: "review-form" } do |f| %>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div class="space-y-6">
           <div class="bg-base-100 p-6 rounded-lg border border-base-300">
