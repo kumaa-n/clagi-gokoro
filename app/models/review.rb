@@ -1,7 +1,6 @@
 class Review < ApplicationRecord
   belongs_to :user
   belongs_to :song
-  has_many :review_comments, dependent: :destroy
 
   RATING_ATTRIBUTES = %i[
     tempo_rating
