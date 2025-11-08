@@ -10,10 +10,7 @@
       </div>
       <div class="flex gap-2 flex-shrink-0">
         <%= link_to song_reviews_path(@song), class: "btn btn-ghost" do %>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-          </svg>
-          一覧へ
+          <%= inline_svg_tag("arrow-left.svg") %>一覧へ
         <% end %>
         <% if user_signed_in? && current_user == @review.user %>
           <%= link_to "編集", edit_review_path(@review), class: "btn btn-primary text-base-100 px-6" %>
