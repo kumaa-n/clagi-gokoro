@@ -1,14 +1,14 @@
 <%= content_for(:title, t(".title")) %>
 
-<div class="flex-1 px-4 py-8">
+<div class="flex-1 px-4 py-8 md:py-12 lg:py-16">
   <div class="max-w-7xl mx-auto">
     <!-- ヘッダー部分 -->
-    <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-6">
+    <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-6 md:mb-8">
       <div class="min-w-0">
-        <h2 class="text-3xl text-primary font-semibold mb-4 break-words">レビュー詳細</h2>
-        <p class="text-2xl text-primary font-semibold mb-2 break-words"><%= @song.title %></p>
-        <p class="text-xl text-primary break-words">作曲：<%= @song.composer || "－" %></p>
-        <p class="text-xl text-primary break-words">編曲：<%= @song.arranger || "－" %></p>
+        <h2 class="text-2xl md:text-3xl text-primary font-semibold mb-4 break-words">レビュー詳細</h2>
+        <p class="text-xl md:text-2xl text-primary font-semibold mb-2 break-words"><%= @song.title %></p>
+        <p class="text-base md:text-xl text-primary break-words">作曲：<%= @song.composer_or_dash %></p>
+        <p class="text-base md:text-xl text-primary break-words">編曲：<%= @song.arranger_or_dash %></p>
       </div>
       <div class="flex gap-2 flex-shrink-0">
         <%= link_to song_reviews_path(@song), class: "btn btn-ghost" do %>
@@ -43,13 +43,13 @@
     </div>
 
     <!-- 投稿者情報と総合難易度 -->
-    <div class="flex justify-between items-start mb-6">
+    <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-6 md:mb-8">
       <div>
-        <p class="text-primary">投稿者：<%= @review.user.name %></p>
-        <p class="text-primary">投稿日：<%= @review.created_at.strftime('%Y/%m/%d') %></p>
+        <p class="text-sm md:text-base text-primary">投稿者：<%= @review.user.name %></p>
+        <p class="text-sm md:text-base text-primary">投稿日：<%= format_date(@review.created_at) %></p>
       </div>
       <div class="flex items-center gap-2">
-        <span class="text-primary text-lg">総合難易度：</span>
+        <span class="text-primary text-base md:text-lg">総合難易度：</span>
         <div class="rating rating-sm">
           <% 5.times do |i| %>
             <% if i + 1 == @review.overall_rating %>
@@ -63,11 +63,11 @@
     </div>
 
     <!-- 難易度評価と各項目の評価 -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 md:mb-8">
       <!-- 各項目の評価 -->
       <div class="card bg-base-100 border border-base-300">
         <div class="card-body">
-          <h3 class="text-xl text-primary font-semibold mb-4">各項目の評価</h3>
+          <h3 class="text-lg md:text-xl text-primary font-semibold mb-4">各項目の評価</h3>
 
           <!-- テンポ -->
           <div class="mb-6">
@@ -209,7 +209,7 @@
       <!-- 難易度評価グラフ -->
       <div class="card bg-base-100 border border-base-300">
         <div class="card-body">
-          <h3 class="text-xl text-primary font-semibold mb-4">難易度評価</h3>
+          <h3 class="text-lg md:text-xl text-primary font-semibold mb-4">難易度評価</h3>
           <div class="bg-base-200 rounded-lg p-8 flex items-center justify-center min-h-[300px]" data-controller="review-detail-chart">
             <canvas
               data-review-detail-chart-target="canvas"
@@ -226,10 +226,10 @@
     </div>
 
     <!-- レビュー本文 -->
-    <div class="card bg-base-100 border border-base-300 mb-6">
+    <div class="card bg-base-100 border border-base-300">
       <div class="card-body">
-        <h3 class="text-xl text-primary font-semibold mb-4">レビュー</h3>
-        <p class="text-primary whitespace-pre-wrap break-words"><%= @review.summary %></p>
+        <h3 class="text-lg md:text-xl text-primary font-semibold mb-4">レビュー</h3>
+        <p class="text-sm md:text-base text-primary whitespace-pre-wrap break-words"><%= @review.summary %></p>
       </div>
     </div>
   </div>

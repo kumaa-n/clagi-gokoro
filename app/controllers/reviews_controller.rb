@@ -44,12 +44,12 @@ class ReviewsController < ApplicationController
   private
 
   def set_song
-    @song = Song.find(params[:song_id])
+    @song = Song.find(params[:song_id]).decorate
   end
 
   def set_review
     @review = Review.find(params[:id])
-    @song = @review.song
+    @song = @review.song.decorate
   end
 
   def authorize_review
