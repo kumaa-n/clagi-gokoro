@@ -14,9 +14,9 @@
   </div>
   <div class="flex justify-end gap-2">
     <% if local_assigns[:cancel_path].present? %>
-      <% cancel_options = local_assigns[:cancel_options] || { class: "btn btn-ghost" } %>
+      <% cancel_options = local_assigns[:cancel_options] || { class: "btn" } %>
       <%= link_to "キャンセル", cancel_path, cancel_options %>
     <% end %>
-    <%= f.submit submit_label, class: "btn bg-primary text-base-100" %>
+    <%= f.submit submit_label, class: "btn btn-primary text-base-100" %>
   </div>
 <% end %>

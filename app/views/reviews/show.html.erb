@@ -8,15 +8,21 @@
         <p class="text-xl text-primary break-words">作曲：<%= @song.composer || "－" %></p>
         <p class="text-xl text-primary break-words">編曲：<%= @song.arranger || "－" %></p>
       </div>
-      <% if user_signed_in? && current_user == @review.user %>
-        <div class="flex gap-2 flex-shrink-0">
-          <%= link_to "編集", edit_review_path(@review), class: "btn bg-primary text-base-100 px-6" %>
+      <div class="flex gap-2 flex-shrink-0">
+        <%= link_to song_reviews_path(@song), class: "btn btn-ghost" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          一覧へ
+        <% end %>
+        <% if user_signed_in? && current_user == @review.user %>
+          <%= link_to "編集", edit_review_path(@review), class: "btn btn-primary text-base-100 px-6" %>
           <div data-controller="auto-modal">
-            <button data-action="auto-modal#show" class="btn bg-error text-base-100 px-6">削除</button>
+            <button data-action="auto-modal#show" class="btn btn-error text-base-100 px-6">削除</button>
             <dialog class="modal" data-auto-modal-target="dialog">
               <div class="modal-box">
                 <h3 class="font-bold text-lg mb-4">レビューの削除</h3>
-                <p class="py-4">本当にこのレビューを削除しますか？<br>この操作は取り消せません。</p>
+                <p class="py-4">レビューを削除すると元に戻せません。削除してもよろしいですか？</p>
                 <div class="modal-action">
                   <form method="dialog">
                     <button class="btn">キャンセル</button>
@@ -24,7 +30,7 @@
                   <%= button_to "削除する",
                     review_path(@review),
                     method: :delete,
-                    class: "btn bg-error text-base-100",
+                    class: "btn btn-error text-base-100",
                     form: { data: { action: "submit->auto-modal#hide" } } %>
                 </div>
               </div>
@@ -33,8 +39,8 @@
               </form>
             </dialog>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
 
     <!-- 投稿者情報と総合難易度 -->
