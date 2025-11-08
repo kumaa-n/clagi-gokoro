@@ -9,11 +9,11 @@
                  song: @song,
                  review: @review,
                  submit_label: "コメントを更新する",
-                 cancel_path: song_review_review_comment_path(@song, @review, @review_comment),
+                 cancel_path: review_comment_path(@review_comment),
                  cancel_options: cancel_options %>
       <% unless turbo_frame_request? %>
         <div class="flex justify-end mt-4">
-          <%= link_to "レビュー詳細に戻る", song_review_path(@song, @review), class: "btn btn-ghost" %>
+          <%= link_to "レビュー詳細に戻る", review_path(@review), class: "btn btn-ghost" %>
         </div>
       <% end %>
     </div>
