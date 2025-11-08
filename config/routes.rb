@@ -4,8 +4,6 @@ Rails.application.routes.draw do
   root "static_pages#top"
 
   resources :songs, only: %i[index new create] do
-    resources :reviews, shallow: true do
-      resources :review_comments, only: %i[create show edit update destroy], shallow: true
-    end
+    resources :reviews, shallow: true
   end
 end

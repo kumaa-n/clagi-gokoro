@@ -1,8 +1,0 @@
-<%= turbo_frame_tag "review_comment_form" do %>
-  <%= render "review_comments/form",
-             review_comment: review_comment,
-             song: song,
-             review: review,
-             cancel_path: local_assigns[:cancel_path],
-             cancel_options: local_assigns[:cancel_options] %>
-<% end %>

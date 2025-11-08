@@ -230,38 +230,5 @@
         <p class="text-primary whitespace-pre-wrap break-words"><%= @review.summary %></p>
       </div>
     </div>
-
-    <!-- コメントセクション -->
-    <div class="card bg-base-100 border border-base-300 mb-6">
-      <div class="card-body">
-        <h3 class="text-xl text-primary font-semibold mb-4">コメント</h3>
-        <% if user_signed_in? %>
-          <%= render "review_comments/form_frame",
-                     review_comment: @review_comment,
-                     song: @song,
-                     review: @review %>
-        <% else %>
-          <p class="text-primary">
-            コメントするには
-            <%= link_to "ログイン", new_user_session_path, class: "link link-primary" %>
-            してください。
-          </p>
-        <% end %>
-      </div>
-    </div>
-
-    <!-- コメント一覧 -->
-    <div class="space-y-4">
-      <div class="space-y-4" id="review_comments">
-        <%= render partial: "review_comments/review_comment", collection: @review_comments %>
-        <% if @review_comments.blank? %>
-          <div class="card bg-base-100 border border-base-300 mb-4" id="review_comments_empty_state">
-            <div class="card-body">
-              <p class="text-primary">まだコメントはありません。</p>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
   </div>
 </div>

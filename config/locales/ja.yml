@@ -3,7 +3,6 @@ ja:
     models:
       song: 曲
       review: レビュー
-      review_comment: コメント
     attributes:
       song:
         title: 曲名
@@ -18,8 +17,6 @@ ja:
         memorization_rating: 暗譜・構成理解
         overall_rating: 総合評価
         summary: 投稿者コメント
-      review_comment:
-        content: コメント
     errors:
       models:
         user:
