@@ -12,4 +12,8 @@ module ApplicationHelper
       warning: "alert-warning"
     }[type.to_sym] || "alert-info"
   end
+
+  def format_date(date)
+    date.strftime("%Y/%m/%d")
+  end
 end

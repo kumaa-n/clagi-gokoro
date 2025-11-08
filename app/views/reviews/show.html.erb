@@ -7,8 +7,8 @@
       <div class="min-w-0">
         <h2 class="text-3xl text-primary font-semibold mb-4 break-words">レビュー詳細</h2>
         <p class="text-2xl text-primary font-semibold mb-2 break-words"><%= @song.title %></p>
-        <p class="text-xl text-primary break-words">作曲：<%= @song.composer || "－" %></p>
-        <p class="text-xl text-primary break-words">編曲：<%= @song.arranger || "－" %></p>
+        <p class="text-xl text-primary break-words">作曲：<%= @song.composer_or_dash %></p>
+        <p class="text-xl text-primary break-words">編曲：<%= @song.arranger_or_dash %></p>
       </div>
       <div class="flex gap-2 flex-shrink-0">
         <%= link_to song_reviews_path(@song), class: "btn btn-ghost" do %>
@@ -46,7 +46,7 @@
     <div class="flex justify-between items-start mb-6">
       <div>
         <p class="text-primary">投稿者：<%= @review.user.name %></p>
-        <p class="text-primary">投稿日：<%= @review.created_at.strftime('%Y/%m/%d') %></p>
+        <p class="text-primary">投稿日：<%= format_date(@review.created_at) %></p>
       </div>
       <div class="flex items-center gap-2">
         <span class="text-primary text-lg">総合難易度：</span>
