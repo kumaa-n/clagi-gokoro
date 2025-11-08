@@ -7,7 +7,7 @@
         <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-primary">曲一覧</h2>
 
         <% if user_signed_in? %>
-          <%= link_to new_song_path, class: "btn bg-primary text-base-100" do %>
+          <%= link_to new_song_path, class: "btn btn-primary text-base-100" do %>
             <%= inline_svg_tag("plus.svg") %>新しい曲を追加
           <% end %>
         <% end %>
@@ -28,10 +28,10 @@
           <p class="text-2xl text-neutral mb-4">まだ曲が登録されていません</p>
 
           <% if user_signed_in? %>
-            <%= link_to "最初の曲を追加する", new_song_path, class: "btn bg-primary text-base-100" %>
+            <%= link_to "最初の曲を追加する", new_song_path, class: "btn btn-primary text-base-100" %>
           <% else %>
             <p class="text-base text-neutral mb-4">曲を追加するには、ログインまたは新規登録が必要です</p>
-            <%= link_to "ログイン / 新規登録", new_user_session_path, class: "btn bg-primary text-base-100" %>
+            <%= link_to "ログイン / 新規登録", new_user_session_path, class: "btn btn-primary text-base-100" %>
           <% end %>
         </div>
       <% end %>

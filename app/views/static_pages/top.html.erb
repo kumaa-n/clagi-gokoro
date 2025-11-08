@@ -58,13 +58,13 @@
     <div class="max-w-3xl mx-auto mb-6 md:mb-8 text-primary text-center">
       <p class="mb-3 md:mb-2">あなたが感じた曲の難しさを星評価で投稿し、レーダーチャートで可視化できます。</p>
       <p class="mb-3 md:mb-2">「テンポは速いけど、運指はシンプル」「表現力は求められるけど、暗譜は簡単」といった、曲の特徴を多角的に把握することで、自分に合った次の一曲が見つかります。</p>
-      <p class="mb-3 md:mb-2">一人で練習することが多いクラシックギターだからこそ、感じ方を共有し、つながりましょう。</p>
+      <p class="mb-3 md:mb-2">一人で練習することが多いクラシックギターだからこそ、感じ方をシェアし、つながりましょう。</p>
     </div>
 
     <% if user_signed_in? %>
-      <%= link_to "曲一覧へ", songs_path, class: "btn md:btn-lg bg-primary text-base-100 px-8 md:px-12" %>
+      <%= link_to "曲一覧へ", songs_path, class: "btn md:btn-lg btn-primary text-base-100 px-8 md:px-12" %>
     <% else %>
-      <%= link_to "新規登録する", new_user_registration_path, class: "btn md:btn-lg bg-primary text-base-100 px-8 md:px-12" %>
+      <%= link_to "新規登録する", new_user_registration_path, class: "btn md:btn-lg btn-primary text-base-100 px-8 md:px-12" %>
     <% end %>
   </div>
 </section>

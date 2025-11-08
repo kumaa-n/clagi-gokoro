@@ -133,9 +133,9 @@
                   <div class="rating rating-sm mt-1">
                     <% 5.times do |star| %>
                       <% if star + 1 == guide[:stars] %>
-                        <div class="mask mask-star-2 bg-amber-500" aria-label="<%= star + 1 %> star" aria-current="true"></div>
+                        <div class="mask mask-star-2 bg-orange-400" aria-label="<%= star + 1 %> star" aria-current="true"></div>
                       <% else %>
-                        <div class="mask mask-star-2 bg-amber-500" aria-label="<%= star + 1 %> star"></div>
+                        <div class="mask mask-star-2 bg-orange-400" aria-label="<%= star + 1 %> star"></div>
                       <% end %>
                     <% end %>
                   </div>
@@ -152,8 +152,8 @@
       </div>
 
       <div class="flex justify-center gap-4 mt-8">
-        <%= link_to "キャンセル", song_reviews_path(song), class: "btn bg-neutral text-base-100 px-8" %>
-        <%= f.submit submit_label, class: "btn bg-primary text-base-100 px-8" %>
+        <%= link_to "キャンセル", song_reviews_path(song), class: "btn px-8" %>
+        <%= f.submit submit_label, class: "btn btn-primary text-base-100 px-8" %>
       </div>
     <% end %>
   </div>

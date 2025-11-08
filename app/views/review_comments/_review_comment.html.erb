@@ -11,9 +11,9 @@
             <%= link_to "編集",
                   edit_review_comment_path(review_comment),
                   data: { turbo_frame: dom_id(review_comment) },
-                  class: "btn btn-sm bg-primary text-base-100" %>
+                  class: "btn btn-sm btn-primary text-base-100" %>
             <div data-controller="auto-modal">
-              <button class="btn btn-sm bg-error text-base-100" data-action="auto-modal#show">削除</button>
+              <button class="btn btn-sm btn-error text-base-100" data-action="auto-modal#show">削除</button>
               <dialog class="modal" data-auto-modal-target="dialog" id="<%= dom_id(review_comment, :delete_modal) %>">
                 <div class="modal-box">
                   <h3 class="font-bold text-lg mb-4">コメントの削除</h3>
@@ -25,7 +25,7 @@
                     <%= button_to "削除する",
                           review_comment_path(review_comment),
                           method: :delete,
-                          class: "btn bg-error text-base-100",
+                          class: "btn btn-error text-base-100",
                           form: { data: { action: "submit->auto-modal#hide" } } %>
                   </div>
                 </div>

@@ -2,7 +2,7 @@
   <div class="card bg-base-100 border border-base-300">
     <div class="card-body">
       <h2 class="text-2xl text-primary font-semibold mb-6">コメントを編集</h2>
-      <% cancel_options = { class: "btn btn-ghost" } %>
+      <% cancel_options = { class: "btn" } %>
       <% cancel_options[:data] = { turbo_frame: dom_id(@review_comment) } if turbo_frame_request? %>
       <%= render "form",
                  review_comment: @review_comment,
