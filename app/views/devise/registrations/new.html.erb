@@ -7,21 +7,25 @@
 
       <div class="mb-4 md:mb-6">
         <%= f.label :name, class: "label" %>
+        <span class="text-error">*</span>
         <%= f.text_field :name, autofocus: true, placeholder: "ニックネームを入力（15文字以内）", class: "w-full input" %>
       </div>
 
       <div class="mb-4 md:mb-6">
         <%= f.label :email, class: "label" %>
+        <span class="text-error">*</span>
         <%= f.email_field :email, autocomplete: "email", placeholder: "メールアドレスを入力", class: "w-full input" %>
       </div>
 
       <div class="mb-4 md:mb-6">
         <%= f.label :password, class: "label" %>
+        <span class="text-error">*</span>
         <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワードを入力（6文字以上）", class: "w-full input" %>
       </div>
 
       <div class="mb-4 md:mb-6">
         <%= f.label :password_confirmation, class: "label" %>
+        <span class="text-error">*</span>
         <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "もう一度パスワードを入力", class: "w-full input" %>
       </div>
 
