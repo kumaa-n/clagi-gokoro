@@ -80,7 +80,7 @@ export default class extends Controller {
             display: false
           },
           tooltip: {
-            enabled: true
+            enabled: false
           }
         }
       }
