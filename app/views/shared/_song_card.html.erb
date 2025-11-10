@@ -7,17 +7,7 @@
     <div class="flex items-center gap-1 mb-1">
       <span class="text-sm text-neutral">平均総合難易度：</span>
       <% if song.has_average? %>
-        <% rounded_average = song.rounded_average %>
-        <div class="rating rating-sm">
-          <% 5.times do |i| %>
-            <% star = i + 1 %>
-            <% if star == rounded_average %>
-              <div class="mask mask-star-2 bg-orange-400" aria-label="<%= star %> star" aria-current="true"></div>
-            <% else %>
-              <div class="mask mask-star-2 bg-orange-400" aria-label="<%= star %> star"></div>
-            <% end %>
-          <% end %>
-        </div>
+        <%= star_rating_display(song.rounded_average, size: "sm") %>
       <% else %>
         <span class="text-sm text-neutral">ー</span>
       <% end %>
