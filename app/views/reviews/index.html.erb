@@ -3,12 +3,7 @@
 <div class="flex-1 px-4 py-8 md:py-12 lg:py-16">
   <div class="max-w-7xl mx-auto">
     <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-8 md:mb-12">
-      <div class="min-w-0">
-        <h2 class="text-2xl md:text-3xl text-primary font-semibold mb-4 break-words">レビュー一覧</h2>
-        <p class="text-xl md:text-2xl text-primary font-semibold mb-2 break-words"><%= @song.title %></p>
-        <p class="text-base md:text-xl text-primary break-words">作曲：<%= @song.composer_or_dash %></p>
-        <p class="text-base md:text-xl text-primary break-words">編曲：<%= @song.arranger_or_dash %></p>
-      </div>
+      <%= render "song_header", song: @song, title: "レビュー一覧" %>
       <div class="flex-shrink-0">
         <% if user_signed_in? %>
           <% if @user_review.present? %>
@@ -47,17 +42,7 @@
               <p class="text-text-neutral mb-1">投稿日：<%= format_date(review.created_at) %></p>
               <div class="flex items-center gap-1 mb-1">
                 <span class="text-neutral">総合難易度：</span>
-                <div class="flex items-center">
-                  <div class="rating rating-xs">
-                    <% (1..5).each do |rating| %>
-                      <% if rating == review.overall_rating %>
-                        <div class="mask mask-star-2 bg-orange-400" aria-label="<%= rating %> star" aria-current="true"></div>
-                      <% else %>
-                        <div class="mask mask-star-2 bg-orange-400" aria-label="<%= rating %> star"></div>
-                      <% end %>
-                    <% end %>
-                  </div>
-                </div>
+                <%= star_rating_display(review.overall_rating, size: "xs") %>
               </div>
 
               <div class="mt-1">
@@ -69,32 +54,13 @@
                         <%= inline_svg_tag("pencil.svg") %>
                       <% end %>
                     </div>
-                    <div data-controller="auto-modal">
+                    <%= render "delete_modal", review: review do %>
                       <div class="tooltip" data-tip="削除">
                         <button data-action="auto-modal#show" class="btn btn-sm btn-error text-base-100 w-10 h-10 min-h-0 p-0 flex items-center justify-center" aria-label="レビューを削除">
                           <%= inline_svg_tag("trash.svg") %>
                         </button>
                       </div>
-                      <dialog class="modal" data-auto-modal-target="dialog">
-                        <div class="modal-box">
-                          <h3 class="font-bold text-lg mb-4">レビューの削除</h3>
-                          <p class="py-4">レビューを削除すると元に戻せません。削除してもよろしいですか？</p>
-                          <div class="modal-action">
-                            <form method="dialog">
-                              <button class="btn">キャンセル</button>
-                            </form>
-                            <%= button_to "削除する",
-                              review_path(review),
-                              method: :delete,
-                              class: "btn btn-error text-base-100",
-                              form: { data: { action: "submit->auto-modal#hide" } } %>
-                          </div>
-                        </div>
-                        <form method="dialog" class="modal-backdrop">
-                          <button>close</button>
-                        </form>
-                      </dialog>
-                    </div>
+                    <% end %>
                   <% end %>
                 </div>
               </div>
