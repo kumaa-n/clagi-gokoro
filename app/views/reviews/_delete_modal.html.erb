@@ -1,0 +1,22 @@
+<div data-controller="auto-modal">
+  <%= yield %>
+  <dialog class="modal" data-auto-modal-target="dialog">
+    <div class="modal-box">
+      <h3 class="font-bold text-lg mb-4">レビューの削除</h3>
+      <p class="py-4">レビューを削除すると元に戻せません。削除してもよろしいですか？</p>
+      <div class="modal-action">
+        <form method="dialog">
+          <button class="btn">キャンセル</button>
+        </form>
+        <%= button_to "削除する",
+          review_path(review),
+          method: :delete,
+          class: "btn btn-error text-base-100",
+          form: { data: { action: "submit->auto-modal#hide" } } %>
+      </div>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+      <button>close</button>
+    </form>
+  </dialog>
+</div>
