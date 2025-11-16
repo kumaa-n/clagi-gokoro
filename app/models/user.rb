@@ -6,6 +6,5 @@ class User < ApplicationRecord
 
   has_many :reviews, dependent: :destroy
 
-  validates :name, presence: true
-  validates :name, uniqueness: true, length: { in: 2..15 }, allow_blank: true
+  validates :name, uniqueness: true, length: { in: 2..15 }
 end
