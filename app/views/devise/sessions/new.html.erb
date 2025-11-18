@@ -12,7 +12,7 @@
 
       <div class="mb-4 md:mb-6">
         <%= f.label :password, class: "label" %>
-        <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワードを入力", class: "w-full input" %>
+        <%= f.password_field :password, autocomplete: "current-password", placeholder: "パスワードを入力", class: "w-full input" %>
       </div>
 
       <% if devise_mapping.rememberable? %>
