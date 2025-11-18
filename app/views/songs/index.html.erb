@@ -10,7 +10,7 @@
 
         <% if user_signed_in? %>
           <%= link_to new_song_path, class: "btn btn-primary text-base-100" do %>
-            <%= inline_svg_tag("plus.svg") %>新しい曲を追加
+            <%= inline_svg_tag("add.svg", class: "fill-current") %>新しい曲を追加
           <% end %>
         <% end %>
       </div>

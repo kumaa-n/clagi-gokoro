@@ -7,12 +7,12 @@
       <div class="flex-shrink-0">
         <% if user_signed_in? %>
           <% if @user_review.present? %>
-            <%= link_to edit_review_path(@user_review), class: "btn btn-primary text-base-100 px-6" do %>
-              <%= inline_svg_tag("pencil.svg") %>レビューを編集
+            <%= link_to edit_review_path(@user_review), class: "btn btn-primary text-base-100" do %>
+              <%= inline_svg_tag("edit.svg", class: "fill-current") %>レビューを編集
             <% end %>
           <% else %>
-            <%= link_to new_song_review_path(@song), class: "btn btn-primary text-base-100 px-6" do %>
-              <%= inline_svg_tag("plus.svg") %>レビューを投稿
+            <%= link_to new_song_review_path(@song), class: "btn btn-primary text-base-100" do %>
+              <%= inline_svg_tag("add.svg", class: "fill-current") %>レビューを投稿
             <% end %>
           <% end %>
         <% end %>
@@ -51,13 +51,13 @@
                   <% if user_signed_in? && current_user == review.user %>
                     <div class="tooltip" data-tip="編集">
                       <%= link_to edit_review_path(review), class: "btn btn-sm btn-primary text-base-100 w-10 h-10 min-h-0 p-0 flex items-center justify-center", aria: { label: "レビューを編集" } do %>
-                        <%= inline_svg_tag("pencil.svg") %>
+                        <%= inline_svg_tag("edit.svg", class: "fill-current") %>
                       <% end %>
                     </div>
                     <%= render "delete_modal", review: review do %>
                       <div class="tooltip" data-tip="削除">
                         <button data-action="auto-modal#show" class="btn btn-sm btn-error text-base-100 w-10 h-10 min-h-0 p-0 flex items-center justify-center" aria-label="レビューを削除">
-                          <%= inline_svg_tag("trash.svg") %>
+                          <%= inline_svg_tag("delete.svg", class: "fill-current") %>
                         </button>
                       </div>
                     <% end %>
