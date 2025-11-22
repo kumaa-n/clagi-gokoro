@@ -1,6 +1,6 @@
 class Review < ApplicationRecord
   belongs_to :user
-  belongs_to :song
+  belongs_to :song, primary_key: :uuid, foreign_key: :song_uuid
 
   RATING_ATTRIBUTES = %i[
     tempo_rating
@@ -11,7 +11,7 @@ class Review < ApplicationRecord
   ].freeze
 
   validates *RATING_ATTRIBUTES, inclusion: { in: 1..5, message: "は1から5の間で評価してください" }
-  validates :song_id, uniqueness: { scope: :user_id, message: "に対してレビュー済みです。" }
+  validates :song_uuid, uniqueness: { scope: :user_id, message: "に対してレビュー済みです。" }
 
   before_save :calc_overall_rating
 
