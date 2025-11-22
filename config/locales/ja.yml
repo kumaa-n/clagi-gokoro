@@ -9,7 +9,7 @@ ja:
         composer: 作曲者
         arranger: 編曲者
       review:
-        song_id: 曲
+        song_uuid: 曲
         tempo_rating: テンポ
         fingering_technique_rating: 運指技巧
         plucking_technique_rating: 弾弦技巧
