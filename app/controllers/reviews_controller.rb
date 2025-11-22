@@ -44,7 +44,7 @@ class ReviewsController < ApplicationController
   private
 
   def set_song
-    @song = Song.find(params[:song_id]).decorate
+    @song = Song.find_by_short_uuid(params[:song_short_uuid]).decorate
   end
 
   def set_review
