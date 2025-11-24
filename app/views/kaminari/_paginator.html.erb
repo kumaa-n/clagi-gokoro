@@ -1,13 +1,22 @@
 <%= paginator.render do -%>
-  <div class="join mt-8 md:mt-10 lg:mt-12 flex justify-center" role="navigation" aria-label="pager">
-    <%= prev_page_tag unless current_page.first? %>
-    <% each_page do |page| -%>
-      <% if page.display_tag? -%>
-        <%= page_tag page %>
-      <% end -%>
-    <% end -%>
-    <% unless current_page.out_of_range? %>
-      <%= next_page_tag unless current_page.last? %>
-    <% end %>
-  </div>
+  <nav class="mt-8 md:mt-10 lg:mt-12 flex justify-center" role="navigation" aria-label="ページネーション">
+    <%# モバイル %>
+    <div class="join">
+      <%= prev_page_tag unless current_page.first? %>
+
+      <div class="md:hidden">
+        <button class="join-item btn btn-primary text-base-100 pointer-events-none" aria-current="page">
+          <%= current_page.number %> / <%= total_pages %>
+        </button>
+      </div>
+
+      <div class="hidden md:flex">
+        <% each_page do |page| -%>
+          <%= page_tag page if page.display_tag? -%>
+        <% end -%>
+      </div>
+
+      <%= next_page_tag if !current_page.out_of_range? && !current_page.last? %>
+    </div>
+  </nav>
 <% end -%>
