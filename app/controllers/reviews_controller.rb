@@ -5,7 +5,7 @@ class ReviewsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
 
   def index
-    @reviews = @song.reviews.includes(:user).order(created_at: :desc)
+    @reviews = @song.reviews.includes(:user).order(created_at: :desc).page(params[:page])
     @user_review = current_user&.reviews&.find_by(song: @song)
   end
 
