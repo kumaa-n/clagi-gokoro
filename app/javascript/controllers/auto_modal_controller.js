@@ -9,10 +9,20 @@ export default class extends Controller {
 
   connect() {
     if (!this.openValue) return
+    document.addEventListener('turbo:before-cache', this.beforeCache.bind(this))
+
     requestAnimationFrame(() => {
       this.show()
       this.removePromptParam()
     })
+  }
+
+  disconnect() {
+    document.removeEventListener('turbo:before-cache', this.beforeCache.bind(this))
+  }
+
+  beforeCache() {
+    this.element.remove()
   }
 
   show() {
