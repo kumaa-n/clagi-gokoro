@@ -1,8 +1,8 @@
 class SongsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index]
+  skip_before_action :authenticate_user!, only: %i[index]
 
   def index
-    @songs = Song.with_review_stats.order(created_at: :desc).decorate
+    @songs = Song.with_review_stats.order(created_at: :desc).page(params[:page])
     @prompt_song = Song.find(params[:review_prompt_song_id]) if params[:review_prompt_song_id].present?
   end
 
