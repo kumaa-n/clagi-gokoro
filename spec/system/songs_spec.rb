@@ -91,6 +91,30 @@ RSpec.describe "曲投稿", type: :system do
 
         expect(page).to have_content("#{title_label}は100文字以内で入力してください")
       end
+
+      it "作曲者が長すぎると曲が登録できない" do
+        fill_in "song_title", with: "テスト曲"
+        fill_in "song_composer", with: "a" * 51
+        find('input[type="checkbox"][required]').check
+
+        expect {
+          click_button "曲追加"
+        }.not_to change(Song, :count)
+
+        expect(page).to have_content("作曲者は50文字以内で入力してください")
+      end
+
+      it "編曲者が長すぎると曲が登録できない" do
+        fill_in "song_title", with: "テスト曲"
+        fill_in "song_arranger", with: "a" * 51
+        find('input[type="checkbox"][required]').check
+
+        expect {
+          click_button "曲追加"
+        }.not_to change(Song, :count)
+
+        expect(page).to have_content("編曲者は50文字以内で入力してください")
+      end
     end
 
     context "ログインしていない場合" do
@@ -98,6 +122,26 @@ RSpec.describe "曲投稿", type: :system do
         visit new_song_path
         expect(page).to have_current_path(new_user_session_path)
       end
+    end
+  end
+
+  describe "一覧" do
+    it "曲がない場合にメッセージが表示される" do
+      visit songs_path
+
+      expect(page).to have_content("まだ曲が登録されていません")
+      expect(page).to have_link("ログイン / 新規登録", href: new_user_session_path)
+    end
+
+    it "曲がある場合にカードが表示される" do
+      Song.create!(title: "曲A", composer: "作曲者A", arranger: "編曲者A")
+      Song.create!(title: "曲B", composer: "作曲者B", arranger: "編曲者B")
+
+      visit songs_path
+
+      expect(page).to have_content("曲A")
+      expect(page).to have_content("曲B")
+      expect(page).to have_link("レビューを見る", href: song_reviews_path(Song.find_by(title: "曲A")))
     end
   end
 end
