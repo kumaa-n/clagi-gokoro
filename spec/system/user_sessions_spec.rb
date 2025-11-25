@@ -10,7 +10,7 @@ RSpec.describe "ユーザーログイン", type: :system do
     let(:sign_in_title) { I18n.t("devise.sessions.new.sign_in") }
     let(:success_message) { I18n.t("devise.sessions.signed_in") }
     let(:invalid_message) do
-      I18n.t("devise.failure.invalid", authentication_keys: User.human_attribute_name(:email))
+      I18n.t("devise.failure.invalid", authentication_keys: User.human_attribute_name(:name))
     end
 
     # ログイン成功の共通期待値
@@ -32,7 +32,7 @@ RSpec.describe "ユーザーログイン", type: :system do
 
         expect(page).to have_content(sign_in_title)
 
-        fill_in "user_email", with: user.email
+        fill_in "user_name", with: user.name
         fill_in "user_password", with: user.password
 
         click_button sign_in_title
@@ -41,11 +41,11 @@ RSpec.describe "ユーザーログイン", type: :system do
       end
     end
 
-    context "メールアドレスが空の場合" do
+    context "ニックネームが空の場合" do
       it "ログインが失敗する" do
         visit new_user_session_path
 
-        fill_in "user_email", with: ""
+        fill_in "user_name", with: ""
         fill_in "user_password", with: user.password
 
         click_button sign_in_title
@@ -58,7 +58,7 @@ RSpec.describe "ユーザーログイン", type: :system do
       it "ログインが失敗する" do
         visit new_user_session_path
 
-        fill_in "user_email", with: user.email
+        fill_in "user_name", with: user.name
         fill_in "user_password", with: ""
 
         click_button sign_in_title
@@ -71,7 +71,7 @@ RSpec.describe "ユーザーログイン", type: :system do
       it "ログインが失敗する" do
         visit new_user_session_path
 
-        fill_in "user_email", with: user.email
+        fill_in "user_name", with: user.name
         fill_in "user_password", with: "wrongpassword"
 
         click_button sign_in_title
