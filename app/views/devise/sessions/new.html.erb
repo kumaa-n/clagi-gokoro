@@ -6,8 +6,8 @@
       <%= render "shared/error_message", object: resource %>
 
       <div class="mb-4 md:mb-6">
-        <%= f.label :email, class: "label" %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "メールアドレスを入力", class: "w-full input" %>
+        <%= f.label :name, class: "label" %>
+        <%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder: "ニックネームを入力", class: "w-full input" %>
       </div>
 
       <div class="mb-4 md:mb-6">
