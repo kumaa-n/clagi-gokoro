@@ -29,7 +29,6 @@ RSpec.describe "ユーザー登録", type: :system do
         expect(page).to have_content(registration_title)
 
         fill_in "user_name", with: "testuser"
-        fill_in "user_email", with: "test@example.com"
         fill_in "user_password", with: "password123"
         fill_in "user_password_confirmation", with: "password123"
 
@@ -46,7 +45,6 @@ RSpec.describe "ユーザー登録", type: :system do
         visit new_user_registration_path
 
         fill_in "user_name", with: ""
-        fill_in "user_email", with: "test@example.com"
         fill_in "user_password", with: "password123"
         fill_in "user_password_confirmation", with: "password123"
 
@@ -64,7 +62,6 @@ RSpec.describe "ユーザー登録", type: :system do
         visit new_user_registration_path
 
         fill_in "user_name", with: "a"
-        fill_in "user_email", with: "test@example.com"
         fill_in "user_password", with: "password123"
         fill_in "user_password_confirmation", with: "password123"
 
@@ -84,7 +81,6 @@ RSpec.describe "ユーザー登録", type: :system do
         expect(page).to have_content(registration_title)
 
         fill_in "user_name", with: "a" * 2
-        fill_in "user_email", with: "test@example.com"
         fill_in "user_password", with: "password123"
         fill_in "user_password_confirmation", with: "password123"
 
@@ -103,7 +99,6 @@ RSpec.describe "ユーザー登録", type: :system do
         expect(page).to have_content(registration_title)
 
         fill_in "user_name", with: "a" * 15
-        fill_in "user_email", with: "test@example.com"
         fill_in "user_password", with: "password123"
         fill_in "user_password_confirmation", with: "password123"
 
@@ -120,7 +115,6 @@ RSpec.describe "ユーザー登録", type: :system do
         visit new_user_registration_path
 
         fill_in "user_name", with: "a" * 16
-        fill_in "user_email", with: "test@example.com"
         fill_in "user_password", with: "password123"
         fill_in "user_password_confirmation", with: "password123"
 
@@ -133,48 +127,11 @@ RSpec.describe "ユーザー登録", type: :system do
       end
     end
 
-    context "メールアドレスが空の場合" do
-      it "ユーザー登録が失敗する" do
-        visit new_user_registration_path
-
-        fill_in "user_name", with: "testuser"
-        fill_in "user_email", with: ""
-        fill_in "user_password", with: "password123"
-        fill_in "user_password_confirmation", with: "password123"
-
-        expect {
-          click_button registration_title
-        }.not_to change(User, :count)
-
-        expect_registration_failure
-        expect(page).to have_content("メールアドレスを入力してください")
-      end
-    end
-
-    context "メールアドレスが無効な形式の場合" do
-      it "ユーザー登録が失敗する" do
-        visit new_user_registration_path
-
-        fill_in "user_name", with: "testuser"
-        fill_in "user_email", with: "invalid_email"
-        fill_in "user_password", with: "password123"
-        fill_in "user_password_confirmation", with: "password123"
-
-        expect {
-          click_button registration_title
-        }.not_to change(User, :count)
-
-        expect_registration_failure
-        expect(page).to have_content("メールアドレスは不正な値です")
-      end
-    end
-
     context "パスワードが空の場合" do
       it "ユーザー登録が失敗する" do
         visit new_user_registration_path
 
         fill_in "user_name", with: "testuser"
-        fill_in "user_email", with: "test@example.com"
         fill_in "user_password", with: ""
         fill_in "user_password_confirmation", with: ""
 
@@ -192,7 +149,6 @@ RSpec.describe "ユーザー登録", type: :system do
         visit new_user_registration_path
 
         fill_in "user_name", with: "testuser"
-        fill_in "user_email", with: "test@example.com"
         fill_in "user_password", with: "pass1"
         fill_in "user_password_confirmation", with: "pass1"
 
@@ -210,7 +166,6 @@ RSpec.describe "ユーザー登録", type: :system do
         visit new_user_registration_path
 
         fill_in "user_name", with: "testuser"
-        fill_in "user_email", with: "test@example.com"
         fill_in "user_password", with: "pass12"
         fill_in "user_password_confirmation", with: "pass12"
 
@@ -227,7 +182,6 @@ RSpec.describe "ユーザー登録", type: :system do
         visit new_user_registration_path
 
         fill_in "user_name", with: "testuser"
-        fill_in "user_email", with: "test@example.com"
         fill_in "user_password", with: "password123"
         fill_in "user_password_confirmation", with: "different_password"
 
@@ -240,26 +194,6 @@ RSpec.describe "ユーザー登録", type: :system do
       end
     end
 
-    context "既に登録されているメールアドレスの場合" do
-      it "ユーザー登録が失敗する" do
-        create(:user, email: "existing@example.com")
-
-        visit new_user_registration_path
-
-        fill_in "user_name", with: "newuser"
-        fill_in "user_email", with: "existing@example.com"
-        fill_in "user_password", with: "password123"
-        fill_in "user_password_confirmation", with: "password123"
-
-        expect {
-          click_button registration_title
-        }.not_to change(User, :count)
-
-        expect_registration_failure
-        expect(page).to have_content("メールアドレスの登録に失敗しました")
-      end
-    end
-
     context "既に登録されているニックネームの場合" do
       it "ユーザー登録が失敗する" do
         create(:user, name: "existingname")
@@ -267,7 +201,6 @@ RSpec.describe "ユーザー登録", type: :system do
         visit new_user_registration_path
 
         fill_in "user_name", with: "existingname"
-        fill_in "user_email", with: "new@example.com"
         fill_in "user_password", with: "password123"
         fill_in "user_password_confirmation", with: "password123"
 
