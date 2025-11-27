@@ -1,17 +1,11 @@
 <%- if controller_name != 'sessions' %>
-  <%= link_to t("devise.shared.links.sign_in"), new_session_path(resource_name) %><br />
+  <%= link_to t("devise.shared.links.sign_in"), new_session_path(resource_name), class: "link link-primary hover:link-hover text-sm md:text-base" %><br />
 <% end %>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to t("devise.shared.links.sign_up"), new_registration_path(resource_name) %><br />
+  <%= link_to t("devise.shared.links.sign_up"), new_registration_path(resource_name), class: "link link-primary hover:link-hover text-sm md:text-base" %><br />
 <% end %>
 
 <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
-  <%= link_to t("devise.shared.links.didn_t_receive_unlock_instructions"), new_unlock_path(resource_name) %><br />
-<% end %>
-
-<%- if devise_mapping.omniauthable? %>
-  <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false } %><br />
-  <% end %>
+  <%= link_to t("devise.shared.links.didn_t_receive_unlock_instructions"), new_unlock_path(resource_name), class: "link link-primary hover:link-hover text-sm md:text-base" %><br />
 <% end %>
