@@ -57,12 +57,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_173433) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.string "provider"
-    t.string "uid"
+    t.string "provider_uid"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true, where: "((email IS NOT NULL) AND ((email)::text <> ''::text))"
     t.index ["name"], name: "index_users_on_name", unique: true
+    t.index ["provider", "provider_uid"], name: "index_users_on_provider_and_provider_uid", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
   add_foreign_key "reviews", "songs", column: "song_uuid", primary_key: "uuid"
