@@ -51,9 +51,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # 新規作成時に確認メールを送らず即時確認済みにする
-  def build_resource(hash = nil)
+  def build_resource(hash = {})
     super
     resource.skip_confirmation!
+  end
+
+  def update_resource(resource, params)
+    return super if params["password"].present?
+
+    resource.update_without_password(params.except("current_password"))
   end
 
   # The path used after sign up.
