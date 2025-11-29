@@ -75,7 +75,7 @@ ja:
         message: ログイン失敗が繰り返されたため、アカウントはロックされています。
         subject: アカウントのロック解除について
     omniauth_callbacks:
-      failure: "%{kind} アカウントによる認証に失敗しました。理由：（%{reason}）"
+      failure: "%{kind} アカウントによる認証に失敗しました。"
       success: "%{kind} アカウントによる認証に成功しました。"
     passwords:
       edit:
@@ -123,9 +123,9 @@ ja:
         didn_t_receive_confirmation_instructions: アカウント確認のメールを受け取っていませんか？
         didn_t_receive_unlock_instructions: アカウントのロック解除方法のメールを受け取っていませんか？
         forgot_your_password: パスワードを忘れましたか？
-        sign_in: ログイン
+        sign_in: アカウントをお持ちの方はこちら
         sign_in_with_provider: "%{provider}でログイン"
-        sign_up: アカウント登録
+        sign_up: アカウントをお持ちでない方はこちら
       minimum_password_length:
         other: "（%{count}字以上）"
     unlocks:
