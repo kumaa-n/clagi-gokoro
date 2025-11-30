@@ -2,7 +2,12 @@ class SongsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index]
 
   def index
-    @songs = Song.with_review_stats.order(created_at: :desc).page(params[:page])
+    @songs = Song.search_by_keywords(params[:query])
+                 .with_review_stats
+                 .order(created_at: :desc)
+                 .page(params[:page])
+
+    # 楽曲投稿直後のレビュー促進モーダル用
     if (uuid = flash[:review_prompt_song_id]).present?
       @prompt_song = Song.find_by(uuid: uuid)
       flash.delete(:review_prompt_song_id)
@@ -15,7 +20,9 @@ class SongsController < ApplicationController
 
   def create
     @song = Song.new(song_params)
+
     if @song.save
+      # モーダル表示用にflashに保存
       flash[:review_prompt_song_id] = @song.uuid
       redirect_to songs_path
     else
