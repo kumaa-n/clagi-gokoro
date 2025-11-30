@@ -1,10 +1,28 @@
-<div class="relative h-64 md:h-80 lg:h-96">
+<div class="relative h-80 md:h-96 lg:h-[32rem]">
   <%= image_tag "hero-guitar.png", class: "absolute inset-0 w-full h-full" %>
   <div class="absolute inset-0 bg-black/20"></div>
-  <div class="relative flex items-center justify-center h-full text-base-100 px-4">
-    <h2 class="text-3xl md:text-4xl lg:text-5xl font-light text-center">
-      クラシックギターの難易度をシェアしてみよう
-    </h2>
+  <div class="relative flex flex-col items-center justify-center h-full text-base-100 px-4 gap-6 md:gap-8">
+    <div class="text-center">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-light mb-3 md:mb-4">
+        クラシックギターの難易度をシェアしてみよう
+      </h2>
+      <p class="text-base md:text-lg lg:text-xl font-light">
+        曲名や作曲家であなたのお気に入りの曲を見つけよう
+      </p>
+    </div>
+    <%= form_with url: songs_path, method: :get, class: "w-full max-w-2xl" do |f| %>
+      <div class="flex">
+        <%= f.search_field :query,
+            value: params[:query],
+            placeholder: "曲名・作曲家・編曲家で検索",
+            class: "input input-bordered flex-1 bg-base-100 placeholder:text-neutral/50 text-neutral rounded-r-none border-r-0" %>
+        <div class="tooltip tooltip-left" data-tip="検索">
+          <%= f.button type: "submit", class: "btn btn-primary btn-square text-base-100 rounded-l-none" do %>
+            <%= inline_svg_tag("search.svg", class: "fill-current") %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
 
