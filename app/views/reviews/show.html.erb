@@ -57,11 +57,15 @@
       </div>
     </div>
 
-    <div class="card bg-base-100 border border-base-300">
+    <div class="card bg-base-100 border border-base-300 mb-6">
       <div class="card-body">
         <h3 class="text-lg md:text-xl text-primary font-semibold mb-4">投稿者コメント</h3>
         <p class="text-sm md:text-base text-primary whitespace-pre-wrap break-words"><%= @review.summary %></p>
       </div>
+    </div>
+
+    <div class="flex gap-3">
+      <%= render "review_favorites/button", review: @review %>
     </div>
   </div>
 </div>
