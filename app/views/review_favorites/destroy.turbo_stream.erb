@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "review_favorite_#{@review.id}" do %>
+  <%= render "review_favorites/button", review: @review %>
+<% end %>

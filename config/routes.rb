@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   root "static_pages#top"
 
   resources :songs, only: %i[index new create], param: :short_uuid do
-    resources :reviews, shallow: true
+    resources :reviews, shallow: true do
+      resource :review_favorite, only: %i[create destroy]
+    end
   end
 end

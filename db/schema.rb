@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_11_25_173433) do
+ActiveRecord::Schema[7.2].define(version: 2025_12_02_134256) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "review_favorites", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "review_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["review_id"], name: "index_review_favorites_on_review_id"
+    t.index ["user_id", "review_id"], name: "index_review_favorites_on_user_id_and_review_id", unique: true
+    t.index ["user_id"], name: "index_review_favorites_on_user_id"
+  end
 
   create_table "reviews", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -65,6 +75,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_25_173433) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "review_favorites", "reviews"
+  add_foreign_key "review_favorites", "users"
   add_foreign_key "reviews", "songs", column: "song_uuid", primary_key: "uuid"
   add_foreign_key "reviews", "users"
 end

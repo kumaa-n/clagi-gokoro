@@ -1,6 +1,7 @@
 class Review < ApplicationRecord
   belongs_to :user
   belongs_to :song, primary_key: :uuid, foreign_key: :song_uuid
+  has_many :review_favorites, dependent: :destroy
 
   RATING_ATTRIBUTES = %i[
     tempo_rating
@@ -14,6 +15,17 @@ class Review < ApplicationRecord
   validates :song_uuid, uniqueness: { scope: :user_id, message: "に対してレビュー済みです。" }
 
   before_save :calc_overall_rating
+
+  # ユーザーがレビューをお気に入りに追加しているかどうかを確認
+  def favorited_by?(user)
+    return false unless user
+
+    if review_favorites.loaded?
+      review_favorites.any? { |fav| fav.user_id == user.id }
+    else
+      review_favorites.exists?(user_id: user.id)
+    end
+  end
 
   private
 
