@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [:google_oauth2]
 
   has_many :reviews, dependent: :destroy
+  has_many :review_favorites, dependent: :destroy
 
   validates :email, uniqueness: true, allow_blank: true
   validates :name, uniqueness: true, length: { in: 2..15 }
