@@ -1,37 +1,38 @@
-<div class="flex-1 flex justify-center items-center min-h-full px-4 py-6 sm:py-8">
-  <div class="p-6 sm:p-8 md:p-10 rounded-lg w-full max-w-lg bg-base-100 border border-base-300">
-    <h2 class="text-2xl md:text-3xl font-semibold text-center mb-6 md:mb-8 text-primary"><%= t("devise.registrations.new.sign_up") %></h2>
+<div class="flex-1 flex justify-center items-center px-4 py-8 md:py-12 lg:py-16 bg-base-200/50 xl:min-h-[calc(100vh-4rem)]">
+  <div class="p-8 md:p-12 rounded-2xl w-full max-w-lg bg-white">
+    <h2 class="text-3xl md:text-4xl font-serif font-medium text-center mb-8 md:mb-10 text-primary tracking-wide">
+      <%= t("devise.registrations.new.sign_up") %>
+    </h2>
 
-    <%= form_with model: resource, as: resource_name, url: registration_path(resource_name) do |f| %>
+    <%= form_with model: resource, as: resource_name, url: registration_path(resource_name), class: "space-y-6" do |f| %>
       <%= render "shared/error_message", object: resource %>
 
-      <div class="mb-4 md:mb-6">
-        <%= f.label :name, class: "label text-sm md:text-base" %>
-        <span class="text-error text-sm">*</span>
-        <%= f.text_field :name, autofocus: true, placeholder: "ニックネームを入力（15文字以内）", class: "w-full input text-base" %>
+      <div>
+        <%= f.label :name, class: "text-sm font-medium text-neutral/80 ml-1" %>
+        <span class="text-xs text-error font-medium">*</span>
+        <%= f.text_field :name, autofocus: true, placeholder: "ニックネームを入力（15文字以内）", class: "input input-bordered w-full bg-base-100/50 focus:bg-white" %>
       </div>
 
-      <div class="mb-4 md:mb-6">
-        <%= f.label :password, class: "label text-sm md:text-base" %>
-        <span class="text-error text-sm">*</span>
-        <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワードを入力（6文字以上）", class: "w-full input text-base" %>
+      <div>
+        <%= f.label :password, class: "text-sm font-medium text-neutral/80 ml-1" %>
+        <span class="text-xs text-error font-medium">*</span>
+        <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワードを入力（6文字以上）", class: "input input-bordered w-full bg-base-100/50 focus:bg-white" %>
       </div>
 
-      <div class="mb-4 md:mb-6">
-        <%= f.label :password_confirmation, class: "label text-sm md:text-base" %>
-        <span class="text-error text-sm">*</span>
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "もう一度パスワードを入力", class: "w-full input text-base" %>
+      <div>
+        <%= f.label :password_confirmation, class: "text-sm font-medium text-neutral/80 ml-1" %>
+        <span class="text-xs text-error font-medium">*</span>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "もう一度パスワードを入力", class: "input input-bordered w-full bg-base-100/50 focus:bg-white" %>
       </div>
 
-      <div class="mt-6 md:mt-8">
-        <%= f.submit t("devise.registrations.new.sign_up"), class: "w-full btn btn-primary h-10 text-base" %>
+      <div class="pt-2">
+        <%= f.submit t("devise.registrations.new.sign_up"), class: "btn btn-primary w-full shadow-md hover:shadow-lg" %>
       </div>
     <% end %>
 
-    <%= render "devise/shared/oauth_buttons" %>
+    <div class="divider text-xs sm:text-sm text-base-content/60 my-4 md:my-6">または</div>
 
-    <div class="text-center mt-6 md:mt-8 text-sm md:text-base">
-      <%= render "devise/shared/links" %>
-    </div>
+    <%= render "devise/shared/oauth_buttons" %>
+    <%= render "devise/shared/links" %>
   </div>
 </div>
