@@ -1,20 +1,44 @@
-<div class="card bg-base-100 border border-base-300">
-  <div class="card-body flex flex-col p-4 md:p-6">
-    <h3 class="card-title text-neutral line-clamp-2 break-all min-h-12 md:min-h-14 mb-1"><%= song.decorate.title %></h3>
-    <p class="text-sm text-neutral line-clamp-1 break-all mb-1">作曲：<%= song.decorate.composer_or_dash %></p>
-    <p class="text-sm text-neutral line-clamp-1 break-all">編曲：<%= song.decorate.arranger_or_dash %></p>
-    <div class="border-t border-base-300 my-2 md:my-3"></div>
-    <div class="flex items-center gap-1 mb-1">
-      <span class="text-sm text-neutral">平均総合難易度：</span>
-      <% if song.decorate.has_average? %>
-        <%= star_rating_display(song.decorate.rounded_average, size: "sm") %>
-      <% else %>
-        <span class="text-sm text-neutral">ー</span>
-      <% end %>
+<%= link_to song_reviews_path(song), class: "card bg-white border border-base-200/60 shadow-sm h-full hover:shadow-md transition-all duration-300 hover:-translate-y-1 group" do %>
+  <div class="card-body p-5 md:p-6">
+    <h3 class="card-title text-primary font-serif text-lg md:text-xl line-clamp-2 break-all min-h-[3.5rem] mb-2 transition-colors group-hover:text-primary/80">
+      <%= song.decorate.title %>
+    </h3>
+
+    <div class="space-y-1 mb-4">
+      <div class="flex items-center gap-2 text-sm text-neutral/80">
+        <span class="text-xs px-2 py-0.5 bg-base-200 rounded-full text-neutral/60 shrink-0">作曲</span>
+        <span class="truncate min-w-0 flex-1"><%= song.decorate.composer_or_dash %></span>
+      </div>
+      <div class="flex items-center gap-2 text-sm text-neutral/80">
+        <span class="text-xs px-2 py-0.5 bg-base-200 rounded-full text-neutral/60 shrink-0">編曲</span>
+        <span class="truncate min-w-0 flex-1"><%= song.decorate.arranger_or_dash %></span>
+      </div>
     </div>
-    <p class="text-sm text-red-600">レビュー数：<%= song.decorate.reviews_count %></p>
-    <div class="card-actions justify-end mt-auto">
-      <%= link_to "レビューを見る", song_reviews_path(song), class: "btn btn-md btn-primary text-base-100 w-full md:w-auto mt-1" %>
+
+    <div class="border-t border-base-200 my-2"></div>
+
+    <div class="flex items-center mb-2">
+      <div class="flex items-center gap-2">
+        <span class="text-xs text-neutral/60">総合難易度</span>
+        <% if song.decorate.has_average? %>
+          <%= star_rating_display(song.decorate.rounded_average, size: "sm") %>
+          <span class="text-sm font-medium text-neutral"><%= song.decorate.rounded_average %></span>
+        <% else %>
+          <span class="text-sm text-neutral/40">ー</span>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between mt-auto pt-2">
+      <div class="flex items-center gap-1 text-neutral/60 text-xs">
+        <%= inline_svg_tag "review.svg" %>
+        <span>レビュー <%= song.decorate.reviews_count %>件</span>
+      </div>
+
+      <div class="flex items-center gap-1 text-primary text-xs font-medium group-hover:text-primary/80 transition-colors">
+        <span>詳細</span>
+        <%= inline_svg_tag "chevron-right.svg" %>
+      </div>
     </div>
   </div>
-</div>
+<% end %>
