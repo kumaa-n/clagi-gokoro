@@ -1,37 +1,37 @@
 <%= content_for(:title, t(".title")) %>
 
-<div class="flex-1 flex justify-center items-center min-h-full px-4 py-8">
-  <div class="p-6 md:p-10 rounded-lg w-full max-w-lg bg-base-100 border border-base-300">
-    <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8 text-primary">新しい曲を追加</h2>
+<div class="flex-1 flex justify-center items-center px-4 py-8 md:py-12 lg:py-16 bg-base-200/50">
+  <div class="p-8 md:p-12 rounded-2xl w-full max-w-lg bg-white shadow-xl border border-white/50">
+    <h2 class="text-3xl md:text-4xl font-serif font-medium text-center mb-8 md:mb-10 text-primary tracking-wide">
+      新しい曲を追加
+    </h2>
 
-    <%= form_with model: @song do |f| %>
+    <%= form_with model: @song, class: "space-y-6" do |f| %>
       <%= render "shared/error_message", object: f.object %>
 
-      <div class="mb-4 md:mb-6">
-        <%= f.label :title, class: "label" %>
-        <span class="text-error">*</span>
-        <%= f.text_field :title, placeholder: "曲名を入力（100文字以内）", class: "w-full input" %>
+      <div>
+        <%= f.label :title, class: "text-sm font-medium text-neutral/80 ml-1" %>
+        <span class="text-xs text-error font-medium">*</span>
+        <%= f.text_field :title, placeholder: "曲名を入力（100文字以内）", class: "input input-bordered w-full bg-base-100/50 focus:bg-white" %>
       </div>
 
-      <div class="mb-4 md:mb-6">
-        <%= f.label :composer, class: "label" %>
-        <%= f.text_field :composer, placeholder: "作曲者を入力（50文字以内）", class: "w-full input" %>
+      <div>
+        <%= f.label :composer, class: "text-sm font-medium text-neutral/80 ml-1" %>
+        <%= f.text_field :composer, placeholder: "作曲者を入力（50文字以内）", class: "input input-bordered w-full bg-base-100/50 focus:bg-white" %>
       </div>
 
-      <div class="mb-4 md:mb-6">
-        <%= f.label :arranger, class: "label" %>
-        <%= f.text_field :arranger, placeholder: "編曲者を入力（50文字以内）", class: "w-full input" %>
+      <div>
+        <%= f.label :arranger, class: "text-sm font-medium text-neutral/80 ml-1" %>
+        <%= f.text_field :arranger, placeholder: "編曲者を入力（50文字以内）", class: "input input-bordered w-full bg-base-100/50 focus:bg-white" %>
       </div>
 
-      <div class="mb-4 md:mb-6">
-        <label class="label cursor-pointer flex gap-3">
-          <input type="checkbox" class="checkbox checkbox-primary" required />
-          <span class="label-text text-sm md:text-base">曲が登録されていないことを確認しました</span>
-        </label>
+      <div class="flex items-center gap-2 ml-1">
+        <%= f.check_box :confirmation, class: "checkbox checkbox-sm checkbox-primary mt-0.5 rounded-md", required: true %>
+        <%= f.label :confirmation, "曲が登録されていないことを確認しました", class: "text-neutral/80 text-sm cursor-pointer select-none" %>
       </div>
 
-      <div class="mt-8">
-        <%= f.submit "曲追加", class: "w-full btn btn-primary" %>
+      <div class="pt-2">
+        <%= f.submit "曲追加", class: "btn btn-primary w-full shadow-md hover:shadow-lg transition-all duration-300" %>
       </div>
     <% end %>
   </div>
