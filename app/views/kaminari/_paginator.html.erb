@@ -1,11 +1,10 @@
 <%= paginator.render do -%>
   <nav class="mt-8 md:mt-10 lg:mt-12 flex justify-center" role="navigation" aria-label="ページネーション">
-    <%# モバイル %>
-    <div class="join">
+    <div class="flex gap-2">
       <%= prev_page_tag unless current_page.first? %>
 
       <div class="md:hidden">
-        <button class="join-item btn btn-primary text-base-100 pointer-events-none" aria-current="page">
+        <button class="btn bg-white text-primary font-medium pointer-events-none" aria-current="page">
           <%= current_page.number %> / <%= total_pages %>
         </button>
       </div>
