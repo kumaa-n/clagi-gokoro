@@ -1,6 +1,19 @@
 <div class="min-w-0">
-  <h2 class="text-2xl md:text-3xl text-primary font-semibold mb-4 break-words"><%= title %></h2>
-  <p class="text-xl md:text-2xl text-primary font-semibold mb-2 break-words"><%= song.title %></p>
-  <p class="text-base md:text-xl text-primary break-words">作曲：<%= song.decorate.composer_or_dash %></p>
-  <p class="text-base md:text-xl text-primary break-words">編曲：<%= song.decorate.arranger_or_dash %></p>
+  <h2 class="text-3xl md:text-4xl lg:text-5xl font-serif font-medium text-primary tracking-wide mb-6 break-words"><%= title %></h2>
+
+  <div class="border-l-4 border-primary/20 pl-4">
+    <h3 class="text-xl md:text-2xl font-serif font-medium text-primary mb-3 break-words"><%= song.title %></h3>
+
+    <div class="flex flex-col gap-2 text-neutral/80 text-sm md:text-base">
+      <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+        <span class="text-xs px-2 py-0.5 bg-primary/10 text-primary rounded-full font-medium whitespace-nowrap w-fit shrink-0">作曲</span>
+        <span class="break-words min-w-0"><%= song.decorate.composer_or_dash %></span>
+      </div>
+
+      <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+        <span class="text-xs px-2 py-0.5 bg-primary/10 text-primary rounded-full font-medium whitespace-nowrap w-fit shrink-0">編曲</span>
+        <span class="break-words min-w-0"><%= song.decorate.arranger_or_dash %></span>
+      </div>
+    </div>
+  </div>
 </div>
