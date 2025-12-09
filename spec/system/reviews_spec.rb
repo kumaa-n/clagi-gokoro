@@ -275,7 +275,7 @@ RSpec.describe "レビュー投稿/編集/削除", type: :system do
       sign_in user
       visit song_reviews_path(song)
 
-      expect(page).to have_link("レビューを編集", href: edit_review_path(review))
+      expect(page).to have_link("自分のレビューを見る", href: review_path(review))
       expect(page).to have_no_link("レビューを投稿")
     end
 
