@@ -41,7 +41,7 @@ RSpec.describe "レビュー投稿/編集/削除", type: :system do
       fill_in "review_summary", with: "テストレビュー"
 
       expect {
-        click_button "レビューを投稿する"
+        click_button "投稿する"
       }.to change(Review, :count).by(1)
 
       created = Review.last
@@ -57,7 +57,7 @@ RSpec.describe "レビュー投稿/編集/削除", type: :system do
       fill_in "review_summary", with: "評価なし"
 
       expect {
-        click_button "レビューを投稿する"
+        click_button "投稿する"
       }.not_to change(Review, :count)
 
       expect(page).to have_content(I18n.t("errors.messages.not_saved"))
@@ -73,35 +73,35 @@ RSpec.describe "レビュー投稿/編集/削除", type: :system do
 
       it "テンポが未選択だとエラーになる" do
         choose_ratings_except(:tempo_rating)
-        click_button "レビューを投稿する"
+        click_button "投稿する"
 
         expect(page).to have_content("テンポは1から5の間で評価してください")
       end
 
       it "運指技巧が未選択だとエラーになる" do
         choose_ratings_except(:fingering_technique_rating)
-        click_button "レビューを投稿する"
+        click_button "投稿する"
 
         expect(page).to have_content("運指技巧は1から5の間で評価してください")
       end
 
       it "弾弦技巧が未選択だとエラーになる" do
         choose_ratings_except(:plucking_technique_rating)
-        click_button "レビューを投稿する"
+        click_button "投稿する"
 
         expect(page).to have_content("弾弦技巧は1から5の間で評価してください")
       end
 
       it "表現力が未選択だとエラーになる" do
         choose_ratings_except(:expression_rating)
-        click_button "レビューを投稿する"
+        click_button "投稿する"
 
         expect(page).to have_content("表現力は1から5の間で評価してください")
       end
 
       it "暗譜・構成が未選択だとエラーになる" do
         choose_ratings_except(:memorization_rating)
-        click_button "レビューを投稿する"
+        click_button "投稿する"
 
         expect(page).to have_content("暗譜・構成は1から5の間で評価してください")
       end
@@ -127,7 +127,7 @@ RSpec.describe "レビュー投稿/編集/削除", type: :system do
       fill_in "review_summary", with: "2件目レビュー"
 
       expect {
-        click_button "レビューを投稿する"
+        click_button "投稿する"
       }.not_to change(Review, :count)
 
       expect(page).to have_content("曲に対してレビュー済みです。")
@@ -154,7 +154,7 @@ RSpec.describe "レビュー投稿/編集/削除", type: :system do
 
       choose_all_ratings(value: 5)
       fill_in "review_summary", with: "更新後レビュー"
-      click_button "レビューを更新する"
+      click_button "更新する"
 
       expect(page).to have_current_path(review_path(review))
       expect(page).to have_content("更新後レビュー")

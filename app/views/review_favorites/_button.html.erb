@@ -6,7 +6,7 @@
                   class: "btn gap-2 h-10 px-6 rounded-full shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300",
                   data: { turbo_frame: "review_favorite_#{review.id}" } do %>
       <%= inline_svg_tag(favorited ? "favorite-filled.svg" : "favorite.svg", class: "w-5 h-5") %>
-      <span class="whitespace-nowrap font-medium"><%= favorited ? "お気に入り解除" : "お気に入り登録" %></span>
+      <span class="whitespace-nowrap font-medium"><%= "お気に入り" %></span>
     <% end %>
   <% end %>
 <% end %>
