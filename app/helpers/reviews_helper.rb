@@ -50,7 +50,7 @@ module ReviewsHelper
         ]
       },
       {
-        label: "暗譜・構成理解",
+        label: "暗譜・構成",
         field: :memorization_rating,
         intro: "曲の構造理解や暗譜の負担感、セクションの複雑さを基準に評価してください。",
         criteria: [

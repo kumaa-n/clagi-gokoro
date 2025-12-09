@@ -11,7 +11,7 @@ export default class extends Controller {
     { label: "運指技巧", field: "fingering" },
     { label: "弾弦技巧", field: "plucking" },
     { label: "表現力", field: "expression" },
-    { label: "暗譜・構成理解", field: "memorization" }
+    { label: "暗譜・構成", field: "memorization" }
   ]
 
   connect() {
