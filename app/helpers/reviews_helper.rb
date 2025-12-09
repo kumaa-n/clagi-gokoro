@@ -81,7 +81,7 @@ module ReviewsHelper
         rating: review.send(field_data[:field]),
         description: field_data[:intro],
         criteria: field_data[:criteria].map.with_index(1) do |criterion, index|
-          { star: "#{"★" * index}", text: criterion }
+          { star: "★#{index}", text: criterion }
         end
       }
     end
