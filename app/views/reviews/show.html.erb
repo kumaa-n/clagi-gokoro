@@ -4,7 +4,7 @@
   <% description = truncate(@review.summary, length: 100) %>
   <% image = image_url('ogp.webp') %>
 
-  <!-- OGP -->
+  <%# OGP %>
   <meta property="og:title" content="<%= title %>" />
   <meta property="og:description" content="<%= description %>" />
   <meta property="og:image" content="<%= image %>" />
@@ -12,83 +12,132 @@
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="クラギごころ" />
 
-  <!-- X -->
+  <%# X %>
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="<%= title %>" />
   <meta name="twitter:description" content="<%= description %>" />
   <meta name="twitter:image" content="<%= image %>" />
 <% end %>
 
-<div class="flex-1 px-4 py-8 md:py-12 lg:py-16">
-  <div class="max-w-7xl mx-auto">
-    <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-6 md:mb-8">
-      <%= render "song_header", song: @song, title: "レビュー詳細" %>
-      <div class="flex gap-2 flex-shrink-0">
-        <%= link_to song_reviews_path(@song), class: "btn btn-ghost text-primary" do %>
-          <%= inline_svg_tag("back.svg", class: "fill-current") %>一覧へ
+<div class="flex-1 py-8 md:py-12 lg:py-16 bg-base-200/50">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-8 md:mb-12 border-b border-primary/10 pb-6">
+      <div class="flex-1">
+        <%= render "song_header", song: @song, title: "レビュー詳細" %>
+      </div>
+
+      <%# ボタン類 %>
+      <div class="flex gap-3 mt-4 md:mt-0">
+        <%= link_to song_reviews_path(@song), class: "btn btn-ghost text-primary hover:bg-primary/10 rounded-full px-3 gap-2" do %>
+          <%= inline_svg_tag("back.svg", class: "fill-current w-5 h-5") %>レビュー一覧へ
         <% end %>
         <% if user_signed_in? && current_user == @review.user %>
-          <%= link_to "編集", edit_review_path(@review), class: "btn btn-primary text-base-100 px-6" %>
+          <%= link_to edit_review_path(@review), class: "btn btn-primary shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full px-5 gap-2" do %>
+            <%= inline_svg_tag("edit.svg", class: "fill-current w-5 h-5") %>編集
+          <% end %>
           <%= render "delete_modal", review: @review do %>
-            <button data-action="auto-modal#show" class="btn btn-error text-base-100 px-6">削除</button>
+            <button data-action="auto-modal#show" class="btn btn-error text-base-100 shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full px-5 gap-2">
+              <%= inline_svg_tag("delete.svg", class: "fill-current w-5 h-5") %>削除
+            </button>
           <% end %>
         <% end %>
       </div>
     </div>
 
-    <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-6 md:mb-8">
-      <div>
-        <p class="text-sm md:text-base text-primary">投稿者：<%= @review.user.name %></p>
-        <p class="text-sm md:text-base text-primary">投稿日：<%= format_date(@review.created_at) %></p>
-      </div>
-      <div class="flex items-center gap-2">
-        <span class="text-primary text-base md:text-lg">総合難易度：</span>
-        <%= star_rating_display(@review.overall_rating, size: "sm") %>
-      </div>
-    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+      <%# メイン情報（左側） %>
+      <div class="space-y-8">
+        <%# 投稿者情報と総合評価 %>
+        <div class="card bg-white p-6 md:p-8">
+          <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-6">
+            <div class="flex items-center gap-4">
+              <div class="bg-primary/10 text-primary rounded-full w-12 h-12 flex items-center justify-center">
+                <span class="text-lg font-medium"><%= @review.user.name.first %></span>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="text-sm text-neutral/60 font-medium">投稿者</span>
+                  <p class="text-lg font-medium text-primary"><%= @review.user.name %></p>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-sm text-neutral/60 font-medium">投稿日</span>
+                  <p class="text-base text-neutral/80"><%= format_date(@review.created_at) %></p>
+                </div>
+              </div>
+            </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 md:mb-8">
-      <!-- 各項目の評価 -->
-      <div class="card bg-base-100 border border-base-300">
-        <div class="card-body">
-          <h3 class="text-lg md:text-xl text-primary font-semibold mb-4">各項目の評価</h3>
-          <% rating_display_data(@review).each do |item| %>
-            <%= render "rating_item", label: item[:label], rating: item[:rating], description: item[:description], criteria: item[:criteria] %>
-          <% end %>
+            <div class="bg-base-200/50 rounded-xl p-4 flex items-center gap-3">
+              <span class="text-primary font-serif font-medium text-lg">総合難易度</span>
+              <div class="flex items-center gap-2">
+                <%= star_rating_display(@review.overall_rating, size: "md") %>
+                <span class="text-2xl font-bold text-primary"><%= @review.overall_rating %></span>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="card bg-base-100 border border-base-300">
-        <div class="card-body">
-          <h3 class="text-lg md:text-xl text-primary font-semibold mb-4">評価プレビュー</h3>
-          <div class="bg-base-200 rounded-lg p-8 flex items-center justify-center min-h-[300px]" data-controller="review-detail-chart">
-            <canvas
-              data-review-detail-chart-target="canvas"
-              class="max-w-full"
-              data-tempo="<%= @review.tempo_rating %>"
-              data-fingering="<%= @review.fingering_technique_rating %>"
-              data-plucking="<%= @review.plucking_technique_rating %>"
-              data-expression="<%= @review.expression_rating %>"
-              data-memorization="<%= @review.memorization_rating %>"
-            ></canvas>
+        <%# 投稿者コメント %>
+        <div class="card bg-white">
+          <div class="card-body p-6 md:p-8">
+            <h3 class="text-xl font-serif font-medium text-primary mb-4 flex items-center gap-2">
+              <%= inline_svg_tag("review.svg", class: "w-6 h-6") %>投稿者コメント
+            </h3>
+            <div class="bg-base-50 rounded-xl text-neutral leading-relaxed break-words">
+              <%= @review.summary.presence || "コメントはありません" %>
+            </div>
+          </div>
+        </div>
+
+        <%# 各項目の評価詳細 %>
+        <div class="card bg-white">
+          <div class="card-body p-6 md:p-8">
+            <h3 class="text-xl font-serif font-medium text-primary mb-6">各項目の評価詳細</h3>
+            <div class="space-y-6">
+              <% rating_display_data(@review).each do |item| %>
+                <%= render "rating_item", label: item[:label], rating: item[:rating], description: item[:description], criteria: item[:criteria] %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="card bg-base-100 border border-base-300 mb-6">
-      <div class="card-body">
-        <h3 class="text-lg md:text-xl text-primary font-semibold mb-4">投稿者コメント</h3>
-        <p class="text-sm md:text-base text-primary whitespace-pre-wrap break-words"><%= @review.summary %></p>
+      <%# チャート・アクション（右側） %>
+      <div class="space-y-8">
+        <%# チャート %>
+        <div class="card bg-white sticky top-24">
+          <div class="card-body p-6 md:p-8">
+            <h3 class="text-xl font-serif font-medium text-primary mb-4 text-center">評価チャート</h3>
+            <div class="bg-base-100 rounded-xl p-6 flex items-center justify-center aspect-square relative" data-controller="review-detail-chart">
+              <div class="relative z-10 w-full h-full">
+                <canvas
+                  data-review-detail-chart-target="canvas"
+                  class="max-w-full max-h-full"
+                  data-tempo="<%= @review.tempo_rating %>"
+                  data-fingering="<%= @review.fingering_technique_rating %>"
+                  data-plucking="<%= @review.plucking_technique_rating %>"
+                  data-expression="<%= @review.expression_rating %>"
+                  data-memorization="<%= @review.memorization_rating %>"
+                ></canvas>
+              </div>
+            </div>
+
+            <%# ボタン類 %>
+            <div class="mt-6 pt-6 border-t border-base-200">
+              <div class="flex gap-3 justify-center">
+                <%= render "review_favorites/button", review: @review %>
+
+                <%= link_to "https://x.com/intent/post?text=#{CGI.escape("「#{@song.title}」のレビュー #クラギごころ")}&url=#{CGI.escape(review_url(@review))}",
+                            target: "_blank",
+                            rel: "noopener noreferrer",
+                            class: "btn gap-2 h-10 min-h-10 px-6 rounded-full shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300" do %>
+                  <%= inline_svg_tag("x.svg", class: "w-5 h-5 fill-current") %>
+                  <span class="whitespace-nowrap font-medium">Xで共有</span>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="flex gap-3">
-      <%= render "review_favorites/button", review: @review %>
-      <%= link_to "https://x.com/intent/post?text=#{CGI.escape("「#{@song.title}」のレビュー #クラギごころ")}&url=#{CGI.escape(review_url(@review))}", target: "_blank", rel: "noopener noreferrer", class: "btn gap-2" do %>
-        <%= inline_svg_tag("x.svg", class: "w-5 h-5 fill-current") %>
-        <span>Xで共有</span>
-      <% end %>
     </div>
   </div>
 </div>
