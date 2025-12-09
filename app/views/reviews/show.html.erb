@@ -27,19 +27,21 @@
       </div>
 
       <%# ボタン類 %>
-      <div class="flex gap-3 mt-4 md:mt-0">
+      <div class="flex flex-col md:flex-row gap-3 mt-4 md:mt-0 items-start">
         <%= link_to song_reviews_path(@song), class: "btn btn-ghost text-primary hover:bg-primary/10 rounded-full px-3 gap-2" do %>
           <%= inline_svg_tag("back.svg", class: "fill-current w-5 h-5") %>レビュー一覧へ
         <% end %>
         <% if user_signed_in? && current_user == @review.user %>
-          <%= link_to edit_review_path(@review), class: "btn btn-primary shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full px-5 gap-2" do %>
-            <%= inline_svg_tag("edit.svg", class: "fill-current w-5 h-5") %>編集
-          <% end %>
-          <%= render "delete_modal", review: @review do %>
-            <button data-action="auto-modal#show" class="btn btn-error text-base-100 shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full px-5 gap-2">
-              <%= inline_svg_tag("delete.svg", class: "fill-current w-5 h-5") %>削除
-            </button>
-          <% end %>
+          <div class="flex gap-3">
+            <%= link_to edit_review_path(@review), class: "btn btn-primary shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full px-5 gap-2" do %>
+              <%= inline_svg_tag("edit.svg", class: "fill-current w-5 h-5") %>編集
+            <% end %>
+            <%= render "delete_modal", review: @review do %>
+              <button data-action="auto-modal#show" class="btn btn-error text-base-100 shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full px-5 gap-2">
+                <%= inline_svg_tag("delete.svg", class: "fill-current w-5 h-5") %>削除
+              </button>
+            <% end %>
+          </div>
         <% end %>
       </div>
     </div>
@@ -107,7 +109,7 @@
         <div class="card bg-white sticky top-24">
           <div class="card-body p-6 md:p-8">
             <h3 class="text-xl font-serif font-medium text-primary mb-4 text-center">評価チャート</h3>
-            <div class="bg-base-100 rounded-xl p-6 flex items-center justify-center aspect-square relative" data-controller="review-detail-chart">
+            <div class="bg-base-100 rounded-xl p-4 md:p-6 flex items-center justify-center aspect-square relative max-w-full" data-controller="review-detail-chart">
               <div class="relative z-10 w-full h-full">
                 <canvas
                   data-review-detail-chart-target="canvas"
