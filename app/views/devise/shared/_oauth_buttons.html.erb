@@ -1,6 +1,4 @@
 <%- if devise_mapping.omniauthable? %>
-  <div class="divider text-xs sm:text-sm text-base-content/60 my-4 md:my-6">または</div>
-
   <%- resource_class.omniauth_providers.each do |provider| %>
     <% if provider == :google_oauth2 %>
       <%= link_to omniauth_authorize_path(resource_name, provider),

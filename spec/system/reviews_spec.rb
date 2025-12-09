@@ -99,11 +99,11 @@ RSpec.describe "レビュー投稿/編集/削除", type: :system do
         expect(page).to have_content("表現力は1から5の間で評価してください")
       end
 
-      it "暗譜・構成理解が未選択だとエラーになる" do
+      it "暗譜・構成が未選択だとエラーになる" do
         choose_ratings_except(:memorization_rating)
         click_button "レビューを投稿する"
 
-        expect(page).to have_content("暗譜・構成理解は1から5の間で評価してください")
+        expect(page).to have_content("暗譜・構成は1から5の間で評価してください")
       end
     end
   end
@@ -275,7 +275,7 @@ RSpec.describe "レビュー投稿/編集/削除", type: :system do
       sign_in user
       visit song_reviews_path(song)
 
-      expect(page).to have_link("レビューを編集", href: edit_review_path(review))
+      expect(page).to have_link("自分のレビューを見る", href: review_path(review))
       expect(page).to have_no_link("レビューを投稿")
     end
 

@@ -1,5 +1,5 @@
 <% if page.current? %>
-  <button class="join-item btn btn-primary text-base-100"><%= page %></button>
+  <button class="btn btn-primary border-primary cursor-default w-12 p-0 rounded-lg shadow-md"><%= page %></button>
 <% else %>
-  <%= link_to page, url, class: "join-item btn text-primary", remote: remote, rel: page.rel %>
+  <%= link_to page, url, class: "btn btn-ghost bg-white text-primary hover:bg-primary/10 transition-all hover:-translate-y-0.5 w-12 p-0 rounded-lg shadow-sm border border-base-200/60", remote: remote, rel: page.rel %>
 <% end %>

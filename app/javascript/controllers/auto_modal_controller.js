@@ -2,63 +2,30 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["dialog"]
-
-  static values = {
-    open: { type: Boolean, default: false }
-  }
+  static values = { open: Boolean }
 
   connect() {
     if (!this.openValue) return
-    document.addEventListener('turbo:before-cache', this.beforeCache.bind(this))
 
-    requestAnimationFrame(() => {
-      this.show()
-      this.removePromptParam()
-    })
+    // Turboがこの画面をキャッシュする前にダイアログを削除
+    document.addEventListener("turbo:before-cache", this.beforeCache)
+
+    // DOMの描画完了後にモーダルを開く
+    requestAnimationFrame(this.show.bind(this))
   }
 
   disconnect() {
-    document.removeEventListener('turbo:before-cache', this.beforeCache.bind(this))
+    // 別ページに移動した時にイベントを解除
+    document.removeEventListener("turbo:before-cache", this.beforeCache)
   }
 
-  beforeCache() {
+  beforeCache = () => {
+    // Turboが画面をキャッシュする前にモーダル要素を削除
     this.element.remove()
   }
 
   show() {
-    this.withDialog(dialog => {
-      if (typeof dialog.showModal === "function") {
-        if (!dialog.open) dialog.showModal()
-      } else {
-        dialog.setAttribute("open", "open")
-      }
-    })
-  }
-
-  hide() {
-    this.withDialog(dialog => {
-      if (dialog.open) {
-        dialog.close()
-      } else {
-        dialog.removeAttribute("open")
-      }
-    })
-  }
-
-  withDialog(callback) {
-    const dialog = this.hasDialogTarget ? this.dialogTarget : this.element
-    if (!dialog) return
-    callback(dialog)
-  }
-
-  removePromptParam() {
-    if (!this.openValue) return
-    if (!("replaceState" in window.history)) return
-
-    const url = new URL(window.location.href)
-    if (!url.searchParams.has("review_prompt_song_id")) return
-
-    url.searchParams.delete("review_prompt_song_id")
-    window.history.replaceState(window.history.state, document.title, url)
+    const dialog = this.dialogTarget
+    if (!dialog.open) dialog.showModal()
   }
 }

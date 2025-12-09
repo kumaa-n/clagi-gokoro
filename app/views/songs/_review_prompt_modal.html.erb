@@ -1,18 +1,17 @@
 <% if song.present? %>
   <div data-controller="auto-modal" data-auto-modal-open-value="true">
-    <dialog id="review_prompt_modal" class="modal" data-auto-modal-target="dialog">
-      <div class="modal-box">
-        <h3 class="font-bold text-lg mb-4">レビューを投稿しますか？</h3>
-        <p>曲の追加が完了しました！</p>
-        <p>あなたの感じた難易度をシェアしてみませんか？</p>
-        <div class="modal-action">
-          <form method="dialog">
-            <button class="btn">あとで</button>
+    <dialog class="modal" data-auto-modal-target="dialog">
+      <div class="modal-box bg-white rounded-2xl shadow-xl border border-base-200/60 p-6 md:p-8">
+        <h3 class="font-serif font-medium text-xl text-primary mb-4">レビューを投稿しますか？</h3>
+        <p class="py-4 text-neutral/80">曲の追加が完了しました！<br>あなたの感じた難易度をシェアしてみませんか？</p>
+        <div class="modal-action flex gap-3">
+          <form method="dialog" class="flex-1">
+            <button class="btn btn-ghost text-neutral/60 w-full hover:bg-neutral/5 rounded-full">あとで</button>
           </form>
-          <%= link_to "レビューを投稿する", new_song_review_path(song), class: "btn btn-primary text-base-100" %>
+          <%= link_to "レビューを投稿する", new_song_review_path(song), class: "btn btn-primary w-full shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full flex-1" %>
         </div>
       </div>
-      <form method="dialog" class="modal-backdrop">
+      <form method="dialog" class="modal-backdrop bg-neutral/20 backdrop-blur-sm">
         <button>close</button>
       </form>
     </dialog>

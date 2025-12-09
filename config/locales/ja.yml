@@ -14,7 +14,7 @@ ja:
         fingering_technique_rating: 運指技巧
         plucking_technique_rating: 弾弦技巧
         expression_rating: 表現力
-        memorization_rating: 暗譜・構成理解
+        memorization_rating: 暗譜・構成
         overall_rating: 総合評価
         summary: 投稿者コメント
     errors:

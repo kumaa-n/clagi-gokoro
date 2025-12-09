@@ -1,8 +1,12 @@
-<% flash.each do |message_type, message| %>
-  <% next if message_type.to_sym == :review_prompt_song_id %>
-  <div class="toast toast-top toast-center z-10" data-controller="flash">
-    <div class="alert <%= flash_class(message_type) %> mx-5 my-5">
-      <%= message %>
-    </div>
+<%# フラッシュメッセージ対象外のタイプを除外 %>
+<% messages = flash.reject { |type, _| type.to_sym == :review_prompt_song_id } %>
+
+<% if messages.any? %>
+  <div class="toast toast-top toast-center z-50 top-20">
+    <% messages.each do |type, message| %>
+      <div class="alert <%= flash_class(type) %>" data-controller="flash">
+        <%= message %>
+      </div>
+    <% end %>
   </div>
 <% end %>

@@ -32,8 +32,8 @@ RSpec.describe "曲投稿", type: :system do
 
         expect(page).to have_current_path(songs_path)
         expect(page).to have_content("テスト曲")
-        expect(page).to have_selector("dialog#review_prompt_modal", visible: :all)
-        within("#review_prompt_modal") do
+        expect(page).to have_selector("dialog.modal[data-auto-modal-target='dialog']", visible: :all)
+        within("dialog.modal") do
           expect(page).to have_content("レビューを投稿しますか？")
           expect(page).to have_link("レビューを投稿する", href: new_song_review_path(created_song))
           expect(page).to have_button("あとで")
@@ -46,12 +46,12 @@ RSpec.describe "曲投稿", type: :system do
           click_button "曲追加"
         }.to change(Song, :count).by(1)
 
-        within("#review_prompt_modal") do
+        within("dialog.modal") do
           click_button "あとで"
         end
 
         expect(page).to have_current_path(songs_path)
-        expect(page).to have_no_selector("dialog#review_prompt_modal[open]", visible: :all)
+        expect(page).to have_no_selector("dialog.modal[open]", visible: :all)
       end
 
       it "モーダルで「レビューを投稿する」を押すとレビュー投稿ページへ遷移する" do
@@ -62,7 +62,7 @@ RSpec.describe "曲投稿", type: :system do
           created_song = Song.last
         }.to change(Song, :count).by(1)
 
-        within("#review_prompt_modal") do
+        within("dialog.modal") do
           click_link "レビューを投稿する"
         end
 
@@ -141,7 +141,7 @@ RSpec.describe "曲投稿", type: :system do
 
       expect(page).to have_content("曲A")
       expect(page).to have_content("曲B")
-      expect(page).to have_link("レビューを見る", href: song_reviews_path(Song.find_by(title: "曲A")))
+      expect(page).to have_link(href: song_reviews_path(Song.find_by(title: "曲A")))
     end
   end
 end

@@ -1,89 +1,120 @@
-<div class="relative h-80 md:h-96 lg:h-[32rem]">
+<section class="relative h-screen min-h-[600px] w-full overflow-hidden">
   <%= image_tag "hero-guitar.png", class: "absolute inset-0 w-full h-full" %>
-  <div class="absolute inset-0 bg-black/20"></div>
-  <div class="relative flex flex-col items-center justify-center h-full text-base-100 px-4 gap-6 md:gap-8">
+  <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/70"></div>
+
+  <div class="relative flex flex-col items-center justify-center h-full text-base-100 px-4 gap-8 md:gap-12 z-10 pb-20">
     <div class="text-center">
-      <h2 class="text-3xl md:text-4xl lg:text-5xl font-light mb-3 md:mb-4">
-        クラシックギターの難易度をシェアしてみよう
+      <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-medium tracking-[0.2em] mb-8">
+        クラギごころ
+      </h1>
+      <h2 class="text-xl md:text-2xl lg:text-4xl font-serif font-medium tracking-wide leading-tight mb-6">
+        クラシックギターの難易度をシェアしよう
       </h2>
-      <p class="text-base md:text-lg lg:text-xl font-light">
-        曲名や作曲家であなたのお気に入りの曲を見つけよう
+      <p class="text-base md:text-lg lg:text-xl font-light tracking-wide">
+        曲名や作曲家でお気に入りの曲を見つけよう
       </p>
     </div>
-    <%= form_with url: songs_path, method: :get, class: "w-full max-w-2xl" do |f| %>
-      <div class="flex">
+
+    <%= form_with url: songs_path, method: :get, class: "w-full max-w-xl relative group" do |f| %>
+      <div class="relative flex items-center">
         <%= f.search_field :query,
             value: params[:query],
-            placeholder: "曲名・作曲家・編曲家で検索",
-            class: "input input-bordered flex-1 bg-base-100 placeholder:text-neutral/50 text-neutral rounded-r-none border-r-0" %>
-        <div class="tooltip tooltip-left" data-tip="検索">
-          <%= f.button type: "submit", class: "btn btn-primary btn-square text-base-100 rounded-l-none" do %>
-            <%= inline_svg_tag("search.svg", class: "fill-current") %>
+            placeholder: "曲名・作曲家・編曲家で検索...",
+            class: "input input-lg w-full pl-12 pr-4 bg-white/90 text-neutral placeholder:text-neutral/50 rounded-full border-0 focus:ring-2 focus:ring-accent/50 focus:bg-white transition-all duration-300" %>
+        <div class="absolute inset-y-0 right-2 flex items-center">
+          <%= f.button type: "submit", class: "btn btn-circle btn-sm btn-ghost text-primary hover:bg-primary/10" do %>
+            <%= inline_svg_tag("search.svg") %>
           <% end %>
         </div>
       </div>
     <% end %>
   </div>
-</div>
 
-<section class="py-8 md:py-12 lg:py-16 bg-base-200 px-4">
-  <h3 class="text-2xl md:text-3xl text-center mb-8 md:mb-12 font-bold text-primary">クラギごころとは？</h3>
-
-  <div class="text-primary text-center max-w-4xl mx-auto">
-    <p class="mb-3 md:mb-2">クラギごころはクラシックギターの曲を「テンポ」「運指技巧」「弾弦技巧」「表現力」「暗譜・構成理解」の5つの項目で評価し、レーダーチャートとして可視化できるWebサービスです。</p>
-    <p class="mb-3 md:mb-2">「この曲、自分にも弾けるかな？」という悩みを、他の演奏者の評価と比較することで解決します。</p>
-    <p class="mb-3 md:mb-2">まだ知られていない曲との出会いや、自分に合ったレパートリーの発見をサポートします。</p>
+  <!-- スクロールヒント -->
+  <div class="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 text-white/70 flex flex-col items-center gap-2 pb-8">
+    <p class="text-xs font-serif tracking-[0.2em] opacity-80">SCROLL</p>
+    <div class="w-px h-12 bg-gradient-to-b from-white/80 to-transparent"></div>
   </div>
 </section>
 
-<section class="pt-8 md:pt-12 lg:pt-16 pb-6 md:pb-8 lg:pb-10 bg-base-100">
+<section class="py-16 md:py-24 bg-base-200 px-4 relative overflow-hidden">
+  <div class="container mx-auto max-w-4xl text-center">
+    <h3 class="text-3xl md:text-4xl font-serif font-medium text-primary mb-10 md:mb-14 tracking-wide">
+      クラギごころとは？
+    </h3>
+
+    <div class="text-neutral text-lg md:text-xl leading-relaxed space-y-6 font-light">
+      <p>クラギごころは、クラシックギターの曲を「テンポ」「運指技巧」「弾弦技巧」「表現力」「暗譜・構成理解」の5つの項目で評価し、レーダーチャートとして可視化できるWebサービスです。</p>
+      <p>「この曲、自分にも弾けるかな？」という悩みを他の演奏者の評価と比較することで解決します。</p>
+      <p>まだ知られていない曲との出会いや自分に合ったレパートリーの発見をサポートします。</p>
+    </div>
+  </div>
+</section>
+
+<section class="py-16 md:py-24 bg-base-100">
   <div class="container mx-auto px-4">
-    <h3 class="text-2xl md:text-3xl mb-8 md:mb-12 font-bold text-primary">レビューの多い曲</h3>
+    <div class="flex flex-col md:flex-row justify-between items-end mb-10 md:mb-14 border-b border-base-300 pb-4">
+      <h3 class="text-2xl md:text-4xl font-serif font-medium text-primary">
+        レビューの多い曲
+      </h3>
+      <%= link_to "もっと見る", songs_path, class: "text-accent hover:text-primary transition-colors text-sm md:text-base mt-2 md:mt-0" %>
+    </div>
 
     <% if @most_reviewed_songs.any? %>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-4 md:px-0">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         <% @most_reviewed_songs.each do |song| %>
           <%= render "shared/song_card", song: song %>
         <% end %>
       </div>
     <% else %>
-      <p class="text-center text-neutral">まだレビュー付きの曲がありません。</p>
+      <div class="py-12 text-center text-neutral/60 bg-base-200/50 rounded-lg">
+        <p>まだレビュー付きの曲がありません。</p>
+      </div>
     <% end %>
   </div>
 </section>
 
-<section class="py-6 md:py-8 lg:py-10 bg-base-100">
+<section class="py-16 md:py-24 bg-base-100">
   <div class="container mx-auto px-4">
-    <h3 class="text-2xl md:text-3xl mb-8 md:mb-12 font-bold text-primary">最近追加された曲</h3>
+    <div class="flex flex-col md:flex-row justify-between items-end mb-10 md:mb-14 border-b border-base-300 pb-4">
+      <h3 class="text-2xl md:text-4xl font-serif font-medium text-primary">
+        最近追加された曲
+      </h3>
+      <%= link_to "もっと見る", songs_path, class: "text-accent hover:text-primary transition-colors text-sm md:text-base mt-2 md:mt-0" %>
+    </div>
 
     <% if @recent_songs.any? %>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-4 md:px-0">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         <% @recent_songs.each do |song| %>
           <%= render "shared/song_card", song: song %>
         <% end %>
       </div>
     <% else %>
-      <p class="text-center text-neutral">まだ曲が投稿されていません。</p>
+      <div class="py-12 text-center text-neutral/60 bg-base-200/50 rounded-lg">
+        <p>まだ曲が投稿されていません。</p>
+      </div>
     <% end %>
   </div>
 </section>
 
-<section class="pt-6 md:pt-8 lg:pt-10 pb-8 md:pb-12 lg:pb-16 bg-base-100 px-4">
-  <div class="container mx-auto text-center border border-base-300 rounded-lg p-6 md:p-10">
-    <h3 class="text-2xl md:text-3xl mb-6 md:mb-8 font-bold text-primary">
-      難易度をシェアし、自分に合った曲を見つけよう
-    </h3>
+<section class="py-20 md:py-32 bg-base-200 px-4">
+  <div class="container mx-auto max-w-5xl">
+    <div class="bg-white/60 rounded-2xl p-8 md:p-16 text-center">
+      <h3 class="text-3xl md:text-4xl font-serif font-medium text-primary mb-8 md:mb-10">
+        難易度をシェアし、<br class="md:hidden" />自分に合った曲を見つけよう
+      </h3>
 
-    <div class="max-w-4xl mx-auto mb-6 md:mb-8 text-primary text-center">
-      <p class="mb-3 md:mb-2">あなたが感じた曲の難しさを星評価で投稿し、レーダーチャートで可視化できます。</p>
-      <p class="mb-3 md:mb-2">「テンポは速いけど、運指はシンプル」「表現力は求められるけど、暗譜は簡単」といった、曲の特徴を多角的に把握することで、自分に合った次の一曲が見つかります。</p>
-      <p class="mb-3 md:mb-2">一人で練習することが多いクラシックギターだからこそ、感じ方をシェアし、演奏者それぞれの視点を知りましょう。</p>
+      <div class="max-w-3xl mx-auto mb-10 md:mb-12 text-neutral text-lg leading-relaxed space-y-4">
+        <p>あなたが感じた曲の難しさを星評価で投稿し、レーダーチャートで可視化できます。</p>
+        <p>「テンポは速いけど、運指はシンプル」「表現力は求められるけど、暗譜は簡単」といった、曲の特徴を多角的に把握することで自分に合った次の一曲が見つかります。</p>
+        <p>一人で練習することが多いクラシックギターだからこそ感じ方をシェアし、演奏者それぞれの視点を知りましょう。</p>
+      </div>
+
+      <% if user_signed_in? %>
+        <%= link_to "曲一覧へ", songs_path, class: "btn btn-lg btn-primary px-10 md:px-16 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300" %>
+      <% else %>
+        <%= link_to "新規登録する", new_user_registration_path, class: "btn btn-lg btn-primary px-10 md:px-16 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300" %>
+      <% end %>
     </div>
-
-    <% if user_signed_in? %>
-      <%= link_to "曲一覧へ", songs_path, class: "btn md:btn-lg btn-primary text-base-100 px-8 md:px-12 w-full md:w-auto" %>
-    <% else %>
-      <%= link_to "新規登録する", new_user_registration_path, class: "btn md:btn-lg btn-primary text-base-100 px-8 md:px-12 w-full md:w-auto" %>
-    <% end %>
   </div>
 </section>

@@ -1,46 +1,42 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-@layer base {
-  html, body {
-    font-family: 'Noto Sans JP', ui-sans-serif, system-ui, sans-serif;
-    font-weight: 400;
-    line-height: 1.7;
-    letter-spacing: 0.02em;
-  }
-}
-
 @plugin "daisyui/theme" {
   name: "clagi-gokoro";
   default: true;
   prefersdark: true;
   color-scheme: "light";
-  --color-base-100: #FDFCFA;
-  --color-base-200: #F7F2E8;
-  --color-base-300: #CCCCCC;
-  --color-base-content: oklch(40% 0.0081 61.42);
-  --color-primary: #5C4033;
-  --color-primary-content: #FFFFFF;
-  --color-secondary: #8B5A3C;
-  --color-secondary-content: #FFFFFF;
-  --color-accent: #C8A97E;
-  --color-accent-content: #FFFFFF;
-  --color-neutral: oklch(0.4 0.0081 61.42);
-  --color-neutral-content: #FFFFFF;
-  --color-info: oklch(0.806 0.071 222.7);
-  --color-info-content: oklch(30.39% 0.1148 241.68);
-  --color-success: oklch(0.701 0.150 142.5);
-  --color-success-content: oklch(23.92% 0.0901 136.87);
+  --color-base-100: #F9F5F0;
+  --color-base-200: #EFE6D5;
+  --color-base-300: #D8C8B0;
+  --color-base-content: #4A3B32;
+  --color-primary: #6B4E3D;
+  --color-primary-content: #F9F5F0;
+  --color-secondary: #9C7C64;
+  --color-secondary-content: #F9F5F0;
+  --color-accent: #8F9779;
+  --color-accent-content: #F9F5F0;
+  --color-neutral: #5D544D;
+  --color-neutral-content: #F9F5F0;
+  --color-info: #8CCAE2;
+  --color-info-content: #003162;
+  --color-success: #62B65D;
+  --color-success-content: #052800;
   --color-warning: #E2B765;
-  --color-warning-content: oklch(43.92% 0.1085 80);
-  --color-error: oklch(0.631 0.143 33.7);
-  --color-error-content: oklch(35.1% 0.1814 22.37);
+  --color-warning-content: #714900;
+  --color-error: #D1644E;
+  --color-error-content: #800003;
   --radius-selector: 2rem;
   --radius-field: 0.5rem;
   --radius-box: 1rem;
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
-  --border: 2px;
+  --border: 1px;
   --depth: 1;
   --noise: 0;
+}
+
+@theme {
+  --font-serif: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --font-sans: "Noto Sans JP", ui-sans-serif, system-ui, sans-serif;
 }

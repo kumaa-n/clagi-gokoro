@@ -1,92 +1,54 @@
 <%= content_for(:title, t(".title")) %>
 
-<div class="flex-1 justify-center items-center min-h-full px-4 py-8">
-  <section class="bg-base-100 pt-2 md:pt-4 lg:pt-6 pb-6">
+<div class="flex-1 py-8 md:py-12 lg:py-16 bg-base-200/50">
+  <section class="pb-8">
     <div class="container mx-auto px-4">
-      <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
-        <%= render "song_header", song: @song, title: "レビュー一覧" %>
-        <div class="flex-shrink-0">
+      <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-8 md:mb-12 border-b border-primary/10 pb-6">
+        <div class="flex-1">
+          <%= render "song_header", song: @song, title: "レビュー一覧" %>
+        </div>
+        <div class="mt-4 md:mt-0">
           <% if user_signed_in? %>
             <% if @user_review.present? %>
-              <%= link_to edit_review_path(@user_review), class: "btn btn-primary text-base-100" do %>
-                <%= inline_svg_tag("edit.svg", class: "fill-current") %>レビューを編集
+              <%= link_to review_path(@user_review), class: "btn btn-primary shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full px-6" do %>
+                <%= inline_svg_tag("user.svg", class: "fill-current") %>
+                <span class="ml-1">自分のレビューを見る</span>
               <% end %>
             <% else %>
-              <%= link_to new_song_review_path(@song), class: "btn btn-primary text-base-100" do %>
-                <%= inline_svg_tag("add.svg", class: "fill-current") %>レビューを投稿
+              <%= link_to new_song_review_path(@song), class: "btn btn-primary shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full px-6" do %>
+                <%= inline_svg_tag("add.svg", class: "fill-current") %>
+                <span class="ml-1">レビューを投稿</span>
               <% end %>
             <% end %>
           <% end %>
         </div>
       </div>
-    </div>
-  </section>
 
-  <section class="bg-base-100 pt-6 pb-6 md:pb-8 lg:pb-10">
-    <div class="container mx-auto px-4">
+      <% if @reviews.any? %>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <% @reviews.each do |review| %>
+            <%= render "reviews/review_card", review: review %>
+          <% end %>
+        </div>
 
-    <% if @reviews.any? %>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <% @reviews.each do |review| %>
-          <div class="card bg-base-100 border border-base-300 rounded-lg overflow-hidden" data-controller="review-chart">
-            <!-- グラフエリア -->
-            <div class="bg-base-200 p-2 flex items-center justify-center" style="height: 180px;">
-              <div style="width: 100%; height: 100%; max-width: 180px; max-height: 180px;">
-                <canvas
-                  data-review-chart-target="canvas"
-                  data-tempo="<%= review.tempo_rating %>"
-                  data-fingering="<%= review.fingering_technique_rating %>"
-                  data-plucking="<%= review.plucking_technique_rating %>"
-                  data-expression="<%= review.expression_rating %>"
-                  data-memorization="<%= review.memorization_rating %>"
-                ></canvas>
-              </div>
-            </div>
-
-            <div class="card-body p-4 md:p-6">
-              <h3 class="text-neutral mb-1">投稿者：<%= review.user.name %></h3>
-              <p class="text-text-neutral mb-1">投稿日：<%= format_date(review.created_at) %></p>
-              <div class="flex items-center gap-1 mb-1">
-                <span class="text-neutral">総合難易度：</span>
-                <%= star_rating_display(review.overall_rating, size: "xs") %>
-              </div>
-
-              <div class="mt-1">
-                <div class="flex gap-2 items-center">
-                  <%= link_to "詳細を見る", review_path(review), class: "btn btn-primary text-base-100 flex-1" %>
-                  <% if user_signed_in? && current_user == review.user %>
-                    <div class="tooltip" data-tip="編集">
-                      <%= link_to edit_review_path(review), class: "btn btn-sm btn-primary text-base-100 w-10 h-10 min-h-0 p-0 flex items-center justify-center", aria: { label: "レビューを編集" } do %>
-                        <%= inline_svg_tag("edit.svg", class: "fill-current") %>
-                      <% end %>
-                    </div>
-                    <%= render "delete_modal", review: review do %>
-                      <div class="tooltip" data-tip="削除">
-                        <button data-action="auto-modal#show" class="btn btn-sm btn-error text-base-100 w-10 h-10 min-h-0 p-0 flex items-center justify-center" aria-label="レビューを削除">
-                          <%= inline_svg_tag("delete.svg", class: "fill-current") %>
-                        </button>
-                      </div>
-                    <% end %>
-                  <% end %>
-                </div>
-              </div>
-            </div>
+        <div class="mt-12 md:mt-16">
+          <%= paginate @reviews %>
+        </div>
+      <% else %>
+        <div class="flex flex-col items-center justify-center py-20 md:py-32 text-center">
+          <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-sm mb-6">
+            <%= inline_svg_tag "review-empty.svg" %>
           </div>
-        <% end %>
-      </div>
-      <%= paginate @reviews %>
-    <% else %>
-      <div class="text-center py-12">
-        <p class="text-2xl text-neutral mb-4">まだレビューが投稿されていません</p>
+          <p class="text-xl md:text-2xl font-serif text-primary/80 mb-6">まだレビューが投稿されていません</p>
 
-        <% if user_signed_in? %>
-          <%= link_to "最初のレビューを投稿する", new_song_review_path(@song), class: "btn btn-primary text-base-100" %>
-        <% else %>
-          <p class="text-base text-neutral mb-4">レビューを追加するには、ログインまたは新規登録が必要です</p>
-          <%= link_to "ログイン / 新規登録", new_user_session_path, class: "btn btn-primary text-base-100" %>
-        <% end %>
-      </div>
-    <% end %>
+          <% if user_signed_in? %>
+            <%= link_to "最初のレビューを投稿する", new_song_review_path(@song), class: "btn btn-primary rounded-full px-8 shadow-md hover:shadow-lg transition-all" %>
+          <% else %>
+            <p class="text-neutral/60 mb-6">レビューを追加するには、ログインまたは新規登録が必要です</p>
+            <%= link_to "ログイン / 新規登録", new_user_session_path, class: "btn btn-primary rounded-full px-8 shadow-md hover:shadow-lg transition-all" %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </section>
 </div>

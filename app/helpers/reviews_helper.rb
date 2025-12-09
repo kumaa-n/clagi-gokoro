@@ -50,7 +50,7 @@ module ReviewsHelper
         ]
       },
       {
-        label: "暗譜・構成理解",
+        label: "暗譜・構成",
         field: :memorization_rating,
         intro: "曲の構造理解や暗譜の負担感、セクションの複雑さを基準に評価してください。",
         criteria: [
@@ -81,7 +81,7 @@ module ReviewsHelper
         rating: review.send(field_data[:field]),
         description: field_data[:intro],
         criteria: field_data[:criteria].map.with_index(1) do |criterion, index|
-          { star: "#{"★" * index}", text: criterion }
+          { star: "★#{index}", text: criterion }
         end
       }
     end

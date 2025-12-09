@@ -2,57 +2,62 @@
   <input id="mobile-menu" type="checkbox" class="drawer-toggle" />
 
   <div class="drawer-content">
-    <header class="navbar bg-base-200 shadow-sm">
+    <header class="navbar fixed top-0 z-50 bg-white/80">
       <div class="flex-1">
-        <%= link_to "クラギごころ", root_path, class: "btn btn-ghost text-lg md:text-xl text-primary" %>
+        <%= link_to "クラギごころ", root_path, class: "px-4 text-xl md:text-2xl text-primary tracking-wider font-serif font-bold hover:opacity-80 transition-opacity" %>
       </div>
 
-      <!-- ハンバーガーメニューボタン -->
+      <%# ハンバーガーメニューボタン %>
       <div class="flex-none md:hidden">
         <label for="mobile-menu" class="btn btn-ghost btn-square text-primary">
-          <%= inline_svg_tag("menu.svg", class: "fill-current") %>
+          <%= inline_svg_tag("menu.svg", class: "fill-current w-6 h-6") %>
         </label>
       </div>
 
-      <!-- デスクトップメニュー -->
+      <%# デスクトップメニュー %>
       <div class="flex-none hidden md:flex">
-        <ul class="menu menu-horizontal px-1 gap-2">
-          <li><%= link_to "ホーム", root_path, class: "text-primary" %></li>
-          <li><%= link_to "曲一覧", songs_path, class: "text-primary" %></li>
+        <ul class="menu menu-horizontal px-1 gap-4">
+          <li><%= link_to "ホーム", root_path, class: "text-primary font-medium" %></li>
+          <li><%= link_to "曲一覧", songs_path, class: "text-primary font-medium" %></li>
 
           <% if user_signed_in? %>
             <li>
               <details class="dropdown dropdown-end">
                 <summary class="text-primary font-bold"><%= current_user.name %></summary>
-                <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-40 p-2 shadow">
+                <ul tabindex="-1" class="menu menu-sm dropdown-content bg-white/95 rounded-box z-10 mt-3 w-40 p-2 border border-base-200">
                   <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-primary text-sm" %></li>
                 </ul>
               </details>
             </li>
           <% else %>
-            <li><%= link_to "ログイン", new_user_session_path, class: "bg-primary text-base-100" %></li>
-            <li><%= link_to "新規登録", new_user_registration_path, class: "bg-primary text-base-100" %></li>
+            <li><%= link_to "ログイン", new_user_session_path, class: "text-primary font-medium" %></li>
+            <li><%= link_to "新規登録", new_user_registration_path, class: "bg-primary text-base-100 rounded-full px-6 hover:-translate-y-0.5 transition-all" %></li>
           <% end %>
         </ul>
       </div>
     </header>
+
+    <%# 固定ヘッダー分の余白（コンテンツがヘッダーに隠れないようにする） %>
+    <div class="h-16"></div>
   </div>
 
-  <!-- モバイルサイドメニュー -->
+  <%# モバイルサイドメニュー %>
   <div class="drawer-side z-50">
-    <label for="mobile-menu" aria-label="close sidebar" class="drawer-overlay"></label>
-    <ul class="menu p-4 w-52 min-h-full bg-base-200">
-      <li><%= link_to "ホーム", root_path, class: "text-primary text-base mb-2" %></li>
-      <li><%= link_to "曲一覧", songs_path, class: "text-primary text-base mb-2" %></li>
+    <label for="mobile-menu" aria-label="close sidebar" class="drawer-overlay bg-black/20"></label>
+    <ul class="menu p-4 w-64 min-h-full bg-base-100/95 text-base-content pt-20">
+      <li><%= link_to "ホーム", root_path, class: "text-primary text-lg mb-2" %></li>
+      <li><%= link_to "曲一覧", songs_path, class: "text-primary text-lg mb-2" %></li>
+
+      <div class="divider my-4"></div>
 
       <% if user_signed_in? %>
-        <li class="menu-title text-primary mt-4">
-          <span><%= current_user.name %></span>
+        <li class="menu-title text-primary/60 mt-2">
+          <%= current_user.name %>
         </li>
-        <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-primary text-base" %></li>
+        <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-primary text-lg" %></li>
       <% else %>
-        <li><%= link_to "ログイン", new_user_session_path, class: "text-primary text-base mb-2 mt-4" %></li>
-        <li><%= link_to "新規登録", new_user_registration_path, class: "text-primary text-base" %></li>
+        <li><%= link_to "ログイン", new_user_session_path, class: "text-primary text-lg mb-2 mt-2" %></li>
+        <li><%= link_to "新規登録", new_user_registration_path, class: "btn btn-primary w-full rounded-full mt-4" %></li>
       <% end %>
     </ul>
   </div>

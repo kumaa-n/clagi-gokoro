@@ -1,40 +1,43 @@
 <%= content_for(:title, t(".title")) %>
 
-<div class="flex-1 justify-center items-center min-h-full px-4 py-8">
+<div class="flex-1 py-8 md:py-12 lg:py-16 bg-base-200/50">
   <%= render "songs/review_prompt_modal", song: @prompt_song %>
 
-  <section class="bg-base-100 pt-2 md:pt-4 lg:pt-6 pb-6">
+  <section class="pb-8">
     <div class="container mx-auto px-4">
-      <div class="flex justify-between items-center">
-        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-primary">曲一覧</h2>
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8 md:mb-12 border-b border-primary/10 pb-6">
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-serif font-medium text-primary tracking-wide">曲一覧</h2>
 
         <% if user_signed_in? %>
-          <%= link_to new_song_path, class: "btn btn-primary text-base-100" do %>
-            <%= inline_svg_tag("add.svg", class: "fill-current") %>新しい曲を追加
+          <%= link_to new_song_path, class: "btn btn-primary shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full px-6" do %>
+            <%= inline_svg_tag("add.svg", class: "fill-current w-5 h-5") %>
+            <span class="ml-1">新しい曲を追加</span>
           <% end %>
         <% end %>
       </div>
-    </div>
-  </section>
 
-  <section class="bg-base-100 pt-6 pb-6 md:pb-8 lg:pb-10">
-    <div class="container mx-auto px-4">
       <% if @songs.any? %>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           <% @songs.each do |song| %>
             <%= render "shared/song_card", song: song %>
           <% end %>
         </div>
-        <%= paginate @songs %>
+
+        <div class="mt-12 md:mt-16">
+          <%= paginate @songs %>
+        </div>
       <% else %>
-        <div class="text-center py-12">
-          <p class="text-2xl text-neutral mb-4">まだ曲が登録されていません</p>
+        <div class="flex flex-col items-center justify-center py-20 md:py-32 text-center">
+          <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-sm mb-6">
+            <%= inline_svg_tag "music-note.svg" %>
+          </div>
+          <p class="text-xl md:text-2xl font-serif text-primary/80 mb-6">まだ曲が登録されていません</p>
 
           <% if user_signed_in? %>
-            <%= link_to "最初の曲を追加する", new_song_path, class: "btn btn-primary text-base-100" %>
+            <%= link_to "最初の曲を追加する", new_song_path, class: "btn btn-primary rounded-full px-8 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all" %>
           <% else %>
-            <p class="text-base text-neutral mb-4">曲を追加するには、ログインまたは新規登録が必要です</p>
-            <%= link_to "ログイン / 新規登録", new_user_session_path, class: "btn btn-primary text-base-100" %>
+            <p class="text-neutral/60 mb-6">曲を追加するには、ログインまたは新規登録が必要です</p>
+            <%= link_to "ログイン / 新規登録", new_user_session_path, class: "btn btn-primary rounded-full px-8 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all" %>
           <% end %>
         </div>
       <% end %>
