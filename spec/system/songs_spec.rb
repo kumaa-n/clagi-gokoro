@@ -35,7 +35,7 @@ RSpec.describe "曲投稿", type: :system do
         expect(page).to have_selector("dialog.modal[data-auto-modal-target='dialog']", visible: :all)
         within("dialog.modal") do
           expect(page).to have_content("レビューを投稿しますか？")
-          expect(page).to have_link("レビューを投稿する", href: new_song_review_path(created_song))
+          expect(page).to have_link("投稿する", href: new_song_review_path(created_song))
           expect(page).to have_button("あとで")
         end
       end
@@ -63,7 +63,7 @@ RSpec.describe "曲投稿", type: :system do
         }.to change(Song, :count).by(1)
 
         within("dialog.modal") do
-          click_link "レビューを投稿する"
+          click_link "投稿する"
         end
 
         expect(page).to have_current_path(new_song_review_path(created_song))
