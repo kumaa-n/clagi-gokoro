@@ -1,79 +1,90 @@
-<div class="flex-1 px-4 py-8 md:py-12 lg:py-16">
-  <div class="max-w-7xl mx-auto">
-    <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-6 md:mb-8">
-      <%= render "song_header", song: song, title: page_title %>
-      <div class="flex gap-2 flex-shrink-0">
-        <%= link_to song_reviews_path(song), class: "btn btn-ghost text-primary" do %>
-          <%= inline_svg_tag("back.svg", class: "fill-current") %>一覧へ
+<div class="flex-1 py-8 md:py-12 lg:py-16 bg-base-200/50">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-8 md:mb-12 border-b border-primary/10 pb-6">
+      <div class="flex-1">
+        <%= render "song_header", song: song, title: page_title %>
+      </div>
+      <div class="flex gap-3 mt-4 md:mt-0">
+        <%= link_to song_reviews_path(song), class: "btn btn-ghost text-primary hover:bg-primary/10 rounded-full px-3 gap-2" do %>
+          <%= inline_svg_tag("back.svg", class: "fill-current w-5 h-5") %>レビュー一覧へ
         <% end %>
       </div>
     </div>
 
-    <% form_url = review.persisted? ? review_path(review) : song_reviews_path(song) %>
-    <%= form_with model: review, url: form_url, data: { controller: "review-form" } do |f| %>
+    <%= form_with model: review, url: (review.persisted? ? review_path(review) : song_reviews_path(song)), data: { controller: "review-form" } do |f| %>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div class="space-y-6">
-          <div class="bg-base-100 p-6 rounded-lg border border-base-300">
-            <h3 class="text-xl font-semibold mb-6">各項目の評価</h3>
+          <div class="card bg-white">
+            <div class="card-body p-6 md:p-8">
+              <h3 class="text-xl font-serif font-medium text-primary mb-6">各項目の評価</h3>
 
-            <%= render "shared/error_message", object: f.object %>
+              <%= render "shared/error_message", object: f.object %>
 
-            <% rating_fields_data.each do |rating| %>
-              <% description = capture do %>
-                <p class="text-neutral"><%= rating[:intro] %></p>
-                <ul class="space-y-1">
-                  <% rating[:criteria].each_with_index do |criterion, index| %>
-                    <li><span class="font-semibold">★<%= index + 1 %></span>：<%= criterion %></li>
-                  <% end %>
-                </ul>
+              <% rating_fields_data.each do |rating| %>
+                <% description = capture do %>
+                  <p class="text-neutral/80 text-sm mb-2"><%= rating[:intro] %></p>
+                  <ul class="space-y-1 text-sm text-neutral/70">
+                    <% rating[:criteria].each_with_index do |criterion, index| %>
+                      <li><span class="font-semibold text-primary">★<%= index + 1 %></span>：<%= criterion %></li>
+                    <% end %>
+                  </ul>
+                <% end %>
+
+                <%= render "rating_field",
+                  f: f,
+                  label: rating[:label],
+                  field: rating[:field],
+                  description: description %>
               <% end %>
 
-              <%= render "rating_field",
-                f: f,
-                label: rating[:label],
-                field: rating[:field],
-                description: description %>
-            <% end %>
-
-            <div class="mb-6">
-              <%= f.label :summary, "コメント（任意）", class: "label font-semibold" %>
-              <%= f.text_area :summary, rows: 6, class: "textarea textarea-bordered w-full resize-none", placeholder: "曲についてのコメントを入力してください" %>
+              <div class="mt-8">
+                <%= f.label :summary, "コメント（任意）", class: "label font-serif font-medium text-primary text-lg mb-2" %>
+                <%= f.text_area :summary, rows: 6, class: "textarea textarea-bordered w-full resize-none bg-base-50 focus:bg-white transition-colors", placeholder: "曲についてのコメントを入力してください" %>
+              </div>
             </div>
           </div>
         </div>
 
         <div class="space-y-6">
-          <div class="bg-base-100 p-6 rounded-lg border border-base-300">
-            <h3 class="text-xl font-semibold mb-4">評価プレビュー</h3>
-            <div class="bg-base-200 rounded-lg p-8 flex items-center justify-center min-h-[300px]">
-              <canvas data-review-form-target="chart" class="max-w-full"></canvas>
-            </div>
-          </div>
-
-          <div class="bg-base-100 p-6 rounded-lg border border-base-300 space-y-6">
-            <h3 class="text-xl font-semibold">評価ガイドライン</h3>
-
-            <div class="space-y-3 text-sm">
-              <% general_guidelines_data.each do |guide| %>
-                <div class="flex items-start gap-3">
-                  <div class="mt-1">
-                    <%= star_rating_display(guide[:stars], size: "sm") %>
-                  </div>
-                  <div>
-                    <p class="font-semibold"><%= guide[:label] %></p>
-                    <p><%= guide[:description] %></p>
-                  </div>
+          <div class="card bg-white sticky top-24">
+            <div class="card-body p-6 md:p-8">
+              <h3 class="text-xl font-serif font-medium text-primary mb-6 text-center">評価プレビュー</h3>
+              <div class="bg-base-100 rounded-xl p-6 flex items-center justify-center aspect-square relative mb-8">
+                <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+                  <%= inline_svg_tag("chart-bg.svg", class: "w-48 h-48 text-primary") rescue nil %>
                 </div>
-              <% end %>
-            </div>
+                <div class="relative z-10 w-full h-full">
+                  <canvas data-review-form-target="chart" class="max-w-full max-h-full"></canvas>
+                </div>
+              </div>
 
+              <div class="bg-base-50 rounded-xl p-6 border border-base-200/60">
+                <h3 class="text-lg font-serif font-medium text-primary mb-4 flex items-center gap-2">
+                  <%= inline_svg_tag("info.svg") %> 評価ガイドライン
+                </h3>
+
+                <div class="space-y-4 text-sm">
+                  <% general_guidelines_data.each do |guide| %>
+                    <div class="flex items-start gap-3">
+                      <div class="mt-0.5 shrink-0">
+                        <%= star_rating_display(guide[:stars], size: "sm") %>
+                      </div>
+                      <div>
+                        <p class="font-medium text-primary mb-0.5"><%= guide[:label] %></p>
+                        <p class="text-neutral/70 text-xs leading-relaxed"><%= guide[:description] %></p>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-3 mt-8">
+                <%= f.submit submit_label, class: "btn btn-primary w-full shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full" %>
+                <%= link_to "キャンセル", review.persisted? ? review_path(review) : song_reviews_path(song), class: "btn btn-ghost text-neutral/60 w-full hover:bg-neutral/5 rounded-full" %>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="flex flex-col md:flex-row justify-center gap-4 mt-8">
-        <%= link_to "キャンセル", song_reviews_path(song), class: "btn px-8" %>
-        <%= f.submit submit_label, class: "btn btn-primary text-base-100 px-8" %>
       </div>
     <% end %>
   </div>
