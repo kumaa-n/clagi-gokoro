@@ -18,3 +18,6 @@ application.register("flash", FlashController)
 
 import AutoModalController from "./auto_modal_controller"
 application.register("auto-modal", AutoModalController)
+
+import CharCounterController from "./char_counter_controller"
+application.register("char-counter", CharCounterController)
