@@ -3,7 +3,7 @@ class ContentLengthValidator < ActiveModel::EachValidator
     return if value.blank?
 
     # 改行を除いた文字数を計算
-    content_length = value.gsub(/[\r\n]+/, '').length
+    content_length = value.gsub(/[\r\n]+/, "").length
 
     if options[:minimum] && content_length < options[:minimum]
       record.errors.add(attribute, :too_short, count: options[:minimum])
