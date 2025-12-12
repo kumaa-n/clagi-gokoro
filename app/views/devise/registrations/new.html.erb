@@ -4,28 +4,43 @@
       <%= t("devise.registrations.new.sign_up") %>
     </h2>
 
-    <%= form_with model: resource, as: resource_name, url: registration_path(resource_name), class: "space-y-6" do |f| %>
+    <%= form_with model: resource, as: resource_name, url: registration_path(resource_name), class: "space-y-2" do |f| %>
       <%= render "shared/error_message", object: resource %>
 
-      <div>
+      <div data-controller="char-counter" data-char-counter-min-value=<%= User::NAME_MIN_LENGTH %> data-char-counter-max-value=<%= User::NAME_MAX_LENGTH %>>
         <%= f.label :name, class: "text-sm font-medium text-neutral/80 ml-1" %>
         <span class="text-xs text-error font-medium">*</span>
-        <%= f.text_field :name, autofocus: true, placeholder: "ニックネームを入力（15文字以内）", class: "input input-bordered w-full bg-base-100/50 focus:bg-white" %>
+        <%= f.text_field :name, autofocus: true, placeholder: "ニックネームを入力",
+              class: "input input-bordered w-full bg-base-100/50 focus:bg-white",
+              data: { char_counter_target: "input", action: "input->char-counter#updateCount focus->char-counter#markAsTouched" } %>
+        <div class="text-right text-sm text-neutral/60 mt-1">
+          <span data-char-counter-target="counter">0</span> / <%= User::NAME_MAX_LENGTH %>文字
+        </div>
       </div>
 
-      <div>
+      <div data-controller="char-counter" data-char-counter-min-value=<%= User::PASSWORD_MIN_LENGTH %>>
         <%= f.label :password, class: "text-sm font-medium text-neutral/80 ml-1" %>
         <span class="text-xs text-error font-medium">*</span>
-        <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワードを入力（6文字以上）", class: "input input-bordered w-full bg-base-100/50 focus:bg-white" %>
+        <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワードを入力",
+              class: "input input-bordered w-full bg-base-100/50 focus:bg-white",
+              data: { char_counter_target: "input", action: "input->char-counter#updateCount focus->char-counter#markAsTouched" } %>
+        <div class="text-right text-sm text-neutral/60 mt-1">
+          <span data-char-counter-target="counter">0</span>文字（<%= User::PASSWORD_MIN_LENGTH %>文字以上）
+        </div>
       </div>
 
-      <div>
+      <div data-controller="char-counter" data-char-counter-min-value=<%= User::PASSWORD_MIN_LENGTH %>>
         <%= f.label :password_confirmation, class: "text-sm font-medium text-neutral/80 ml-1" %>
         <span class="text-xs text-error font-medium">*</span>
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "もう一度パスワードを入力", class: "input input-bordered w-full bg-base-100/50 focus:bg-white" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "もう一度パスワードを入力",
+              class: "input input-bordered w-full bg-base-100/50 focus:bg-white",
+              data: { char_counter_target: "input", action: "input->char-counter#updateCount focus->char-counter#markAsTouched" } %>
+        <div class="text-right text-sm text-neutral/60 mt-1">
+          <span data-char-counter-target="counter">0</span>文字（<%= User::PASSWORD_MIN_LENGTH %>文字以上）
+        </div>
       </div>
 
-      <div class="pt-2">
+      <div class="pt-4">
         <%= f.submit t("devise.registrations.new.sign_up"), class: "btn btn-primary w-full shadow-md hover:shadow-lg" %>
       </div>
     <% end %>
