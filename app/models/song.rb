@@ -1,9 +1,14 @@
 class Song < ApplicationRecord
   has_many :reviews, primary_key: :uuid, foreign_key: :song_uuid, dependent: :destroy
 
-  validates :title, presence: true, length: { maximum: 100 }
-  validates :composer, length: { maximum: 50 }, allow_blank: true
-  validates :arranger, length: { maximum: 50 }, allow_blank: true
+  # バリデーションとビューで使用する文字数制限
+  TITLE_MAX_LENGTH = 100
+  COMPOSER_MAX_LENGTH = 50
+  ARRANGER_MAX_LENGTH = 50
+
+  validates :title, presence: true, length: { maximum: TITLE_MAX_LENGTH }
+  validates :composer, length: { maximum: COMPOSER_MAX_LENGTH }, allow_blank: true
+  validates :arranger, length: { maximum: ARRANGER_MAX_LENGTH }, allow_blank: true
 
   # キーワード検索スコープ
   scope :search_by_keywords, ->(query) {
