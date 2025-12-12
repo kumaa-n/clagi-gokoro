@@ -3,6 +3,9 @@ class Review < ApplicationRecord
   belongs_to :song, primary_key: :uuid, foreign_key: :song_uuid
   has_many :review_favorites, dependent: :destroy
 
+  # バリデーションとビューで使用する文字数制限
+  SUMMARY_MAX_LENGTH = 500
+
   RATING_ATTRIBUTES = %i[
     tempo_rating
     fingering_technique_rating
@@ -13,6 +16,7 @@ class Review < ApplicationRecord
 
   validates *RATING_ATTRIBUTES, inclusion: { in: 1..5, message: "は1から5の間で評価してください" }
   validates :song_uuid, uniqueness: { scope: :user_id, message: "に対してレビュー済みです。" }
+  validates :summary, content_length: { maximum: SUMMARY_MAX_LENGTH }, allow_blank: true
 
   before_save :calc_overall_rating
 
