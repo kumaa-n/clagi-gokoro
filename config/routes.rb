@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   root "static_pages#top"
 
+  resource :profile, only: %i[show edit update]
+
   resources :songs, only: %i[index new create], param: :short_uuid do
     resources :reviews, shallow: true do
       resource :review_favorite, only: %i[create destroy]
