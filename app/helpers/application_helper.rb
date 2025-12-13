@@ -30,4 +30,12 @@ module ApplicationHelper
       end.join.html_safe
     end
   end
+
+  def header_user_name
+    return nil unless user_signed_in?
+
+    # current_userは更新失敗時に変更された値を持つ可能性があるため、
+    # DBから最新の値を取得し、メモ化する
+    @header_user_name ||= User.find(current_user.id).name
+  end
 end
