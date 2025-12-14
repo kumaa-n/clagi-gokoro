@@ -76,9 +76,7 @@
         <%# 投稿者コメント %>
         <div class="card bg-white">
           <div class="card-body p-6 md:p-8">
-            <h3 class="text-xl font-serif font-medium text-primary mb-4 flex items-center gap-2">
-              <%= inline_svg_tag("review.svg", class: "w-6 h-6") %>投稿者コメント
-            </h3>
+            <h3 class="text-xl font-serif font-medium text-primary mb-4">投稿者コメント</h3>
             <div class="bg-base-50 rounded-xl text-neutral leading-relaxed break-words">
               <%= @review.summary.presence || "コメントはありません" %>
             </div>
