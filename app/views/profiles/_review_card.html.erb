@@ -1,0 +1,52 @@
+<%= link_to review_path(review),
+            class: "card bg-white border border-base-200/60 shadow-sm h-full hover:shadow-md
+                    transition-all duration-300 hover:-translate-y-1 group" do %>
+  <div class="card-body p-5 md:p-6">
+    <h3 class="card-title text-primary font-serif text-lg md:text-xl line-clamp-2 break-all
+              min-h-[3.5rem] mb-2 transition-colors group-hover:text-primary/80">
+      <%= review.song.decorate.title %>
+    </h3>
+
+    <div class="space-y-1 mb-4">
+      <div class="flex items-center gap-2 text-sm text-neutral/80">
+        <span class="text-xs px-2 py-0.5 bg-base-200 rounded-full text-neutral/60 shrink-0">作曲</span>
+        <span class="truncate min-w-0 flex-1"><%= review.song.decorate.composer_or_dash %></span>
+      </div>
+      <div class="flex items-center gap-2 text-sm text-neutral/80">
+        <span class="text-xs px-2 py-0.5 bg-base-200 rounded-full text-neutral/60 shrink-0">編曲</span>
+        <span class="truncate min-w-0 flex-1"><%= review.song.decorate.arranger_or_dash %></span>
+      </div>
+    </div>
+
+    <div class="border-t border-base-200 my-2"></div>
+
+    <div class="flex items-center mb-2">
+      <div class="flex items-center gap-2">
+        <span class="text-xs text-neutral/60">総合難易度</span>
+        <%= star_rating_display(review.overall_rating, size: "sm") %>
+        <span class="text-sm font-medium text-neutral"><%= review.overall_rating %></span>
+      </div>
+    </div>
+
+    <div class="space-y-1 mb-2">
+      <div class="flex items-center gap-2 text-xs text-neutral/80 min-w-0">
+        <%= inline_svg_tag("user.svg", class: "w-4 h-4 shrink-0") %>
+        <span class="text-neutral/60 shrink-0">投稿者</span>
+        <span class="font-medium text-primary truncate min-w-0"><%= review.user.name %></span>
+      </div>
+      <div class="flex items-center gap-2 text-xs text-neutral/80 min-w-0">
+        <%= inline_svg_tag("calendar.svg", class: "w-4 h-4 shrink-0") %>
+        <span class="text-neutral/60 shrink-0">投稿日</span>
+        <span class="truncate min-w-0"><%= format_date(review.created_at) %></span>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between mt-auto">
+      <div class="flex-1"></div>
+      <div class="flex items-center gap-1 text-primary text-xs font-medium group-hover:text-primary/80 transition-colors">
+        <span>詳細</span>
+        <%= inline_svg_tag "chevron-right.svg" %>
+      </div>
+    </div>
+  </div>
+<% end %>
