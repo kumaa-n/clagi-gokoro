@@ -28,16 +28,16 @@
 
       <%# ボタン類 %>
       <div class="flex flex-col md:flex-row gap-3 mt-4 md:mt-0 items-start">
-        <%= link_to song_reviews_path(@song), class: "btn btn-ghost text-primary hover:bg-primary/10 rounded-full px-3 gap-2" do %>
+        <%= link_to song_reviews_path(@song), class: "btn btn-ghost text-primary hover:bg-primary/10 rounded-full px-2 gap-2" do %>
           <%= inline_svg_tag("back.svg", class: "fill-current w-5 h-5") %>レビュー一覧へ
         <% end %>
         <% if user_signed_in? && current_user == @review.user %>
           <div class="flex gap-3">
-            <%= link_to edit_review_path(@review), class: "btn btn-primary shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full px-5 gap-2" do %>
+            <%= link_to edit_review_path(@review), class: "btn btn-primary shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full px-4 gap-2" do %>
               <%= inline_svg_tag("edit.svg", class: "fill-current w-5 h-5") %>編集
             <% end %>
             <%= render "delete_modal", review: @review do %>
-              <button data-action="auto-modal#show" class="btn btn-error text-base-100 shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full px-5 gap-2">
+              <button data-action="auto-modal#show" class="btn btn-error text-base-100 shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full px-4 gap-2">
                 <%= inline_svg_tag("delete.svg", class: "fill-current w-5 h-5") %>削除
               </button>
             <% end %>
@@ -51,11 +51,11 @@
       <div class="space-y-8">
         <%# 投稿者情報と総合評価 %>
         <div class="card bg-white p-6 md:p-8">
-          <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-6">
+          <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-6">
             <div class="space-y-1">
               <div class="flex items-center gap-2 mb-1">
                 <span class="text-sm text-neutral/60 font-medium">投稿者</span>
-                <p class="text-lg font-medium text-primary"><%= @review.user.name %></p>
+                <p class="text-base font-medium text-primary"><%= @review.user.name %></p>
               </div>
               <div class="flex items-center gap-2">
                 <span class="text-sm text-neutral/60 font-medium">投稿日</span>
