@@ -6,6 +6,13 @@ class Review < ApplicationRecord
   # バリデーションとビューで使用する文字数制限
   SUMMARY_MAX_LENGTH = 500
 
+  # 指定したユーザーがお気に入りに追加したレビューを取得するスコープ
+  scope :favorited_by, ->(user) {
+    joins(:review_favorites)
+      .where(review_favorites: { user_id: user.id })
+      .order("review_favorites.created_at DESC")
+  }
+
   RATING_ATTRIBUTES = %i[
     tempo_rating
     fingering_technique_rating
@@ -24,6 +31,7 @@ class Review < ApplicationRecord
   def favorited_by?(user)
     return false unless user
 
+    # N+1問題を避けるため、既にロード済みの場合はメモリ内で検索
     if review_favorites.loaded?
       review_favorites.any? { |fav| fav.user_id == user.id }
     else

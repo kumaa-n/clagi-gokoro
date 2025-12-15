@@ -23,8 +23,9 @@
           <% if user_signed_in? %>
             <li>
               <details class="dropdown dropdown-end">
-                <summary class="text-primary font-bold"><%= current_user.name %></summary>
+                <summary class="text-primary font-bold"><%= header_user_name %></summary>
                 <ul tabindex="-1" class="menu menu-sm dropdown-content bg-white/95 rounded-box z-10 mt-3 w-40 p-2 border border-base-200">
+                  <li><%= link_to "マイページ", profile_path, class: "text-primary text-sm" %></li>
                   <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-primary text-sm" %></li>
                 </ul>
               </details>
@@ -52,8 +53,9 @@
 
       <% if user_signed_in? %>
         <li class="menu-title text-primary/60 mt-2">
-          <%= current_user.name %>
+          <%= header_user_name %>
         </li>
+        <li><%= link_to "マイページ", profile_path, class: "text-primary text-lg mb-2" %></li>
         <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-primary text-lg" %></li>
       <% else %>
         <li><%= link_to "ログイン", new_user_session_path, class: "text-primary text-lg mb-2 mt-2" %></li>

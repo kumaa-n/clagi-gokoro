@@ -1,0 +1,129 @@
+<%= content_for(:title, t(".title")) %>
+
+<div class="flex-1 py-8 md:py-12 lg:py-16 bg-base-200/50">
+  <div class="container mx-auto px-4">
+
+    <%# ページヘッダー %>
+    <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-8 md:mb-12 border-b border-primary/10 pb-6">
+      <h2 class="text-3xl md:text-4xl font-serif font-medium text-primary tracking-wide"><%= t(".title") %></h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+
+      <%# 左側サイドバー %>
+      <div class="lg:col-span-3">
+        <div class="card bg-white lg:sticky lg:top-24">
+
+          <%# ユーザー部分 %>
+          <div class="p-6 text-center bg-primary/5 border-b border-base-200">
+            <h3 class="text-primary font-medium text-lg"><%= @user.name %></h3>
+          </div>
+
+          <%# ナビゲーション %>
+          <nav class="py-2">
+            <%= link_to edit_profile_path,
+                        class: "flex items-center gap-3 px-6 py-4 text-sm font-medium text-primary
+                                hover:bg-primary/5 transition-colors" do %>
+              <%= inline_svg("user_profile.svg") %>プロフィール編集
+            <% end %>
+
+            <div class="flex items-center gap-3 px-6 py-4 text-sm cursor-not-allowed text-neutral/30">
+              <%= inline_svg("mail.svg") %>メールアドレス変更
+              <span class="ml-auto text-xs px-2 py-0.5 rounded-full bg-base-200 text-neutral/60">準備中</span>
+            </div>
+
+            <div class="flex items-center gap-3 px-6 py-4 text-sm cursor-not-allowed text-neutral/30">
+              <%= inline_svg("password.svg") %>パスワード変更
+              <span class="ml-auto text-xs px-2 py-0.5 rounded-full bg-base-200 text-neutral/60">準備中</span>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+      <%# 右側メインコンテンツ %>
+      <div class="lg:col-span-9 space-y-8">
+
+        <%# 自己紹介カード %>
+        <div class="card bg-white">
+          <div class="card-body p-6 md:p-8">
+            <h3 class="text-xl sm:text-2xl font-serif font-medium text-primary mb-4">自己紹介</h3>
+
+            <% if @user.self_introduction.present? %>
+              <div class="text-base text-neutral leading-relaxed break-words">
+                <%= @user.self_introduction %>
+              </div>
+            <% else %>
+              <div class="flex items-center gap-4 p-4 rounded-xl bg-base-100 border border-dashed border-base-300">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center bg-primary/10 text-primary/40">
+                  <%= inline_svg_tag("user_profile.svg", class: "w-5 h-5") %>
+                </div>
+                <p class="text-sm text-neutral">
+                  自己紹介を追加して、あなたの音楽の好みを共有しましょう
+                </p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <%# タブ %>
+        <div data-controller="tab">
+          <div class="flex gap-2 sm:gap-3 mb-8">
+            <button data-tab-target="tab"
+                    data-action="click->tab#switch"
+                    class="flex-1 py-3 sm:py-3.5 rounded-full font-medium text-xs sm:text-sm tracking-wide">
+              <span class="flex items-center justify-center gap-1 sm:gap-2">
+                <span class="hidden sm:inline">投稿したレビュー</span>
+                <span class="sm:hidden">投稿</span>
+                <span class="badge badge-sm bg-base-100 text-primary border-0">
+                  <%= @reviews.count %>
+                </span>
+              </span>
+            </button>
+            <button data-tab-target="tab"
+                    data-action="click->tab#switch"
+                    class="flex-1 py-3 sm:py-3.5 rounded-full font-medium text-xs sm:text-sm tracking-wide">
+              <span class="flex items-center justify-center gap-1 sm:gap-2">
+                <span>お気に入り</span>
+                <span class="badge badge-sm bg-base-100 text-primary border-0">
+                  <%= @favorited_reviews.count %>
+                </span>
+              </span>
+            </button>
+          </div>
+
+          <%# 投稿したレビュー一覧 %>
+          <div data-tab-target="panel">
+            <% if @reviews.any? %>
+              <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                <% @reviews.each do |review| %>
+                  <%= render "review_card", review: review %>
+                <% end %>
+              </div>
+            <% else %>
+              <%= render "empty_state",
+                         icon: "review-empty.svg",
+                         title: "まだレビューがありません",
+                         description: "お気に入りの音楽をレビューして、あなたの感想を共有しましょう" %>
+            <% end %>
+          </div>
+
+          <%# お気に入りレビュー一覧 %>
+          <div data-tab-target="panel">
+            <% if @favorited_reviews.any? %>
+              <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                <% @favorited_reviews.each do |review| %>
+                  <%= render "review_card", review: review %>
+                <% end %>
+              </div>
+            <% else %>
+              <%= render "empty_state",
+                         icon: "favorite.svg",
+                         title: "まだお気に入りがありません",
+                         description: "気になるレビューを見つけたら、お気に入りに追加してみましょう" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -43,6 +43,23 @@ RSpec.configure do |config|
   # Devise helper methods for system tests
   config.include Devise::Test::IntegrationHelpers, type: :system
 
+  # Capybaraの設定
+  if ENV["CI"]
+    # GitHub Actions
+    config.before(:each, type: :system) do
+      driven_by :selenium_chrome_headless
+    end
+  else
+    # Docker環境など
+    config.before(:each, type: :system) do
+      driven_by :remote_chrome
+      Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
+      Capybara.server_port = 4444
+      Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
+      Capybara.ignore_hidden_elements = false
+    end
+  end
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')

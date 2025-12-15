@@ -29,15 +29,16 @@
       </div>
     </div>
 
-    <div class="flex items-center justify-between mt-auto pt-2">
-      <div class="flex items-center gap-1 text-neutral/60 text-xs">
-        <%= inline_svg_tag "review.svg" %>
-        <span>レビュー <%= song.decorate.reviews_count %>件</span>
-      </div>
+    <div class="flex items-center gap-1 text-neutral/60 text-xs mb-2">
+      <%= inline_svg_tag "review.svg" %>
+      <span>レビュー <%= song.decorate.reviews_count %>件</span>
+    </div>
 
+    <div class="flex items-center justify-between mt-auto">
+      <div class="flex-1"></div>
       <div class="flex items-center gap-1 text-primary text-xs font-medium group-hover:text-primary/80 transition-colors">
         <span>詳細</span>
-        <%= inline_svg_tag "chevron-right.svg" %>
+        <%= inline_svg_tag("chevron-right.svg") %>
       </div>
     </div>
   </div>

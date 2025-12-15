@@ -1,0 +1,11 @@
+<div class="card bg-white border-2 border-dashed border-base-300 rounded-2xl p-8 sm:p-12 md:p-16 text-center">
+  <div class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 bg-primary/10 text-primary/40">
+    <%= inline_svg_tag(icon, class: "w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12") %>
+  </div>
+  <h3 class="text-lg sm:text-xl font-serif font-medium mb-2 text-primary"><%= title %></h3>
+  <p class="mb-4 sm:mb-6 text-sm sm:text-base text-neutral/60"><%= description %></p>
+  <%= link_to "レビューを探す",
+              songs_path,
+              class: "btn btn-primary rounded-full px-6 shadow-md hover:shadow-lg
+                     transition-all hover:-translate-y-0.5 items-center gap-2 w-full sm:w-auto" %>
+</div>

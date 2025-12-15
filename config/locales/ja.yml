@@ -22,27 +22,33 @@ ja:
         user:
           attributes:
             email:
-              taken: "の登録に失敗しました"
+              taken: の登録に失敗しました
   defaults:
+    profile: プロフィール
     flash_message:
       created: "%{resource}を投稿しました。"
       updated: "%{resource}を更新しました。"
       destroyed: "%{resource}を削除しました。"
-      forbidden: "権限がありません。"
+      forbidden: 権限がありません。
   errors:
     messages:
-      not_saved: "入力内容に不備があります。以下をご確認ください。"
+      not_saved: 入力内容に不備があります。以下をご確認ください。
   songs:
     index:
-      title: "曲一覧"
+      title: 曲一覧
     new:
-      title: "曲投稿"
+      title: 曲投稿
   reviews:
     index:
-      title: "レビュー一覧"
+      title: レビュー一覧
     show:
-      title: "レビュー詳細"
+      title: レビュー詳細
     new:
-      title: "レビュー投稿"
+      title: レビュー投稿
     edit:
-      title: "レビュー編集"
+      title: レビュー編集
+  profiles:
+    show:
+      title: マイページ
+    edit:
+      title: プロフィール編集

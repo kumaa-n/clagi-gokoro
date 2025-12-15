@@ -21,3 +21,6 @@ application.register("auto-modal", AutoModalController)
 
 import CharCounterController from "./char_counter_controller"
 application.register("char-counter", CharCounterController)
+
+import MypageTabController from "./mypage_tab_controller"
+application.register("tab", MypageTabController)

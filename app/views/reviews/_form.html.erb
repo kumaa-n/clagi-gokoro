@@ -1,18 +1,26 @@
 <div class="flex-1 py-8 md:py-12 lg:py-16 bg-base-200/50">
   <div class="container mx-auto px-4">
+
+    <%# ページヘッダー：曲情報とナビゲーション %>
     <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-8 md:mb-12 border-b border-primary/10 pb-6">
       <div class="flex-1">
         <%= render "song_header", song: song, title: page_title %>
       </div>
       <div class="flex gap-3 mt-4 md:mt-0">
-        <%= link_to song_reviews_path(song), class: "btn btn-ghost text-primary hover:bg-primary/10 rounded-full px-3 gap-2" do %>
+        <%= link_to song_reviews_path(song),
+                    class: "btn btn-ghost text-primary hover:bg-primary/10 rounded-full px-3 gap-2" do %>
           <%= inline_svg_tag("back.svg", class: "fill-current w-5 h-5") %>レビュー一覧へ
         <% end %>
       </div>
     </div>
 
-    <%= form_with model: review, url: (review.persisted? ? review_path(review) : song_reviews_path(song)), data: { controller: "review-form" } do |f| %>
+    <%# フォーム本体 %>
+    <%= form_with model: review,
+                  url: (review.persisted? ? review_path(review) : song_reviews_path(song)),
+                  data: { controller: "review-form" } do |f| %>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+        <%# 左側：評価入力フォーム %>
         <div class="space-y-6">
           <div class="card bg-white">
             <div class="card-body p-6 md:p-8">
@@ -20,6 +28,7 @@
 
               <%= render "shared/error_message", object: f.object %>
 
+              <%# 各評価項目 %>
               <% rating_fields_data.each do |rating| %>
                 <% description = capture do %>
                   <p class="text-neutral/80 text-sm mb-2"><%= rating[:intro] %></p>
@@ -37,17 +46,34 @@
                   description: description %>
               <% end %>
 
-              <div class="mt-8">
-                <%= f.label :summary, "コメント（任意）", class: "label font-serif font-medium text-primary text-lg mb-2" %>
-                <%= f.text_area :summary, rows: 6, class: "textarea textarea-bordered w-full resize-none bg-base-50 focus:bg-white transition-colors", placeholder: "曲についてのコメントを入力してください" %>
+              <%# 投稿者コメント %>
+              <div class="mt-8"
+                   data-controller="char-counter"
+                   data-char-counter-max-value="<%= Review::SUMMARY_MAX_LENGTH %>"
+                   data-char-counter-exclude-line-breaks-value="true">
+                <%= f.label :summary, "投稿者コメント（任意）", class: "label font-serif font-medium text-primary text-lg mb-2" %>
+                <%= f.text_area :summary,
+                                rows: 6,
+                                placeholder: "レビューについてのコメントを入力してください",
+                                class: "textarea textarea-bordered w-full resize-none bg-base-50 focus:bg-white transition-colors",
+                                data: {
+                                  char_counter_target: "input",
+                                  action: "input->char-counter#updateCount focus->char-counter#markAsTouched"
+                                } %>
+                <div class="text-right text-sm text-neutral/60 mt-1">
+                  <span data-char-counter-target="counter">0</span> / <%= Review::SUMMARY_MAX_LENGTH %>文字
+                </div>
               </div>
             </div>
           </div>
         </div>
 
+        <%# 右側：プレビューとガイドライン %>
         <div class="space-y-6">
           <div class="card bg-white sticky top-24">
             <div class="card-body p-6 md:p-8">
+
+              <%# レーダーチャートによる評価プレビュー %>
               <h3 class="text-xl font-serif font-medium text-primary mb-6 text-center">評価プレビュー</h3>
               <div class="bg-base-100 rounded-xl p-4 md:p-6 flex items-center justify-center aspect-square relative mb-8 max-w-full">
                 <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
@@ -58,6 +84,7 @@
                 </div>
               </div>
 
+              <%# 評価ガイドライン %>
               <div class="bg-base-50 rounded-xl p-6 border border-base-200/60">
                 <h3 class="text-lg font-serif font-medium text-primary mb-4 flex items-center gap-2">
                   <%= inline_svg_tag("info.svg") %> 評価ガイドライン
@@ -79,8 +106,11 @@
               </div>
 
               <div class="flex flex-col gap-3 mt-8">
-                <%= f.submit submit_label, class: "btn btn-primary w-full shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full" %>
-                <%= link_to "キャンセル", review.persisted? ? review_path(review) : song_reviews_path(song), class: "btn btn-ghost text-neutral/60 w-full hover:bg-neutral/5 rounded-full" %>
+                <%= f.submit submit_label,
+                             class: "btn btn-primary w-full shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full" %>
+                <%= link_to "キャンセル",
+                            review.persisted? ? review_path(review) : song_reviews_path(song),
+                            class: "btn btn-ghost text-neutral/60 w-full hover:bg-neutral/5 rounded-full" %>
               </div>
             </div>
           </div>
