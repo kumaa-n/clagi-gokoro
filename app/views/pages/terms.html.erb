@@ -1,0 +1,82 @@
+<%= content_for(:title, t(".title", default: "利用規約")) %>
+
+<div class="flex-1 py-8 md:py-12 lg:py-16 bg-base-200/50">
+  <div class="container mx-auto px-4 max-w-4xl">
+    <div class="mb-8 md:mb-12 border-b border-primary/10 pb-6">
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-serif font-medium text-primary tracking-wide">
+        利用規約
+      </h1>
+    </div>
+
+    <div class="card bg-white">
+      <div class="card-body p-6 md:p-8 lg:p-12">
+
+        <div class="text-xs sm:text-sm text-neutral/70 mb-6 sm:mb-8 md:mb-10 space-y-1">
+          <p>施行日：2025年12月16日</p>
+          <p>運営者：クラギごころ運営者</p>
+        </div>
+
+        <div class="space-y-6 sm:space-y-8 md:space-y-10 text-sm sm:text-base text-neutral leading-relaxed">
+          <section class="space-y-3 sm:space-y-4">
+            <h2 class="text-lg sm:text-xl md:text-2xl font-serif font-medium text-primary">1. 適用</h2>
+            <p>
+              本規約は、クラギごころ運営者（以下「当方」）が提供するWebサービス「クラギごころ」（以下「本サービス」）の利用条件を定めるものです。
+              本サービスを利用することで、本規約に同意したものとみなします。
+            </p>
+          </section>
+
+          <section class="space-y-3 sm:space-y-4">
+            <h2 class="text-lg sm:text-xl md:text-2xl font-serif font-medium text-primary">2. 投稿について</h2>
+            <p>
+              投稿（レビュー、コメント等）の内容は投稿者の責任であり、当方はその内容を保証しません。
+              投稿にあたっては、第三者の権利（著作権、商標権、プライバシー、名誉等）を侵害しないよう配慮してください。
+            </p>
+            <p>
+              当方は、利用規約違反またはそのおそれがある投稿、権利侵害の申し立てがある投稿等について、必要最小限の範囲で削除・非表示等の対応を行うことがあります。
+            </p>
+          </section>
+
+          <section class="space-y-3 sm:space-y-4">
+            <h2 class="text-lg sm:text-xl md:text-2xl font-serif font-medium text-primary">3. 禁止事項</h2>
+            <p>以下の行為を禁止します。</p>
+            <ul class="list-disc ml-4 sm:ml-6 space-y-2">
+              <li>法令または公序良俗に違反する行為</li>
+              <li>なりすまし、虚偽情報の登録、アカウントの譲渡・貸与等</li>
+              <li>本サービスの運営を妨げる行為（過度な負荷、不正アクセス、リバースエンジニアリング等）</li>
+              <li>誹謗中傷、差別、脅迫、嫌がらせ、わいせつ・暴力的表現等の投稿</li>
+              <li>第三者の著作物（楽譜・音源・画像・文章等）を権利者の許諾なく投稿・転載する行為</li>
+              <li>スパム、過度な連投、その他不適切と判断される行為</li>
+            </ul>
+          </section>
+
+          <section class="space-y-3 sm:space-y-4">
+            <h2 class="text-lg sm:text-xl md:text-2xl font-serif font-medium text-primary">4. サービスの変更・中断・終了</h2>
+            <p>
+              当方は、本サービスの内容の変更、提供の中断または終了を行うことがあります。
+              可能な範囲で事前にお知らせするよう努めますが、緊急時等はこの限りではありません。
+            </p>
+          </section>
+
+          <section class="space-y-3 sm:space-y-4">
+            <h2 class="text-lg sm:text-xl md:text-2xl font-serif font-medium text-primary">5. 個人情報</h2>
+            <p>
+              利用者の個人情報は、
+              <%= link_to "プライバシーポリシー", privacy_path, class: "link link-primary" %>
+              に従い取り扱います。
+            </p>
+          </section>
+
+          <section class="space-y-3 sm:space-y-4">
+            <h2 class="text-lg sm:text-xl md:text-2xl font-serif font-medium text-primary">6. お問い合わせ</h2>
+            <p>
+              本規約に関するお問い合わせは、
+              <%= link_to "お問い合わせフォーム", contact_path, class: "link link-primary" %>
+              よりご連絡ください。
+            </p>
+          </section>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
