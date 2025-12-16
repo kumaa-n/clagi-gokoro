@@ -1,0 +1,90 @@
+<%= content_for(:title, t(".title", default: "プライバシーポリシー")) %>
+
+<div class="flex-1 py-8 md:py-12 lg:py-16 bg-base-200/50">
+  <div class="container mx-auto px-4 max-w-4xl">
+    <div class="mb-8 md:mb-12 border-b border-primary/10 pb-6">
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-serif font-medium text-primary tracking-wide">
+        プライバシーポリシー
+      </h1>
+    </div>
+
+    <div class="card bg-white">
+      <div class="card-body p-6 md:p-8 lg:p-12">
+
+        <div class="text-xs sm:text-sm text-neutral/70 mb-6 sm:mb-8 md:mb-10 space-y-1">
+          <p>施行日：2025年12月16日</p>
+          <p>運営者：クラギごころ運営者</p>
+        </div>
+
+        <div class="space-y-6 sm:space-y-8 md:space-y-10 text-sm sm:text-base text-neutral leading-relaxed">
+          <section class="space-y-3 sm:space-y-4">
+            <h2 class="text-lg sm:text-xl md:text-2xl font-serif font-medium text-primary">1. 取得する情報</h2>
+            <p>本サービスは、提供・運営のために、以下の情報を取得することがあります。</p>
+            <ul class="list-disc ml-4 sm:ml-6 space-y-2">
+              <li>アカウント情報（表示名、メールアドレス、パスワード等の認証情報）</li>
+              <li>外部認証ログイン利用時の識別子（例：Googleログインの認証に必要な情報）</li>
+              <li>投稿情報（レビュー、コメント、お気に入り等）</li>
+              <li>利用状況情報（アクセスログ、Cookie、端末・ブラウザ情報等）</li>
+              <li>お問い合わせ時に提供された情報（連絡先、本文等）</li>
+            </ul>
+            <p class="text-sm text-neutral/70">
+              ※ パスワードは平文では保存しません。
+            </p>
+          </section>
+
+          <section class="space-y-3 sm:space-y-4">
+            <h2 class="text-lg sm:text-xl md:text-2xl font-serif font-medium text-primary">2. 利用目的</h2>
+            <p>取得した情報は、以下の目的で利用します。</p>
+            <ul class="list-disc ml-4 sm:ml-6 space-y-2">
+              <li>本サービスの提供・運営のため</li>
+              <li>利用者の認証、本人確認のため</li>
+              <li>お問い合わせ対応のため</li>
+              <li>不正利用や規約違反への対応のため</li>
+              <li>サービス改善、機能開発、障害対応のため</li>
+            </ul>
+          </section>
+
+          <section class="space-y-3 sm:space-y-4">
+            <h2 class="text-lg sm:text-xl md:text-2xl font-serif font-medium text-primary">3. 公開される情報</h2>
+            <p>
+              本サービスの性質上、利用者が投稿した内容の一部は他の利用者や閲覧者に公開されます。
+              例：表示名、レビュー内容、投稿日、楽曲情報（曲名・作曲者等）など
+            </p>
+            <p class="text-sm text-neutral/70">
+              ※ 原則として、メールアドレスや外部認証の識別子等は公開しません。
+            </p>
+          </section>
+
+          <section class="space-y-3 sm:space-y-4">
+            <h2 class="text-lg sm:text-xl md:text-2xl font-serif font-medium text-primary">4. 外部サービス・Cookie等</h2>
+            <p>
+              本サービスは、ログイン機能等の提供にあたり外部サービス（例：Googleログイン）を利用する場合があります。
+              外部サービスでの情報の取扱いは、各提供者の規約・プライバシーポリシーをご確認ください。
+            </p>
+            <p>
+              また、本サービスはログイン状態の保持、セキュリティ確保等のためにCookie（セッションCookieを含みます）を使用します。
+              ブラウザ設定でCookieを無効にすると、サービスの一部が利用できなくなる場合があります。
+            </p>
+          </section>
+
+          <section class="space-y-3 sm:space-y-4">
+            <h2 class="text-lg sm:text-xl md:text-2xl font-serif font-medium text-primary">5. 本ポリシーの変更</h2>
+            <p>
+              当方は、必要に応じて本ポリシーを変更することがあります。変更後の内容は、本サービス上に掲示した時点から効力を生じます。
+            </p>
+          </section>
+
+          <section class="space-y-3 sm:space-y-4">
+            <h2 class="text-lg sm:text-xl md:text-2xl font-serif font-medium text-primary">6. お問い合わせ</h2>
+            <p>
+              本ポリシーに関するお問い合わせは、
+              <%= link_to "お問い合わせフォーム", contact_path, class: "link link-primary" %>
+              よりご連絡ください。
+            </p>
+          </section>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

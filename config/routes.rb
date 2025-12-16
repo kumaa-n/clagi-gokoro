@@ -4,7 +4,11 @@ Rails.application.routes.draw do
     omniauth_callbacks: "users/omniauth_callbacks"
   }
 
-  root "static_pages#top"
+  root "home#index"
+
+  %w[terms privacy contact].each do |page|
+    get "/#{page}", to: "high_voltage/pages#show", id: page, format: false
+  end
 
   resource :profile, only: %i[show edit update]
 
