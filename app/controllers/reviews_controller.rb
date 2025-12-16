@@ -1,8 +1,8 @@
 class ReviewsController < ApplicationController
+  before_action :authenticate_user!, only: %i[new create edit update destroy]
   before_action :set_song, only: %i[index new create]
   before_action :set_review, only: %i[show edit update destroy]
   before_action :authorize_review, only: %i[edit update destroy]
-  skip_before_action :authenticate_user!, only: %i[index show]
 
   def index
     @reviews = @song.reviews.includes(:user).order(created_at: :desc).page(params[:page])

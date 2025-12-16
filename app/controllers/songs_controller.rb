@@ -1,5 +1,5 @@
 class SongsController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[index]
+  before_action :authenticate_user!, only: %i[new create]
 
   def index
     @songs = Song.search_by_keywords(params[:query])
