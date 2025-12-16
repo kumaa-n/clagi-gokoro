@@ -1,7 +1,7 @@
-class StaticPagesController < ApplicationController
+class HomeController < ApplicationController
   skip_before_action :authenticate_user!
 
-  def top
+  def index
     @most_reviewed_songs = Song.most_reviewed(4)
     @recent_songs = Song.recent_with_stats(4)
   end
