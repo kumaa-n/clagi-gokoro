@@ -24,7 +24,7 @@ RSpec.describe "Googleログイン", type: :system do
       visit new_user_session_path
 
       expect {
-        click_link "Googleでログイン"
+        click_button "Googleでログイン"
       }.to change(User, :count).by(1)
 
       expect(page).to have_current_path(root_path)
@@ -51,7 +51,7 @@ RSpec.describe "Googleログイン", type: :system do
       visit new_user_session_path
 
       expect {
-        click_link "Googleでログイン"
+        click_button "Googleでログイン"
       }.not_to change(User, :count)
 
       expect(page).to have_current_path(root_path)
@@ -67,7 +67,7 @@ RSpec.describe "Googleログイン", type: :system do
       visit new_user_session_path
 
       expect {
-        click_link "Googleでログイン"
+        click_button "Googleでログイン"
       }.not_to change(User, :count)
 
       expect(page).to have_current_path(root_path)
