@@ -2,32 +2,68 @@
 
 <div class="flex-1 py-8 md:py-12 lg:py-16 bg-base-200/50">
   <div class="container mx-auto px-4">
-    <div class="mb-8 md:mb-12 border-b border-primary/10 pb-6">
-      <h1 class="text-3xl md:text-4xl font-serif font-medium text-primary tracking-wide">
-        お問い合わせ
-      </h1>
-    </div>
+    <div class="max-w-3xl mx-auto">
+      <div class="mb-8 md:mb-12 border-b border-primary/10 pb-6">
+        <h2 class="text-3xl md:text-4xl font-serif font-medium text-primary tracking-wide">お問い合わせ</h2>
+      </div>
 
-    <div class="card bg-white max-w-2xl mx-auto">
-      <div class="card-body p-6 md:p-8 lg:p-12">
-        <div class="text-center space-y-6">
-          <div class="w-20 h-20 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
-            <%= inline_svg_tag("info.svg", class: "w-10 h-10 text-primary") %>
-          </div>
-
-          <div class="space-y-4">
-            <h2 class="text-xl md:text-2xl font-serif font-medium text-primary">
-              お問い合わせフォーム
-            </h2>
+      <div class="card bg-white border border-base-200/60">
+        <div class="card-body p-6 md:p-8">
+          <div class="mb-6">
             <p class="text-neutral/80 leading-relaxed">
-              現在、お問い合わせフォームは準備中です。<br>
-              お問い合わせがある場合は、しばらくお待ちください。
+              サービスに関するご質問、ご意見、不具合の報告などがございましたら、<br>
+              以下のフォームよりお気軽にお問い合わせください。
             </p>
           </div>
 
-          <div class="pt-6">
-            <%= link_to "トップページに戻る", root_path, class: "btn btn-primary rounded-full px-8" %>
-          </div>
+          <%= form_with url: contacts_path, method: :post, class: "space-y-6" do |f| %>
+
+            <div class="space-y-6">
+              <div>
+                <%= f.label :name, "お名前", class: "label font-serif font-medium text-primary text-lg mb-2" %>
+                <span class="text-error">*</span>
+                <%= f.text_field :name,
+                                 placeholder: "お名前を入力",
+                                 required: true,
+                                 class: "input input-bordered w-full bg-base-50 focus:bg-white transition-colors" %>
+              </div>
+
+              <div>
+                <%= f.label :email, "メールアドレス", class: "label font-serif font-medium text-primary text-lg mb-2" %>
+                <span class="text-error">*</span>
+                <%= f.email_field :email,
+                                  placeholder: "メールアドレスを入力",
+                                  required: true,
+                                  class: "input input-bordered w-full bg-base-50 focus:bg-white transition-colors" %>
+              </div>
+
+              <div>
+                <%= f.label :content, "お問い合わせ内容", class: "label font-serif font-medium text-primary text-lg mb-2" %>
+                <span class="text-error">*</span>
+                <%= f.text_area :content,
+                                rows: 8,
+                                placeholder: "お問い合わせ内容を入力",
+                                required: true,
+                                class: "textarea textarea-bordered w-full resize-none bg-base-50 focus:bg-white transition-colors" %>
+              </div>
+            </div>
+
+            <div class="mt-5">
+              <%= f.submit "送信する",
+                           class: "btn btn-primary w-full shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full" %>
+            </div>
+
+            <div class="bg-base-50 rounded-xl p-6 border border-base-200/60 mt-6">
+              <h3 class="text-sm font-serif font-medium text-primary mb-3 flex items-center gap-2">
+                <%= inline_svg_tag("info.svg") %>
+                送信に関する注意事項
+              </h3>
+              <ul class="text-sm text-neutral/70 space-y-2">
+                <li>• お問い合わせ内容によっては、回答までにお時間をいただく場合がございます</li>
+                <li>• 個人情報の取り扱いについては、<%= link_to "プライバシーポリシー", privacy_path, class: "link link-primary" %>をご確認ください</li>
+              </ul>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
