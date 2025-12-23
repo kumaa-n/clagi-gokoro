@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     get "/#{page}", to: "high_voltage/pages#show", id: page, format: false
   end
 
+  post "/contacts", to: "contacts#create"
+
   resource :profile, only: %i[show edit update]
 
   resources :songs, only: %i[index new create], param: :short_uuid do
