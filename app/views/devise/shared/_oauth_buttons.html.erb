@@ -1,12 +1,6 @@
-<%- if devise_mapping.omniauthable? %>
-  <%- resource_class.omniauth_providers.each do |provider| %>
-    <% if provider == :google_oauth2 %>
-      <%= link_to omniauth_authorize_path(resource_name, provider),
-                  data: { turbo: false },
-                  class: "w-full btn btn-outline border-base-300 hover:bg-base-200 gap-2 sm:gap-3 h-10" do %>
-        <%= inline_svg_tag("google-logo.svg") %>
-        <span class="text-sm sm:text-base font-normal"><%= t("devise.shared.links.sign_in_with_provider", provider: "Google") %></span>
-      <% end %>
-    <% end %>
-  <% end %>
+<%= button_to user_google_oauth2_omniauth_authorize_path,
+              data: { turbo: false },
+              class: "w-full btn btn-outline border-base-300 hover:bg-base-200 gap-2 sm:gap-3 h-10" do %>
+  <%= inline_svg_tag("google-logo.svg") %>
+  <span class="text-sm sm:text-base font-normal"><%= t("devise.shared.links.sign_in_with_provider", provider: "Google") %></span>
 <% end %>
