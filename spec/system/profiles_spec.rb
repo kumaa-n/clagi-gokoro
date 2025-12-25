@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "プロフィール", type: :system do
   let!(:user) { create(:user, self_introduction: "よろしくお願いします") }
@@ -269,7 +269,7 @@ RSpec.describe "プロフィール", type: :system do
       it "正しいレビュー件数が表示される" do
         visit profile_path
 
-        within "button[data-tab-target='tab']", text: "投稿したレビュー" do
+        within "button[data-mypage-tab-target='tab']", text: "投稿したレビュー" do
           expect(page).to have_content("2")
         end
       end
@@ -282,7 +282,7 @@ RSpec.describe "プロフィール", type: :system do
       it "1件のレビューと表示される" do
         visit profile_path
 
-        within "button[data-tab-target='tab']", text: "投稿したレビュー" do
+        within "button[data-mypage-tab-target='tab']", text: "投稿したレビュー" do
           expect(page).to have_content("1")
         end
       end
@@ -403,12 +403,12 @@ RSpec.describe "プロフィール", type: :system do
         visit profile_path
 
         # 投稿したレビュータブに1件
-        within "button[data-tab-target='tab']:first-of-type" do
+        within "button[data-mypage-tab-target='tab']:first-of-type" do
           expect(page).to have_content("1")
         end
 
         # お気に入りタブに1件
-        within "button[data-tab-target='tab']:last-of-type" do
+        within "button[data-mypage-tab-target='tab']:last-of-type" do
           expect(page).to have_content("1")
         end
       end

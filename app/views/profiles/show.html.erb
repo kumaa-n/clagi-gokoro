@@ -66,10 +66,10 @@
         </div>
 
         <%# タブ %>
-        <div data-controller="tab">
+        <div data-controller="mypage-tab">
           <div class="flex gap-2 sm:gap-3 mb-8">
-            <button data-tab-target="tab"
-                    data-action="click->tab#switch"
+            <button data-mypage-tab-target="tab"
+                    data-action="click->mypage-tab#switch"
                     class="flex-1 py-3 sm:py-3.5 rounded-full font-medium text-xs sm:text-sm tracking-wide">
               <span class="flex items-center justify-center gap-1 sm:gap-2">
                 <span class="hidden sm:inline">投稿したレビュー</span>
@@ -79,8 +79,8 @@
                 </span>
               </span>
             </button>
-            <button data-tab-target="tab"
-                    data-action="click->tab#switch"
+            <button data-mypage-tab-target="tab"
+                    data-action="click->mypage-tab#switch"
                     class="flex-1 py-3 sm:py-3.5 rounded-full font-medium text-xs sm:text-sm tracking-wide">
               <span class="flex items-center justify-center gap-1 sm:gap-2">
                 <span>お気に入り</span>
@@ -92,7 +92,7 @@
           </div>
 
           <%# 投稿したレビュー一覧 %>
-          <div data-tab-target="panel">
+          <div data-mypage-tab-target="panel">
             <% if @reviews.any? %>
               <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 <% @reviews.each do |review| %>
@@ -108,7 +108,7 @@
           </div>
 
           <%# お気に入りレビュー一覧 %>
-          <div data-tab-target="panel">
+          <div data-mypage-tab-target="panel">
             <% if @favorited_reviews.any? %>
               <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 <% @favorited_reviews.each do |review| %>

@@ -23,4 +23,4 @@ import CharCounterController from "./char_counter_controller"
 application.register("char-counter", CharCounterController)
 
 import MypageTabController from "./mypage_tab_controller"
-application.register("tab", MypageTabController)
+application.register("mypage-tab", MypageTabController)
