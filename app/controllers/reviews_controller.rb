@@ -59,6 +59,13 @@ class ReviewsController < ApplicationController
   end
 
   def review_params
-    params.require(:review).permit(:tempo_rating, :fingering_technique_rating, :plucking_technique_rating, :expression_rating, :memorization_rating, :summary)
+    params.require(:review).permit(
+      :tempo_rating,
+      :fingering_technique_rating,
+      :plucking_technique_rating,
+      :expression_rating,
+      :memorization_rating,
+      :summary
+    )
   end
 end

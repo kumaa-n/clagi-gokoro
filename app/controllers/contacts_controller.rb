@@ -11,8 +11,8 @@ class ContactsController < ApplicationController
 
     # Googleフォームの各エントリーIDに合わせてフォーム値をセット
     form_data = {
-      FORM_ENTRIES[:name]    => params[:name],
-      FORM_ENTRIES[:email]   => params[:email],
+      FORM_ENTRIES[:name] => params[:name],
+      FORM_ENTRIES[:email] => params[:email],
       FORM_ENTRIES[:content] => params[:content]
     }
 
