@@ -2,11 +2,8 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static values = {
-    // 消える処理を開始するまでの時間
-    delay: { type: Number, default: 3000 },
-
-    // フェードアウトする時間
-    fadeDuration: { type: Number, default: 1000 }
+    delay: { type: Number, default: 3000 },  // 消える処理を開始するまでの時間
+    fadeDuration: { type: Number, default: 1000 }  // フェードアウトする時間
   }
 
   connect() {

@@ -7,6 +7,7 @@ class User < ApplicationRecord
 
   has_many :reviews, dependent: :destroy
   has_many :review_favorites, dependent: :destroy
+  has_many :favorited_reviews, -> { order("review_favorites.created_at DESC") }, through: :review_favorites, source: :review
 
   # バリデーションとビューで使用する文字数制限
   NAME_MIN_LENGTH = 2
@@ -24,10 +25,10 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, provider_uid: auth.uid).first_or_create do |user|
+    find_or_create_by(provider: auth.provider, provider_uid: auth.uid) do |user|
       user.name = generate_unique_name(auth.info.name)
       user.password = Devise.friendly_token[0, 20]
-      user.skip_confirmation!  # Googleで既に検証済みのため確認をスキップ
+      user.skip_confirmation!  # 検証済みのため確認をスキップ
     end
   end
 

@@ -3,9 +3,9 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["input", "counter"]
   static values = {
-    min: Number,           // 最小文字数
-    max: Number,           // 最大文字数
-    excludeLineBreaks: {   // 改行を除外するか
+    min: Number,  // 最小文字数
+    max: Number,  // 最大文字数
+    excludeLineBreaks: {  // 改行を除外するか
       type: Boolean,
       default: false
     }
@@ -28,7 +28,6 @@ export default class extends Controller {
 
     this.counterTarget.textContent = count
 
-    // 文字数チェックと色の変更
     this.updateColor(count)
   }
 
@@ -52,7 +51,6 @@ export default class extends Controller {
       return true
     }
 
-    // 最大文字数チェック
     if (this.hasMaxValue && count > this.maxValue) {
       return true
     }

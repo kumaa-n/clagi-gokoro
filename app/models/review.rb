@@ -6,13 +6,6 @@ class Review < ApplicationRecord
   # バリデーションとビューで使用する文字数制限
   SUMMARY_MAX_LENGTH = 500
 
-  # 指定したユーザーがお気に入りに追加したレビューを取得するスコープ
-  scope :favorited_by, ->(user) {
-    joins(:review_favorites)
-      .where(review_favorites: { user_id: user.id })
-      .order("review_favorites.created_at DESC")
-  }
-
   RATING_ATTRIBUTES = %i[
     tempo_rating
     fingering_technique_rating
@@ -26,6 +19,13 @@ class Review < ApplicationRecord
   validates :summary, content_length: { maximum: SUMMARY_MAX_LENGTH }, allow_blank: true
 
   before_save :calc_overall_rating
+
+  # 指定したユーザーがお気に入りに追加したレビューを取得するスコープ
+  scope :favorited_by, ->(user) {
+    joins(:review_favorites)
+      .where(review_favorites: { user_id: user.id })
+      .order("review_favorites.created_at DESC")
+  }
 
   # ユーザーがレビューをお気に入りに追加しているかどうかを確認
   def favorited_by?(user)
