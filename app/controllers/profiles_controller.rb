@@ -4,7 +4,7 @@ class ProfilesController < ApplicationController
 
   def show
     @reviews = @user.reviews.includes(:song).order(created_at: :desc)
-    @favorited_reviews = Review.favorited_by(@user).includes(:song, :user)
+    @favorited_reviews = @user.favorited_reviews.includes(:song, :user)
   end
 
   def edit; end
