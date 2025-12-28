@@ -27,10 +27,11 @@
               <%= inline_svg("user_profile.svg") %>プロフィール編集
             <% end %>
 
-            <div class="flex items-center gap-3 px-6 py-4 text-sm cursor-not-allowed text-neutral/30">
+            <%= link_to edit_email_change_path,
+                        class: "flex items-center gap-3 px-6 py-4 text-sm font-medium text-primary
+                                hover:bg-primary/5 transition-colors" do %>
               <%= inline_svg("mail.svg") %>メールアドレス変更
-              <span class="ml-auto text-xs px-2 py-0.5 rounded-full bg-base-200 text-neutral/60">準備中</span>
-            </div>
+            <% end %>
 
             <div class="flex items-center gap-3 px-6 py-4 text-sm cursor-not-allowed text-neutral/30">
               <%= inline_svg("password.svg") %>パスワード変更
