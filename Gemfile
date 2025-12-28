@@ -57,6 +57,7 @@ group :development do
   gem "rails_live_reload"
   gem "swimming_fish", "~> 0.2.2"
   gem "bullet"
+  gem "letter_opener_web", "~> 3.0"
 end
 
 group :test do
