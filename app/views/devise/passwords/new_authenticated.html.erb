@@ -1,0 +1,39 @@
+<%= content_for(:title, "パスワードリセット") %>
+
+<div class="flex-1 py-8 md:py-12 lg:py-16 bg-base-200/50">
+  <div class="container mx-auto px-4">
+    <div class="max-w-3xl mx-auto">
+      <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-8 md:mb-12 border-b border-primary/10 pb-6">
+        <h2 class="text-3xl md:text-4xl font-serif font-medium text-primary tracking-wide">パスワードリセット</h2>
+        <%= link_to profile_path,
+                    class: "btn btn-ghost text-primary hover:bg-primary/10 rounded-full px-3 gap-2 self-start" do %>
+          <%= inline_svg_tag("back.svg", class: "fill-current w-5 h-5") %>マイページへ
+        <% end %>
+      </div>
+
+      <%= form_with model: resource, scope: resource_name, url: password_path(resource_name), method: :post do |f| %>
+        <div class="card bg-white border border-base-200/60">
+          <div class="card-body p-6 md:p-8">
+            <div class="mb-6 p-4 bg-base-100 rounded-xl border border-base-200">
+              <p class="text-sm text-neutral/60 mb-1">パスワードリセットメールの送信先</p>
+              <p class="text-base font-medium text-neutral"><%= current_user.decorate.masked_email %></p>
+            </div>
+
+            <p class="text-sm text-neutral/60 mb-6">
+              上記のメールアドレスにパスワードリセット用のリンクを送信します。<br>
+              メールに記載されたリンクをクリックして、新しいパスワードを設定してください。
+            </p>
+
+            <div class="flex flex-col gap-4">
+              <%= f.submit "リセットメールを送信",
+                           class: "btn btn-primary w-full shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full" %>
+              <%= link_to "キャンセル",
+                          profile_path,
+                          class: "btn btn-ghost text-neutral/60 w-full hover:bg-neutral/5 rounded-full" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
