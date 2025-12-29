@@ -1,25 +1,58 @@
-<h2>Change your password</h2>
+<%= content_for(:title, "新しいパスワードの設定") %>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  <%= f.hidden_field :reset_password_token %>
+<div class="flex-1 py-8 md:py-12 lg:py-16 bg-base-200/50">
+  <div class="container mx-auto px-4">
+    <div class="max-w-3xl mx-auto">
+      <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-8 md:mb-12 border-b border-primary/10 pb-6">
+        <h2 class="text-3xl md:text-4xl font-serif font-medium text-primary tracking-wide">新しいパスワードの設定</h2>
+      </div>
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+      <%= form_with model: resource, scope: resource_name, url: password_path(resource_name), method: :put do |f| %>
+        <div class="card bg-white border border-base-200/60">
+          <div class="card-body p-6 md:p-8">
+            <%= render "shared/error_message", object: f.object %>
+            <%= f.hidden_field :reset_password_token %>
+
+            <div class="space-y-6">
+              <div data-controller="char-counter" data-char-counter-min-value=<%= User::PASSWORD_MIN_LENGTH %>>
+                <%= f.label :password, "新しいパスワード", class: "label font-serif font-medium text-primary text-lg mb-2" %>
+                <%= f.password_field :password,
+                                     autofocus: true,
+                                     autocomplete: "new-password",
+                                     placeholder: "#{User::PASSWORD_MIN_LENGTH}文字以上",
+                                     class: "input input-bordered w-full bg-base-50 focus:bg-white transition-colors",
+                                     data: {
+                                       char_counter_target: "input",
+                                       action: "input->char-counter#updateCount focus->char-counter#markAsTouched"
+                                     } %>
+                <div class="text-right text-sm text-neutral/60 mt-1">
+                  <span data-char-counter-target="counter">0</span>文字（<%= User::PASSWORD_MIN_LENGTH %>文字以上）
+                </div>
+              </div>
+
+              <div data-controller="char-counter" data-char-counter-min-value=<%= User::PASSWORD_MIN_LENGTH %>>
+                <%= f.label :password_confirmation, "新しいパスワード（確認用）", class: "label font-serif font-medium text-primary text-lg mb-2" %>
+                <%= f.password_field :password_confirmation,
+                                     autocomplete: "new-password",
+                                     placeholder: "確認のため再度入力してください",
+                                     class: "input input-bordered w-full bg-base-50 focus:bg-white transition-colors",
+                                     data: {
+                                       char_counter_target: "input",
+                                       action: "input->char-counter#updateCount focus->char-counter#markAsTouched"
+                                     } %>
+                <div class="text-right text-sm text-neutral/60 mt-1">
+                  <span data-char-counter-target="counter">0</span>文字（<%= User::PASSWORD_MIN_LENGTH %>文字以上）
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-4 mt-5">
+              <%= f.submit "パスワードを変更する",
+                           class: "btn btn-primary w-full shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

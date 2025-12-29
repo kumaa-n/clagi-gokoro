@@ -1,0 +1,55 @@
+<%= content_for(:title, "パスワードを忘れた方") %>
+
+<div class="flex-1 py-8 md:py-12 lg:py-16 bg-base-200/50">
+  <div class="container mx-auto px-4">
+    <div class="max-w-3xl mx-auto">
+      <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-8 md:mb-12 border-b border-primary/10 pb-6">
+        <h2 class="text-3xl md:text-4xl font-serif font-medium text-primary tracking-wide">パスワードを忘れた方</h2>
+        <%= link_to new_user_session_path,
+                    class: "btn btn-ghost text-primary hover:bg-primary/10 rounded-full px-3 gap-2 self-start" do %>
+          <%= inline_svg_tag("back.svg", class: "fill-current w-5 h-5") %>ログインページへ
+        <% end %>
+      </div>
+
+      <%= form_with model: resource, scope: resource_name, url: password_path(resource_name), method: :post do |f| %>
+        <div class="card bg-white border border-base-200/60">
+          <div class="card-body p-6 md:p-8">
+            <%= render "shared/error_message", object: f.object %>
+
+            <p class="text-sm text-neutral/60 mb-6">
+              メールアドレスを入力してください。<br>
+              登録されているメールアドレスにパスワードリセット用のリンクを送信します。
+            </p>
+
+            <div class="space-y-6">
+              <div class="form-control">
+                <%= f.label :email, "メールアドレス", class: "label font-serif font-medium text-primary text-lg mb-2" %>
+                <%= f.email_field :email,
+                                  autofocus: true,
+                                  autocomplete: "email",
+                                  placeholder: "例: user@example.com",
+                                  class: "input input-bordered w-full bg-base-50 focus:bg-white transition-colors" %>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-4 mt-5">
+              <%= f.submit "リセットメールを送信",
+                           class: "btn btn-primary w-full shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full" %>
+              <%= link_to "キャンセル",
+                          new_user_session_path,
+                          class: "btn btn-ghost text-neutral/60 w-full hover:bg-neutral/5 rounded-full" %>
+            </div>
+
+            <div class="mt-4 text-center">
+              <p class="text-sm text-neutral/60">
+                メールアドレスが登録されていない場合は、<br class="md:hidden">
+                <%= link_to "お問い合わせフォーム", contact_path, class: "text-primary hover:underline" %>
+                よりご連絡ください。
+              </p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

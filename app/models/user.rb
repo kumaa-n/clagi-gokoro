@@ -24,6 +24,14 @@ class User < ApplicationRecord
     false
   end
 
+  def oauth_user?
+    provider.present?
+  end
+
+  def email_registered?
+    email.present?
+  end
+
   def self.from_omniauth(auth)
     find_or_create_by(provider: auth.provider, provider_uid: auth.uid) do |user|
       user.name = generate_unique_name(auth.info.name)
