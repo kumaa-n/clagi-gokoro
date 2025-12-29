@@ -165,6 +165,9 @@ GEM
       i18n (>= 0.7)
       multi_json
       request_store (>= 1.0)
+    gretel (5.1.0)
+      actionview (>= 6.1)
+      railties (>= 6.1)
     hashie (5.0.0)
     high_voltage (5.0.0)
     i18n (1.14.7)
@@ -505,6 +508,7 @@ DEPENDENCIES
   draper
   factory_bot_rails
   gon
+  gretel
   high_voltage
   inline_svg
   jbuilder

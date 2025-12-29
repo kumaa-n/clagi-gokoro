@@ -1,0 +1,17 @@
+<%= breadcrumbs do |links| %>
+  <% if links.any? %>
+    <div class="breadcrumbs text-sm">
+      <ul>
+        <% links.each do |crumb| %>
+          <li>
+            <% if crumb.current? %>
+              <%= crumb.text %>
+            <% else %>
+              <%= link_to crumb.text, crumb.url, class: "text-primary hover:underline" %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% end %>
