@@ -3,7 +3,16 @@ Rails.application.routes.draw do
     registrations: "users/registrations",
     omniauth_callbacks: "users/omniauth_callbacks",
     passwords: "users/passwords"
-  }
+  }, skip: [:confirmations, :registrations]
+
+  devise_scope :user do
+    # Confirmations（メールアドレス確認のみ）
+    get "/users/confirmation", to: "devise/confirmations#show", as: :user_confirmation
+
+    # Registrations（新規登録のみ）
+    get "/users/sign_up", to: "users/registrations#new", as: :new_user_registration
+    post "/users", to: "users/registrations#create", as: :user_registration
+  end
 
   root "home#index"
 
