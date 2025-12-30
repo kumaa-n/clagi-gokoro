@@ -1,5 +1,6 @@
 class Users::EmailChangesController < ApplicationController
   before_action :authenticate_user!
+  before_action :check_user_eligibility
   before_action :set_user
 
   def edit; end
@@ -19,6 +20,13 @@ class Users::EmailChangesController < ApplicationController
   end
 
   private
+
+  def check_user_eligibility
+    # SNS認証ユーザーはアクセス不可
+    if current_user.oauth_user?
+      redirect_to profile_path, alert: t("defaults.flash_message.forbidden")
+    end
+  end
 
   def set_user
     @user = current_user
