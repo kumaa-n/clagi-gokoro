@@ -14,8 +14,8 @@ class Review < ApplicationRecord
     memorization_rating
   ].freeze
 
-  validates *RATING_ATTRIBUTES, inclusion: { in: 1..5, message: "は1から5の間で評価してください" }
-  validates :song_uuid, uniqueness: { scope: :user_id, message: "に対してレビュー済みです。" }
+  validates *RATING_ATTRIBUTES, inclusion: { in: 1..5 }
+  validates :song_uuid, uniqueness: { scope: :user_id }
   validates :summary, content_length: { maximum: SUMMARY_MAX_LENGTH }, allow_blank: true
 
   before_save :calc_overall_rating

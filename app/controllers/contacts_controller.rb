@@ -18,11 +18,11 @@ class ContactsController < ApplicationController
 
     Net::HTTP.post_form(uri, form_data)
 
-    flash[:notice] = "お問い合わせいただきありがとうございます。"
+    flash[:notice] = t("contacts.create.success")
     redirect_to root_path
   rescue StandardError => e
     Rails.logger.error("Contact form error: #{e.class} - #{e.message}")
-    flash[:alert] = "送信に失敗しました。時間をおいて再度お試しください。"
+    flash[:alert] = t("contacts.create.failure")
     redirect_to contact_path
   end
 end
