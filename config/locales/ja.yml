@@ -23,6 +23,20 @@ ja:
           attributes:
             email:
               taken: の登録に失敗しました
+        review:
+          attributes:
+            tempo_rating:
+              inclusion: は1から5の間で評価してください
+            fingering_technique_rating:
+              inclusion: は1から5の間で評価してください
+            plucking_technique_rating:
+              inclusion: は1から5の間で評価してください
+            expression_rating:
+              inclusion: は1から5の間で評価してください
+            memorization_rating:
+              inclusion: は1から5の間で評価してください
+            song_uuid:
+              taken: に対してレビュー済みです。
   defaults:
     profile: プロフィール
     flash_message:
@@ -52,6 +66,26 @@ ja:
       title: マイページ
     edit:
       title: プロフィール編集
+  contacts:
+    create:
+      success: お問い合わせいただきありがとうございます。
+      failure: 送信に失敗しました。時間をおいて再度お試しください。
+  pages:
+    terms:
+      title: 利用規約
+    privacy:
+      title: プライバシーポリシー
+    contact:
+      title: お問い合わせ
   users:
+    email_changes:
+      edit:
+        title: メールアドレス変更
     passwords:
+      new_guest:
+        title: パスワードを忘れた方
+      new_authenticated:
+        title: パスワードリセット
+      edit:
+        title: 新しいパスワードの設定
       email_registration_required: パスワードリセットにはメールアドレスの登録が必要です。
