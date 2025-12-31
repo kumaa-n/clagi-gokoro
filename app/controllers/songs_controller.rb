@@ -2,16 +2,30 @@ class SongsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create]
 
   def index
-    @songs = Song.search_by_keywords(params[:query])
-                 .with_review_stats
-                 .order(created_at: :desc)
-                 .page(params[:page])
+    @songs = if params[:title].present? || params[:composer].present? || params[:arranger].present?
+      Song.search_by_fields(
+        title: params[:title],
+        composer: params[:composer],
+        arranger: params[:arranger]
+      )
+    else
+      Song.search_by_keywords(params[:query])
+    end
+
+    @songs = @songs.with_review_stats
+                   .order(created_at: :desc)
+                   .page(params[:page])
 
     # 楽曲投稿直後のレビュー促進モーダル用
     if (uuid = flash[:review_prompt_song_id]).present?
       @prompt_song = Song.find_by(uuid: uuid)
       flash.delete(:review_prompt_song_id)
     end
+  end
+
+  def autocomplete
+    results = Song.autocomplete_by_field(params[:field], params[:query])
+    render json: results
   end
 
   def new

@@ -24,3 +24,6 @@ application.register("char-counter", CharCounterController)
 
 import MypageTabController from "./mypage_tab_controller"
 application.register("mypage-tab", MypageTabController)
+
+import AutocompleteController from "./autocomplete_controller"
+application.register("autocomplete", AutocompleteController)

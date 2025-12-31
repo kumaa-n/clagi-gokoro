@@ -10,7 +10,7 @@ class Song < ApplicationRecord
   validates :composer, length: { maximum: COMPOSER_MAX_LENGTH }, allow_blank: true
   validates :arranger, length: { maximum: ARRANGER_MAX_LENGTH }, allow_blank: true
 
-  # キーワード検索スコープ
+  # キーワード検索スコープ（複数フィールド対応）
   scope :search_by_keywords, ->(query) {
     keywords = query.to_s.strip.split(/[[:space:]]+/)
     return all if keywords.empty?
@@ -28,6 +28,41 @@ class Song < ApplicationRecord
 
       relation.where(condition)
     end
+  }
+
+  # フィールド別検索スコープ
+  scope :search_by_fields, ->(title: nil, composer: nil, arranger: nil) {
+    relation = all
+    table = Song.arel_table
+
+    if title.present?
+      sanitized = "%#{sanitize_sql_like(title)}%"
+      relation = relation.where(table[:title].matches(sanitized))
+    end
+
+    if composer.present?
+      sanitized = "%#{sanitize_sql_like(composer)}%"
+      relation = relation.where(table[:composer].matches(sanitized))
+    end
+
+    if arranger.present?
+      sanitized = "%#{sanitize_sql_like(arranger)}%"
+      relation = relation.where(table[:arranger].matches(sanitized))
+    end
+
+    relation
+  }
+
+  # オートコンプリート用スコープ
+  scope :autocomplete_by_field, ->(field, query) {
+    return none if query.blank?
+    return none unless %w[title composer arranger].include?(field)
+
+    where("#{field} LIKE ?", "%#{sanitize_sql_like(query)}%")
+      .where.not(field => [nil, ""])
+      .distinct
+      .limit(10)
+      .pluck(field)
   }
 
   # レビュー数と平均評価を含むスコープ
