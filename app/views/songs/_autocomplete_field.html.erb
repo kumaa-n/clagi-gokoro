@@ -1,0 +1,17 @@
+<div class="relative"
+     data-controller="autocomplete"
+     data-autocomplete-url-value="<%= autocomplete_songs_path %>"
+     data-autocomplete-field-value="<%= field_name %>">
+  <%= form.label field_name, label_text, class: "font-serif font-medium text-primary text-lg mb-2" %>
+  <%= form.text_field field_name,
+                      value: params[field_name],
+                      placeholder: placeholder_text,
+                      class: "input input-bordered w-full bg-base-50 focus:bg-white transition-colors",
+                      data: {
+                        autocomplete_target: "input",
+                        action: "input->autocomplete#onInput blur->autocomplete#onBlur keydown->autocomplete#onKeydown"
+                      },
+                      autocomplete: "off" %>
+  <ul class="absolute z-10 w-full bg-white border border-base-200 rounded-lg shadow-lg mt-1 max-h-60 overflow-y-auto hidden"
+      data-autocomplete-target="results"></ul>
+</div>
