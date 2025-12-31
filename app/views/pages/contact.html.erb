@@ -20,7 +20,7 @@
 
             <div class="space-y-6">
               <div>
-                <%= f.label :name, "お名前", class: "label font-serif font-medium text-primary text-lg mb-2" %>
+                <%= f.label :name, "お名前", class: "font-serif font-medium text-primary text-base mb-2" %>
                 <span class="text-error">*</span>
                 <%= f.text_field :name,
                                  placeholder: "お名前を入力",
@@ -29,7 +29,7 @@
               </div>
 
               <div>
-                <%= f.label :email, "メールアドレス", class: "label font-serif font-medium text-primary text-lg mb-2" %>
+                <%= f.label :email, "メールアドレス", class: "font-serif font-medium text-primary text-base mb-2" %>
                 <span class="text-error">*</span>
                 <%= f.email_field :email,
                                   placeholder: "メールアドレスを入力",
@@ -38,7 +38,7 @@
               </div>
 
               <div>
-                <%= f.label :content, "お問い合わせ内容", class: "label font-serif font-medium text-primary text-lg mb-2" %>
+                <%= f.label :content, "お問い合わせ内容", class: "font-serif font-medium text-primary text-base mb-2" %>
                 <span class="text-error">*</span>
                 <%= f.text_area :content,
                                 rows: 8,

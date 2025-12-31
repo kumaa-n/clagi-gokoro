@@ -54,11 +54,11 @@
               <% end %>
 
               <%# 投稿者コメント %>
-              <div class="mt-8"
+              <div class="mt-2"
                    data-controller="char-counter"
                    data-char-counter-max-value="<%= Review::SUMMARY_MAX_LENGTH %>"
                    data-char-counter-exclude-line-breaks-value="true">
-                <%= f.label :summary, "投稿者コメント（任意）", class: "label font-serif font-medium text-primary text-lg mb-2" %>
+                <%= f.label :summary, class: "font-serif font-medium text-primary text-base mb-2" %>
                 <%= f.text_area :summary,
                                 rows: 6,
                                 placeholder: "レビューについてのコメントを入力してください",
@@ -117,7 +117,7 @@
                              class: "btn btn-primary w-full shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full" %>
                 <%= link_to "キャンセル",
                             review.persisted? ? review_path(review) : song_reviews_path(song),
-                            class: "btn btn-ghost text-neutral/60 w-full hover:bg-neutral/5 rounded-full" %>
+                            class: "btn btn-outline w-full rounded-full px-8" %>
               </div>
             </div>
           </div>

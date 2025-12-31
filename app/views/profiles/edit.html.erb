@@ -24,12 +24,12 @@
           <div class="card-body p-6 md:p-8">
             <%= render "shared/error_message", object: f.object %>
 
-            <div class="space-y-6">
+            <div class="space-y-2">
               <div class="form-control"
                    data-controller="char-counter"
                    data-char-counter-min-value="<%= User::NAME_MIN_LENGTH %>"
                    data-char-counter-max-value="<%= User::NAME_MAX_LENGTH %>">
-                <%= f.label :name, class: "label font-serif font-medium text-primary text-lg mb-2" %>
+                <%= f.label :name, class: "font-serif font-medium text-primary text-base mb-2" %>
                 <%= f.text_field :name,
                                  placeholder: "ニックネームを入力",
                                  class: "input input-bordered w-full bg-base-50 focus:bg-white transition-colors",
@@ -46,7 +46,7 @@
                    data-controller="char-counter"
                    data-char-counter-max-value="<%= User::SELF_INTRODUCTION_MAX_LENGTH %>"
                    data-char-counter-exclude-line-breaks-value="true">
-                <%= f.label :self_introduction, class: "label font-serif font-medium text-primary text-lg mb-2" %>
+                <%= f.label :self_introduction, class: "font-serif font-medium text-primary text-base mb-2" %>
                 <%= f.text_area :self_introduction,
                                 rows: 8,
                                 placeholder: "自己紹介を入力してください",
@@ -66,7 +66,7 @@
                            class: "btn btn-primary w-full shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full" %>
               <%= link_to "キャンセル",
                           profile_path,
-                          class: "btn btn-ghost text-neutral/60 w-full hover:bg-neutral/5 rounded-full" %>
+                          class: "btn btn-outline w-full rounded-full px-8" %>
             </div>
           </div>
         </div>

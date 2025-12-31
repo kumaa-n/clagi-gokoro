@@ -8,12 +8,12 @@
       <%= render "shared/error_message", object: resource %>
 
       <div>
-        <%= f.label :name, class: "text-sm font-medium text-neutral/80 ml-1" %>
+        <%= f.label :name, class: "font-serif font-medium text-primary text-base" %>
         <%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder: "ニックネームを入力", class: "input input-bordered w-full bg-base-100/50 focus:bg-white" %>
       </div>
 
       <div>
-        <%= f.label :password, class: "text-sm font-medium text-neutral/80 ml-1" %>
+        <%= f.label :password, class: "font-serif font-medium text-primary text-base" %>
         <%= f.password_field :password, autocomplete: "current-password", placeholder: "パスワードを入力", class: "input input-bordered w-full bg-base-100/50 focus:bg-white" %>
       </div>
 
@@ -25,7 +25,7 @@
       <% end %>
 
       <div class="pt-2">
-        <%= f.submit t("devise.sessions.new.sign_in"), class: "btn btn-primary w-full shadow-md hover:shadow-lg" %>
+        <%= f.submit t("devise.sessions.new.sign_in"), class: "btn btn-primary w-full shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full" %>
       </div>
     <% end %>
 
