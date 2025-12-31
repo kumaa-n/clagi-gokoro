@@ -58,7 +58,10 @@ class Song < ApplicationRecord
     return none if query.blank?
     return none unless %w[title composer arranger].include?(field)
 
-    where("#{field} LIKE ?", "%#{sanitize_sql_like(query)}%")
+    table = arel_table
+    sanitized_query = "%#{sanitize_sql_like(query)}%"
+
+    where(table[field].matches(sanitized_query))
       .where.not(field => [nil, ""])
       .distinct
       .limit(10)
