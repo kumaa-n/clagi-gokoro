@@ -8,7 +8,7 @@
       <%= render "shared/error_message", object: resource %>
 
       <div data-controller="char-counter" data-char-counter-min-value=<%= User::NAME_MIN_LENGTH %> data-char-counter-max-value=<%= User::NAME_MAX_LENGTH %>>
-        <%= f.label :name, class: "text-sm font-medium text-neutral/80 ml-1" %>
+        <%= f.label :name, class: "font-serif font-medium text-primary text-base" %>
         <span class="text-xs text-error font-medium">*</span>
         <%= f.text_field :name, autofocus: true, placeholder: "ニックネームを入力",
               class: "input input-bordered w-full bg-base-100/50 focus:bg-white",
@@ -19,7 +19,7 @@
       </div>
 
       <div data-controller="char-counter" data-char-counter-min-value=<%= User::PASSWORD_MIN_LENGTH %>>
-        <%= f.label :password, class: "text-sm font-medium text-neutral/80 ml-1" %>
+        <%= f.label :password, class: "font-serif font-medium text-primary text-base" %>
         <span class="text-xs text-error font-medium">*</span>
         <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワードを入力",
               class: "input input-bordered w-full bg-base-100/50 focus:bg-white",
@@ -30,7 +30,7 @@
       </div>
 
       <div data-controller="char-counter" data-char-counter-min-value=<%= User::PASSWORD_MIN_LENGTH %>>
-        <%= f.label :password_confirmation, class: "text-sm font-medium text-neutral/80 ml-1" %>
+        <%= f.label :password_confirmation, class: "font-serif font-medium text-primary text-base" %>
         <span class="text-xs text-error font-medium">*</span>
         <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "もう一度パスワードを入力",
               class: "input input-bordered w-full bg-base-100/50 focus:bg-white",
@@ -41,7 +41,7 @@
       </div>
 
       <div class="pt-4">
-        <%= f.submit t("devise.registrations.new.sign_up"), class: "btn btn-primary w-full shadow-md hover:shadow-lg" %>
+        <%= f.submit t("devise.registrations.new.sign_up"), class: "btn btn-primary w-full shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full" %>
       </div>
     <% end %>
 

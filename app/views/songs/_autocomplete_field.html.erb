@@ -2,7 +2,7 @@
      data-controller="autocomplete"
      data-autocomplete-url-value="<%= autocomplete_songs_path %>"
      data-autocomplete-field-value="<%= field_name %>">
-  <%= form.label field_name, label_text, class: "font-serif font-medium text-primary text-lg mb-2" %>
+  <%= form.label field_name, label_text, class: "font-serif font-medium text-primary text-base mb-2" %>
   <%= form.text_field field_name,
                       value: params[field_name],
                       placeholder: placeholder_text,

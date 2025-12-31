@@ -13,13 +13,13 @@
             <%= render "shared/error_message", object: f.object %>
             <%= f.hidden_field :reset_password_token %>
 
-            <div class="space-y-6">
+            <div class="space-y-2">
               <div data-controller="char-counter" data-char-counter-min-value=<%= User::PASSWORD_MIN_LENGTH %>>
-                <%= f.label :password, "新しいパスワード", class: "label font-serif font-medium text-primary text-lg mb-2" %>
+                <%= f.label :password, class: "font-serif font-medium text-primary text-base" %>
                 <%= f.password_field :password,
                                      autofocus: true,
                                      autocomplete: "new-password",
-                                     placeholder: "#{User::PASSWORD_MIN_LENGTH}文字以上",
+                                     placeholder: "パスワードを入力",
                                      class: "input input-bordered w-full bg-base-50 focus:bg-white transition-colors",
                                      data: {
                                        char_counter_target: "input",
@@ -31,10 +31,10 @@
               </div>
 
               <div data-controller="char-counter" data-char-counter-min-value=<%= User::PASSWORD_MIN_LENGTH %>>
-                <%= f.label :password_confirmation, "新しいパスワード（確認用）", class: "label font-serif font-medium text-primary text-lg mb-2" %>
+                <%= f.label :password_confirmation, class: "font-serif font-medium text-primary text-base" %>
                 <%= f.password_field :password_confirmation,
                                      autocomplete: "new-password",
-                                     placeholder: "確認のため再度入力してください",
+                                     placeholder: "もう一度パスワードを入力",
                                      class: "input input-bordered w-full bg-base-50 focus:bg-white transition-colors",
                                      data: {
                                        char_counter_target: "input",
@@ -46,7 +46,7 @@
               </div>
             </div>
 
-            <div class="flex flex-col gap-4 mt-5">
+            <div class="flex flex-col gap-4 mt-4">
               <%= f.submit "パスワードを変更する",
                            class: "btn btn-primary w-full shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full" %>
             </div>

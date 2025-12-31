@@ -23,7 +23,7 @@
 
             <div class="space-y-6">
               <div class="form-control">
-                <%= f.label :email, "メールアドレス", class: "label font-serif font-medium text-primary text-lg mb-2" %>
+                <%= f.label :email, class: "label font-serif font-medium text-primary text-base" %>
                 <%= f.email_field :email,
                                   autofocus: true,
                                   autocomplete: "email",
@@ -37,7 +37,7 @@
                            class: "btn btn-primary w-full shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full" %>
               <%= link_to "キャンセル",
                           new_user_session_path,
-                          class: "btn btn-ghost text-neutral/60 w-full hover:bg-neutral/5 rounded-full" %>
+                          class: "btn btn-outline w-full rounded-full px-8" %>
             </div>
 
             <div class="mt-4 text-center">
