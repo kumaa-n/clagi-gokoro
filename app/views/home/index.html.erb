@@ -15,13 +15,13 @@
       </p>
     </div>
 
-    <%= form_with url: songs_path, method: :get, class: "w-full max-w-lg" do |f| %>
+    <%= form_with url: songs_path, method: :get, class: "w-full max-w-lg px-2" do |f| %>
       <div class="flex items-center gap-2 md:gap-3">
         <%= f.search_field :query,
             value: params[:query],
             placeholder: "曲名・作曲家・編曲家で検索...",
-            class: "input input-sm md:input-md flex-1 px-4 md:px-6 text-sm md:text-base bg-white/90 text-neutral placeholder:text-neutral/50 rounded-full border-0 focus:ring-2 focus:ring-accent/50 focus:bg-white transition-all duration-300" %>
-        <%= f.button type: "submit", class: "btn btn-circle btn-sm md:btn-md bg-white/90 hover:bg-white border-0 text-primary hover:text-accent transition-all duration-300" do %>
+            class: "input input-md flex-1 px-4 md:px-6 text-sm md:text-base bg-white/90 text-neutral placeholder:text-neutral/50 rounded-full border-0 focus:ring-2 focus:ring-accent/50 focus:bg-white transition-all duration-300" %>
+        <%= f.button type: "submit", class: "btn btn-circle btn-md bg-white/90 hover:bg-white border-0 text-primary hover:text-accent transition-all duration-300" do %>
           <%= inline_svg_tag("search.svg", class: "w-5 h-5 md:w-6 md:h-6") %>
         <% end %>
       </div>
