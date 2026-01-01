@@ -13,6 +13,6 @@ class ReviewFavoritesController < ApplicationController
   private
 
   def set_review
-    @review = Review.find(params[:review_id])
+    @review = Review.find_by_short_uuid(params[:review_id])
   end
 end

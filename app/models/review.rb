@@ -1,7 +1,9 @@
 class Review < ApplicationRecord
+  include UuidPrimaryKey
+
   belongs_to :user
   belongs_to :song, primary_key: :uuid, foreign_key: :song_uuid
-  has_many :review_favorites, dependent: :destroy
+  has_many :review_favorites, primary_key: :uuid, foreign_key: :review_uuid, dependent: :destroy
 
   # バリデーションとビューで使用する文字数制限
   SUMMARY_MAX_LENGTH = 500
