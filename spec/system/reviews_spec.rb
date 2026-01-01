@@ -239,7 +239,7 @@ RSpec.describe "レビュー投稿/編集/削除", type: :system do
 
         expect(page).to have_current_path(song_reviews_path(song))
         expect(page).to have_content(I18n.t("defaults.flash_message.forbidden"))
-        expect(Review.exists?(review.id)).to be true
+        expect(Review.exists?(review.uuid)).to be true
       end
 
       it "詳細ページに編集/削除ボタンが表示されない" do
