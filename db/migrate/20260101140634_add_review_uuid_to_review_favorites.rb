@@ -5,10 +5,12 @@ class AddReviewUuidToReviewFavorites < ActiveRecord::Migration[7.2]
 
     # 既存データの移行
     ReviewFavorite.reset_column_information
-    ReviewFavorite.find_each do |review_favorite|
-      review = Review.find_by(id: review_favorite.review_id)
-      review_favorite.update_column(:review_uuid, review.uuid) if review
-    end
+    execute <<-SQL
+      UPDATE review_favorites
+      SET review_uuid = reviews.uuid
+      FROM reviews
+      WHERE review_favorites.review_id = reviews.id
+    SQL
 
     change_column_null :review_favorites, :review_uuid, false
   end
