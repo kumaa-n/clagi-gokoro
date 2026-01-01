@@ -44,11 +44,11 @@ class ReviewsController < ApplicationController
   private
 
   def set_song
-    @song = Song.find_by_short_uuid(params[:song_short_uuid])
+    @song = Song.find_by_short_uuid(params[:song_id])
   end
 
   def set_review
-    @review = Review.find(params[:id])
+    @review = Review.find_by_short_uuid(params[:id])
     @song = @review.song
   end
 

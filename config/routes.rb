@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   resource :profile, only: %i[show edit update]
   resource :email_change, only: %i[edit update], controller: "users/email_changes"
 
-  resources :songs, only: %i[index new create], param: :short_uuid do
+  resources :songs, only: %i[index new create] do
     collection do
       get :autocomplete
     end
