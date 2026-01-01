@@ -1,10 +1,10 @@
-<%= turbo_frame_tag "review_favorite_#{review.id}" do %>
+<%= turbo_frame_tag "review_favorite_#{review.uuid}" do %>
   <% if user_signed_in? %>
     <% favorited = review.favorited_by?(current_user) %>
     <%= button_to review_review_favorite_path(review),
                   method: favorited ? :delete : :post,
                   class: "btn gap-2 h-10 px-6 rounded-full shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300",
-                  data: { turbo_frame: "review_favorite_#{review.id}" } do %>
+                  data: { turbo_frame: "review_favorite_#{review.uuid}" } do %>
       <%= inline_svg_tag(favorited ? "favorite-filled.svg" : "favorite.svg", class: "w-5 h-5") %>
       <span class="whitespace-nowrap font-medium"><%= "お気に入り" %></span>
     <% end %>
