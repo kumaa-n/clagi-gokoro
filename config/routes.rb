@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
   resource :profile, only: %i[show edit update]
   resource :email_change, only: %i[edit update], controller: "users/email_changes"
+  resource :nickname_change, only: %i[edit update], controller: "users/nickname_changes"
 
   resources :songs, only: %i[index new create] do
     collection do

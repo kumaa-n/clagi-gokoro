@@ -89,3 +89,6 @@ ja:
       edit:
         title: 新しいパスワードの設定
       email_registration_required: パスワードリセットにはメールアドレスの登録が必要です。
+    nickname_changes:
+      edit:
+        title: ニックネーム変更
