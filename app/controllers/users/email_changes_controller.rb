@@ -15,6 +15,7 @@ class Users::EmailChangesController < ApplicationController
     if @user.update(email_params)
       redirect_to profile_path, notice: t("devise.registrations.update_needs_confirmation")
     else
+      @user.reload
       render :edit, status: :unprocessable_entity
     end
   end
