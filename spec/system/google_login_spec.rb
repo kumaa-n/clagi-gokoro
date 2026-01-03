@@ -16,9 +16,11 @@ RSpec.describe "Googleログイン", type: :system do
   end
 
   let(:success_message) { I18n.t("devise.omniauth_callbacks.success", kind: "Google") }
+  let(:success_first_time) { I18n.t("devise.omniauth_callbacks.success_first_time", kind: "Google") }
+  let(:failure_message) { I18n.t("devise.omniauth_callbacks.failure", kind: "Google") }
 
   context "初回ログイン時" do
-    it "Googleアカウントでユーザーを作成してログインできる" do
+    it "Googleアカウントでユーザーを作成してニックネーム変更ページにリダイレクトされる" do
       OmniAuth.config.mock_auth[:google_oauth2] = auth_hash
 
       visit new_user_session_path
@@ -27,8 +29,8 @@ RSpec.describe "Googleログイン", type: :system do
         click_button "Googleでログイン"
       }.to change(User, :count).by(1)
 
-      expect(page).to have_current_path(root_path)
-      expect(page).to have_content(success_message)
+      expect(page).to have_current_path(edit_nickname_change_path)
+      expect(page).to have_content(success_first_time)
 
       created_user = User.find_by(provider: "google_oauth2", provider_uid: auth_hash.uid)
       expect(created_user).to be_present
@@ -72,6 +74,22 @@ RSpec.describe "Googleログイン", type: :system do
 
       expect(page).to have_current_path(root_path)
       expect(page).not_to have_content(success_message)
+    end
+  end
+
+  context "ユーザーの保存に失敗した場合" do
+    it "ユーザーは作成されず新規登録ページにリダイレクトされる" do
+      OmniAuth.config.mock_auth[:google_oauth2] = auth_hash
+      allow(User).to receive(:from_omniauth).and_return([User.new, true])
+
+      visit new_user_session_path
+
+      expect {
+        click_button "Googleでログイン"
+      }.not_to change(User, :count)
+
+      expect(page).to have_current_path(new_user_registration_path)
+      expect(page).to have_content(failure_message)
     end
   end
 end
