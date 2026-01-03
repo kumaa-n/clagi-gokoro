@@ -33,11 +33,17 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth)
-    find_or_create_by(provider: auth.provider, provider_uid: auth.uid) do |user|
+    user = find_or_initialize_by(provider: auth.provider, provider_uid: auth.uid)
+    is_new_registration = user.new_record?
+
+    if is_new_registration
       user.name = generate_unique_name(auth.info.name)
       user.password = Devise.friendly_token[0, 20]
-      user.skip_confirmation!  # 検証済みのため確認をスキップ
+      user.skip_confirmation!
+      user.save!
     end
+
+    [user, is_new_registration]
   end
 
   def self.generate_unique_name(base_name)
