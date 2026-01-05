@@ -28,6 +28,23 @@ class SongsController < ApplicationController
     render json: results
   end
 
+  def check_duplicate
+    duplicate = Song.find_duplicate_by_input(
+      title: params[:title],
+      composer: params[:composer],
+      arranger: params[:arranger]
+    )
+
+    if duplicate
+      render json: {
+        duplicate: true,
+        url: build_filter_url(params[:title], params[:composer], params[:arranger])
+      }
+    else
+      render json: { duplicate: false }
+    end
+  end
+
   def new
     @song = Song.new
   end
@@ -48,5 +65,12 @@ class SongsController < ApplicationController
 
   def song_params
     params.require(:song).permit(:title, :composer, :arranger)
+  end
+
+  def build_filter_url(title, composer, arranger)
+    filter_params = { title: title }
+    filter_params[:composer] = composer if composer.present?
+    filter_params[:arranger] = arranger if arranger.present?
+    songs_path(filter_params)
   end
 end

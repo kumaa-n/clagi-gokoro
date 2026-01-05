@@ -23,6 +23,8 @@ ja:
           attributes:
             email:
               taken: の登録に失敗しました
+        song:
+          duplicate_song: "入力した内容と一致する曲が既に登録されています。"
         review:
           attributes:
             tempo_rating:

@@ -14,15 +14,25 @@
       新しい曲を追加
     </h2>
 
-    <%= form_with model: @song, class: "space-y-2" do |f| %>
+    <%= form_with model: @song, class: "space-y-2", data: {
+      controller: "duplicate-checker",
+      duplicate_checker_url_value: check_duplicate_songs_path,
+    } do |f| %>
       <%= render "shared/error_message", object: f.object %>
+
+      <%# 重複警告エリア %>
+      <div data-duplicate-checker-target="warning" class="hidden mb-8"></div>
 
       <div data-controller="char-counter" data-char-counter-min-value=1 data-char-counter-max-value=<%= Song::TITLE_MAX_LENGTH %>>
         <%= f.label :title, class: "font-serif font-medium text-primary text-base mb-2" %>
         <span class="text-xs text-error font-medium">*</span>
         <%= f.text_field :title, placeholder: "曲名を入力",
               class: "input input-bordered w-full bg-base-100/50 focus:bg-white",
-              data: { char_counter_target: "input", action: "input->char-counter#updateCount focus->char-counter#markAsTouched" } %>
+              data: {
+                char_counter_target: "input",
+                duplicate_checker_target: "title",
+                action: "input->char-counter#updateCount input->duplicate-checker#checkDuplicate focus->char-counter#markAsTouched"
+              } %>
         <div class="text-right text-sm text-neutral/60 mt-1">
           <span data-char-counter-target="counter">0</span> / <%= Song::TITLE_MAX_LENGTH %>文字
         </div>
@@ -32,7 +42,11 @@
         <%= f.label :composer, class: "font-serif font-medium text-primary text-base mb-2" %>
         <%= f.text_field :composer, placeholder: "作曲者を入力",
               class: "input input-bordered w-full bg-base-100/50 focus:bg-white",
-              data: { char_counter_target: "input", action: "input->char-counter#updateCount focus->char-counter#markAsTouched" } %>
+              data: {
+                char_counter_target: "input",
+                duplicate_checker_target: "composer",
+                action: "input->char-counter#updateCount input->duplicate-checker#checkDuplicate focus->char-counter#markAsTouched"
+              } %>
         <div class="text-right text-sm text-neutral/60 mt-1">
           <span data-char-counter-target="counter">0</span> / <%= Song::COMPOSER_MAX_LENGTH %>文字
         </div>
@@ -42,7 +56,11 @@
         <%= f.label :arranger, class: "font-serif font-medium text-primary text-base mb-2" %>
         <%= f.text_field :arranger, placeholder: "編曲者を入力",
               class: "input input-bordered w-full bg-base-100/50 focus:bg-white",
-              data: { char_counter_target: "input", action: "input->char-counter#updateCount focus->char-counter#markAsTouched" } %>
+              data: {
+                char_counter_target: "input",
+                duplicate_checker_target: "arranger",
+                action: "input->char-counter#updateCount input->duplicate-checker#checkDuplicate focus->char-counter#markAsTouched"
+              } %>
         <div class="text-right text-sm text-neutral/60 mt-1">
           <span data-char-counter-target="counter">0</span> / <%= Song::ARRANGER_MAX_LENGTH %>文字
         </div>

@@ -27,3 +27,6 @@ application.register("mypage-tab", MypageTabController)
 
 import AutocompleteController from "./autocomplete_controller"
 application.register("autocomplete", AutocompleteController)
+
+import DuplicateCheckerController from "./duplicate_checker_controller"
+application.register("duplicate-checker", DuplicateCheckerController)
