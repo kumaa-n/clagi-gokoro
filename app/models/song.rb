@@ -11,6 +11,7 @@ class Song < ApplicationRecord
   validates :title, presence: true, length: { maximum: TITLE_MAX_LENGTH }
   validates :composer, length: { maximum: COMPOSER_MAX_LENGTH }, allow_blank: true
   validates :arranger, length: { maximum: ARRANGER_MAX_LENGTH }, allow_blank: true
+  validate :check_duplicate_song
 
   # キーワード検索スコープ（複数フィールド対応）
   scope :search_by_keywords, ->(query) {
@@ -91,4 +92,72 @@ class Song < ApplicationRecord
       .order(created_at: :desc)
       .limit(limit_count)
   }
+
+  # 重複チェック用の正規化メソッド
+  def self.normalize_for_duplicate_check(value)
+    return "" if value.blank?
+
+    value.to_s.unicode_normalize(:nfkc).gsub(/[[:space:]]/, "").downcase
+  end
+
+  # ユーザー入力に基づいて重複曲を検索
+  def self.find_duplicate_by_input(title:, composer: nil, arranger: nil, exclude_uuid: nil)
+    return nil if title.blank?
+
+    find_duplicate(
+      title: title,
+      composer: composer,
+      arranger: arranger,
+      exclude_uuid: exclude_uuid,
+      skip_blank_fields: true
+    )
+  end
+
+  # 重複曲を検索する共通メソッド
+  def self.find_duplicate(title:, composer:, arranger:, exclude_uuid: nil, skip_blank_fields: false)
+    normalized_title = normalize_for_duplicate_check(title)
+    normalized_composer = normalize_for_duplicate_check(composer)
+    normalized_arranger = normalize_for_duplicate_check(arranger)
+
+    return nil if normalized_title.blank?
+
+    relation = exclude_uuid ? where.not(uuid: exclude_uuid) : all
+
+    relation.find do |song|
+      # 曲名は必須でチェック
+      next false unless normalize_for_duplicate_check(song.title) == normalized_title
+
+      # 作曲者のチェック
+      if skip_blank_fields && normalized_composer.blank?
+        # 空欄の場合は条件をスキップ
+      elsif normalize_for_duplicate_check(song.composer) != normalized_composer
+        next false
+      end
+
+      # 編曲者のチェック
+      if skip_blank_fields && normalized_arranger.blank?
+        # 空欄の場合は条件をスキップ
+      elsif normalize_for_duplicate_check(song.arranger) != normalized_arranger
+        next false
+      end
+
+      true
+    end
+  end
+
+  private
+
+  def check_duplicate_song
+    return if title.blank?
+
+    duplicate = self.class.find_duplicate(
+      title: title,
+      composer: composer,
+      arranger: arranger,
+      exclude_uuid: uuid,
+      skip_blank_fields: false
+    )
+
+    errors.add(:base, :duplicate_song) if duplicate
+  end
 end
