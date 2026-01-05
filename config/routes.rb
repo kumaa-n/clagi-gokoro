@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   resources :songs, only: %i[index new create] do
     collection do
       get :autocomplete
+      get :check_duplicate
     end
 
     resources :reviews, shallow: true do
