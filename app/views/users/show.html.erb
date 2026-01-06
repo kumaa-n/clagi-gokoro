@@ -1,0 +1,50 @@
+<%= content_for(:title, "#{@user.name}のプロフィール") %>
+
+<div class="flex-1 bg-base-200/50">
+  <section class="py-8 md:py-12 lg:py-16">
+    <div class="container mx-auto px-4 max-w-6xl">
+
+      <div class="mb-8 md:mb-12 border-b border-primary/10 pb-6">
+        <h2 class="text-3xl md:text-4xl font-serif font-medium text-primary tracking-wide">
+          <%= @user.name %> のプロフィール
+        </h2>
+      </div>
+
+      <div class="space-y-8">
+        <div class="card bg-white">
+          <div class="card-body p-6 md:p-8">
+            <h3 class="text-xl sm:text-2xl font-serif font-medium text-primary mb-4">自己紹介</h3>
+
+            <textarea readonly
+                      class="textarea textarea-bordered w-full resize-none bg-base-50"
+                      rows="10"><%= @user.self_introduction.presence || "自己紹介はまだ登録されていません" %></textarea>
+          </div>
+        </div>
+
+        <div class="card bg-white">
+          <div class="card-body p-6 md:p-8">
+            <h3 class="text-xl sm:text-2xl font-serif font-medium text-primary mb-6">
+              投稿したレビュー
+              <span class="badge badge-lg bg-primary/10 text-primary border-0 ml-2">
+                <%= @reviews.count %>
+              </span>
+            </h3>
+
+            <% if @reviews.any? %>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <% @reviews.each do |review| %>
+                  <%= render "profiles/review_card", review: review %>
+                <% end %>
+              </div>
+            <% else %>
+              <%= render "profiles/empty_state",
+                          icon: "review-empty.svg",
+                          title: "まだレビューがありません",
+                          description: "このユーザーはまだレビューを投稿していません" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

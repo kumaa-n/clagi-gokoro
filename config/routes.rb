@@ -26,6 +26,9 @@ Rails.application.routes.draw do
   resource :email_change, only: %i[edit update], controller: "users/email_changes"
   resource :nickname_change, only: %i[edit update], controller: "users/nickname_changes"
 
+  # 他ユーザーのプロフィール閲覧用
+  resources :users, only: %i[show], param: :name
+
   resources :songs, only: %i[index new create] do
     collection do
       get :autocomplete

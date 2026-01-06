@@ -59,19 +59,25 @@
       <div class="space-y-8">
         <%# 投稿者情報と総合評価 %>
         <div class="card bg-white p-6 md:p-8">
-          <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-6">
-            <div class="space-y-1">
-              <div class="flex items-center gap-2 mb-1">
+          <div class="flex flex-col gap-4">
+            <%= link_to user_path(@review.user.name), class: "flex items-center gap-3 group self-start" do %>
+              <div class="avatar placeholder">
+                <div class="bg-primary text-white rounded-full w-12 h-12 flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
+                  <span class="text-lg font-medium"><%= @review.user.name[0].upcase %></span>
+                </div>
+              </div>
+              <div class="flex flex-col">
                 <span class="text-sm text-neutral/60 font-medium">投稿者</span>
-                <p class="text-base font-medium text-primary"><%= @review.user.name %></p>
+                <span class="text-base font-medium text-primary group-hover:underline group-hover:text-primary/80 transition-colors"><%= @review.user.name %></span>
               </div>
-              <div class="flex items-center gap-2">
-                <span class="text-sm text-neutral/60 font-medium">投稿日</span>
-                <p class="text-base text-neutral/80"><%= format_date(@review.created_at) %></p>
-              </div>
+            <% end %>
+
+            <div class="flex items-center gap-2">
+              <span class="text-sm text-neutral/60 font-medium">投稿日</span>
+              <p class="text-base text-neutral/80"><%= format_date(@review.created_at) %></p>
             </div>
 
-            <div class="bg-base-200/50 rounded-xl p-4 flex items-center gap-3">
+            <div class="bg-base-200/50 rounded-xl p-4 flex items-center gap-3 self-start">
               <span class="text-primary font-serif font-medium text-lg">総合難易度</span>
               <div class="flex items-center gap-2">
                 <%= star_rating_display(@review.overall_rating, size: "md") %>
@@ -81,24 +87,22 @@
           </div>
         </div>
 
-        <%# 投稿者コメント %>
+        <%# 各項目の評価 %>
         <div class="card bg-white">
           <div class="card-body p-6 md:p-8">
-            <h3 class="text-xl font-serif font-medium text-primary mb-4">投稿者コメント</h3>
-            <div class="bg-base-50 rounded-xl text-neutral leading-relaxed break-words">
-              <%= @review.summary.presence || "コメントはありません" %>
-            </div>
-          </div>
-        </div>
-
-        <%# 各項目の評価詳細 %>
-        <div class="card bg-white">
-          <div class="card-body p-6 md:p-8">
-            <h3 class="text-xl font-serif font-medium text-primary mb-6">各項目の評価詳細</h3>
+            <h3 class="text-xl font-serif font-medium text-primary mb-6">各項目の評価</h3>
             <div class="space-y-6">
               <% rating_display_data(@review).each do |item| %>
                 <%= render "rating_item", label: item[:label], rating: item[:rating], description: item[:description], criteria: item[:criteria] %>
               <% end %>
+            </div>
+
+            <%# 投稿者コメント %>
+            <div class="mt-2">
+              <label class="font-serif font-medium text-primary text-base mb-2">投稿者コメント</label>
+              <textarea readonly
+                        class="textarea textarea-bordered w-full resize-none bg-base-50"
+                        rows="10"><%= @review.summary.presence || "コメントはありません" %></textarea>
             </div>
           </div>
         </div>
