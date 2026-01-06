@@ -1,4 +1,5 @@
 class ProfilesController < ApplicationController
+  # 自分のマイページ用コントローラー
   before_action :authenticate_user!
   before_action :set_user
 
