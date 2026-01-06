@@ -48,7 +48,7 @@ RSpec.describe "プロフィール", type: :system do
         it "自己紹介未設定のメッセージが表示される" do
           visit profile_path
 
-          expect(page).to have_content("自己紹介を追加して、あなたの音楽の好みを共有しましょう")
+          expect(page).to have_content("自己紹介を追加してみましょう")
         end
       end
 
@@ -337,7 +337,7 @@ RSpec.describe "プロフィール", type: :system do
       expect(page).to have_current_path(profile_path)
       expect(page).to have_content(new_name)
       # 空白文字のみの自己紹介は未設定と同じ扱いになる
-      expect(page).to have_content("自己紹介を追加して、あなたの音楽の好みを共有しましょう")
+      expect(page).to have_content("自己紹介を追加してみましょう")
     end
   end
 
