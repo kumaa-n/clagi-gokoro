@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_01_01_140921) do
+ActiveRecord::Schema[7.2].define(version: 2026_01_09_124330) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,7 +48,13 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_01_140921) do
     t.string "arranger"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "normalized_title"
+    t.string "normalized_composer"
+    t.string "normalized_arranger"
     t.index ["composer"], name: "index_songs_on_composer"
+    t.index ["normalized_arranger"], name: "index_songs_on_normalized_arranger"
+    t.index ["normalized_composer"], name: "index_songs_on_normalized_composer"
+    t.index ["normalized_title"], name: "index_songs_on_normalized_title"
     t.index ["title"], name: "index_songs_on_title"
     t.index ["uuid"], name: "index_songs_on_uuid", unique: true
   end
