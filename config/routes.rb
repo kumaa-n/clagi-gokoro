@@ -9,9 +9,10 @@ Rails.application.routes.draw do
     # Confirmations（メールアドレス確認のみ）
     get "/users/confirmation", to: "devise/confirmations#show", as: :user_confirmation
 
-    # Registrations（新規登録のみ）
+    # Registrations（新規登録、削除）
     get "/users/sign_up", to: "users/registrations#new", as: :new_user_registration
     post "/users", to: "users/registrations#create", as: :user_registration
+    delete "/users", to: "users/registrations#destroy"
   end
 
   root "home#index"
