@@ -38,6 +38,12 @@
       </div>
     </div>
 
+    <% if review.tags.present? %>
+      <div class="flex flex-wrap gap-1 mb-2" data-controller="tag-filter">
+        <%= render_tags(review.tags, song: review.song, linkable: true) %>
+      </div>
+    <% end %>
+
     <div class="flex items-center justify-between mt-auto">
       <div class="flex-1"></div>
       <div class="flex items-center gap-1 text-primary text-xs font-medium group-hover:text-primary/80 transition-colors">

@@ -86,4 +86,19 @@ module ReviewsHelper
       }
     end
   end
+
+  def render_tags(tags, song: nil, linkable: false)
+    return "" if tags.blank?
+
+    tags.map do |tag|
+      if linkable && song
+        link_to tag,
+                song_reviews_path(song, tag: tag),
+                class: "badge badge-primary badge-sm hover:badge-secondary transition-colors relative z-30",
+                data: { turbo_frame: "_top" }
+      else
+        content_tag(:span, tag, class: "badge badge-primary badge-sm")
+      end
+    end.join(" ").html_safe
+  end
 end

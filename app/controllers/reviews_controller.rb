@@ -5,7 +5,15 @@ class ReviewsController < ApplicationController
   before_action :authorize_review, only: %i[edit update destroy]
 
   def index
-    @reviews = @song.reviews.includes(:user).order(created_at: :desc).page(params[:page])
+    @reviews = @song.reviews.includes(:user, :song).order(created_at: :desc)
+
+    # PostgreSQLの配列包含演算子を使用してタグでフィルタリング
+    if params[:tag].present?
+      @selected_tag = params[:tag]
+      @reviews = @reviews.where("tags @> ARRAY[?]::text[]", @selected_tag)
+    end
+
+    @reviews = @reviews.page(params[:page])
     @user_review = current_user&.reviews&.find_by(song: @song)
   end
 
@@ -59,13 +67,21 @@ class ReviewsController < ApplicationController
   end
 
   def review_params
-    params.require(:review).permit(
+    permitted = params.require(:review).permit(
       :tempo_rating,
       :fingering_technique_rating,
       :plucking_technique_rating,
       :expression_rating,
       :memorization_rating,
-      :summary
+      :summary,
+      :tags
     )
+
+    # TagifyがJSON.stringifyで送信するため配列に変換
+    if permitted[:tags].is_a?(String)
+      permitted[:tags] = JSON.parse(permitted[:tags]) rescue []
+    end
+
+    permitted
   end
 end
