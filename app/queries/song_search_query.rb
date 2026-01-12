@@ -55,7 +55,7 @@ class SongSearchQuery
   def parse_tags_param(tags_param)
     return [] if tags_param.blank?
 
-    if tags_param.is_a?(String) && tags_param.start_with?('[')
+    if tags_param.is_a?(String) && tags_param.start_with?("[")
       JSON.parse(tags_param) rescue [tags_param]
     elsif tags_param.is_a?(Array)
       tags_param
