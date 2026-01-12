@@ -2,19 +2,9 @@ class SongsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create]
 
   def index
-    @songs = if params[:title].present? || params[:composer].present? || params[:arranger].present?
-      Song.search_by_fields(
-        title: params[:title],
-        composer: params[:composer],
-        arranger: params[:arranger]
-      )
-    else
-      Song.search_by_keywords(params[:query])
-    end
-
-    @songs = @songs.with_review_stats
-                   .order(created_at: :desc)
-                   .page(params[:page])
+    search = SongSearchQuery.new(params).call
+    @songs = Kaminari.paginate_array(search.songs).page(params[:page])
+    @selected_tags = search.selected_tags
 
     # 楽曲投稿直後のレビュー促進モーダル用
     if (uuid = flash[:review_prompt_song_id]).present?

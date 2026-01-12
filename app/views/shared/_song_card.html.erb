@@ -1,4 +1,7 @@
-<%= link_to song_reviews_path(song), class: "card bg-white border border-base-200/60 shadow-sm h-full hover:shadow-md transition-all duration-300 hover:-translate-y-1 group" do %>
+<div class="relative card bg-white border border-base-200/60 shadow-sm h-full hover:shadow-md transition-all duration-300 hover:-translate-y-1 group">
+  <%# カード全体をリンクにするための透明なリンク要素 %>
+  <%= link_to "", song_reviews_path(song), class: "absolute inset-0 z-20", aria: { hidden: true } %>
+
   <div class="card-body p-5 md:p-6">
     <h3 class="card-title text-primary font-serif text-lg md:text-xl line-clamp-2 break-all min-h-[3.5rem] mb-2 transition-colors group-hover:text-primary/80">
       <%= song.decorate.title %>
@@ -34,6 +37,22 @@
       <span>レビュー <%= song.decorate.reviews_count %>件</span>
     </div>
 
+    <%# 人気タグ表示 %>
+    <% show_tags = local_assigns.fetch(:show_tags, true) %>
+    <% if show_tags %>
+      <% top_tags = song.top_tags(ReviewTags::MAX_TAGS_PER_REVIEW) %>
+      <% if top_tags.present? %>
+        <div class="flex flex-wrap gap-1 mb-2" data-controller="tag-filter">
+          <% top_tags.each do |tag| %>
+            <%= link_to tag,
+                        songs_path(tag: tag, query: params[:query], title: params[:title], composer: params[:composer], arranger: params[:arranger]),
+                        class: "badge badge-primary badge-sm hover:badge-secondary transition-colors relative z-30",
+                        data: { turbo_frame: "_top" } %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+
     <div class="flex items-center justify-between mt-auto">
       <div class="flex-1"></div>
       <div class="flex items-center gap-1 text-primary text-xs font-medium group-hover:text-primary/80 transition-colors">
@@ -42,4 +61,4 @@
       </div>
     </div>
   </div>
-<% end %>
+</div>
