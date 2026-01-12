@@ -30,6 +30,16 @@ class Review < ApplicationRecord
       .order("review_favorites.created_at DESC")
   }
 
+  # いずれかのタグを含むレビューを取得（OR検索）
+  scope :with_any_tags, ->(tags) {
+    where("tags && ARRAY[?]::text[]", Array(tags))
+  }
+
+  # すべてのタグを含むレビューを取得（AND検索）
+  scope :with_all_tags, ->(tags) {
+    where("tags @> ARRAY[?]::text[]", Array(tags))
+  }
+
   # ユーザーがレビューをお気に入りに追加しているかどうかを確認
   def favorited_by?(user)
     return false unless user

@@ -7,10 +7,9 @@ class ReviewsController < ApplicationController
   def index
     @reviews = @song.reviews.includes(:user, :song).order(created_at: :desc)
 
-    # PostgreSQLの配列包含演算子を使用してタグでフィルタリング
     if params[:tag].present?
       @selected_tag = params[:tag]
-      @reviews = @reviews.where("tags @> ARRAY[?]::text[]", @selected_tag)
+      @reviews = @reviews.with_all_tags(@selected_tag)
     end
 
     @reviews = @reviews.page(params[:page])
