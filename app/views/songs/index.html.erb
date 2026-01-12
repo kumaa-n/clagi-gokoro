@@ -25,6 +25,14 @@
 
       <%= render "songs/search_form" %>
 
+      <%# トップページからのキーワード検索の場合、検索内容を表示 %>
+      <% if params[:query].present? %>
+        <div class="mb-6 flex items-center gap-3 p-4 bg-primary/5 rounded-xl border border-primary/20">
+          <span class="text-sm text-neutral/80">「<%= params[:query] %>」で検索中</span>
+          <%= link_to "検索を解除", songs_path, class: "btn btn-ghost btn-sm rounded-full ml-auto" %>
+        </div>
+      <% end %>
+
       <% if @songs.any? %>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           <% @songs.each do |song| %>
