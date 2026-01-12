@@ -432,6 +432,11 @@
   dependencies:
     tslib "^2.4.0"
 
+"@yaireo/tagify@^4.35.6":
+  version "4.35.6"
+  resolved "https://registry.yarnpkg.com/@yaireo/tagify/-/tagify-4.35.6.tgz#4dabf9ec4f9bff9f6f2481452df025a50bcc77f3"
+  integrity sha512-+UsaVuU3osYwmiie8YrbMkpyEInet2el3t+8lKf9j27RsACESmOvM5QtI0MwmzFdjMSAGwqdp7UjRqOo8GJrnA==
+
 braces@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/braces/-/braces-3.0.3.tgz#490332f40919452272d55a8480adc0c441358789"
