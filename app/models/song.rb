@@ -73,7 +73,7 @@ class Song < ApplicationRecord
   scope :with_review_stats, -> {
     left_joins(:reviews)
       .select("songs.*, COUNT(reviews.uuid) AS reviews_count, AVG(reviews.overall_rating) AS average_overall_rating")
-      .group(:uuid)
+      .group("songs.uuid")
   }
 
   # レビュー数が多い順のスコープ
@@ -111,6 +111,12 @@ class Song < ApplicationRecord
     )
   end
 
+  # 曲の全レビューからタグを集計し、出現回数順の上位を取得
+  def top_tags(limit = ReviewTags::MAX_TAGS_PER_REVIEW)
+    tag_counts = reviews.flat_map(&:tags).tally
+    tag_counts.sort_by { |_tag, count| -count }.first(limit).map(&:first)
+  end
+
   # 重複曲を検索する共通メソッド（正規化カラムを使用）
   def self.find_duplicate(title:, composer:, arranger:, exclude_uuid: nil, skip_blank_fields: false)
     normalized_title = normalize_for_duplicate_check(title)
@@ -145,12 +151,6 @@ class Song < ApplicationRecord
 
   private
 
-  def set_normalized_fields
-    self.normalized_title = self.class.normalize_for_duplicate_check(title)
-    self.normalized_composer = self.class.normalize_for_duplicate_check(composer)
-    self.normalized_arranger = self.class.normalize_for_duplicate_check(arranger)
-  end
-
   def check_duplicate_song
     return if title.blank?
 
@@ -163,5 +163,11 @@ class Song < ApplicationRecord
     )
 
     errors.add(:base, :duplicate_song) if duplicate
+  end
+
+  def set_normalized_fields
+    self.normalized_title = self.class.normalize_for_duplicate_check(title)
+    self.normalized_composer = self.class.normalize_for_duplicate_check(composer)
+    self.normalized_arranger = self.class.normalize_for_duplicate_check(arranger)
   end
 end

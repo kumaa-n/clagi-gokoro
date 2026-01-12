@@ -19,6 +19,7 @@ class Review < ApplicationRecord
   validates *RATING_ATTRIBUTES, inclusion: { in: 1..5 }
   validates :song_uuid, uniqueness: { scope: :user_id }
   validates :summary, content_length: { maximum: SUMMARY_MAX_LENGTH }, allow_blank: true
+  validate :validate_tags
 
   before_save :calc_overall_rating
 
@@ -27,6 +28,16 @@ class Review < ApplicationRecord
     joins(:review_favorites)
       .where(review_favorites: { user_id: user.id })
       .order("review_favorites.created_at DESC")
+  }
+
+  # いずれかのタグを含むレビューを取得（OR検索）
+  scope :with_any_tags, ->(tags) {
+    where("tags && ARRAY[?]::text[]", Array(tags))
+  }
+
+  # すべてのタグを含むレビューを取得（AND検索）
+  scope :with_all_tags, ->(tags) {
+    where("tags @> ARRAY[?]::text[]", Array(tags))
   }
 
   # ユーザーがレビューをお気に入りに追加しているかどうかを確認
@@ -42,6 +53,17 @@ class Review < ApplicationRecord
   end
 
   private
+
+  def validate_tags
+    if tags.size > ReviewTags::MAX_TAGS_PER_REVIEW
+      errors.add(:tags, "は#{ReviewTags::MAX_TAGS_PER_REVIEW}個まで選択できます")
+    end
+
+    invalid = tags - ReviewTags::AVAILABLE_TAGS
+    if invalid.any?
+      errors.add(:tags, "に不正な値が含まれています: #{invalid.join(', ')}")
+    end
+  end
 
   def calc_overall_rating
     # 全ての評価が存在する場合のみ計算

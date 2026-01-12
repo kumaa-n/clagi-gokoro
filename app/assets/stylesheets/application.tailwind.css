@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui";
+@import "@yaireo/tagify/dist/tagify.css";
 
 @plugin "daisyui/theme" {
   name: "clagi-gokoro";
@@ -39,4 +40,27 @@
 @theme {
   --font-serif: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
   --font-sans: "Noto Sans JP", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Tagify */
+.tagify {
+  flex-wrap: wrap;
+  height: auto;
+  align-items: center;
+  row-gap: 0.10rem;
+}
+
+.tagify__input {
+  flex: 1 1 6rem;
+  min-width: 6rem;
+  align-self: center;
+}
+
+.tagify__tag {
+  max-width: 100%;
+}
+
+.tagify__tag-text {
+  white-space: normal;
+  word-break: break-word;
 }

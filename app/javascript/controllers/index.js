@@ -30,3 +30,9 @@ application.register("autocomplete", AutocompleteController)
 
 import DuplicateCheckerController from "./duplicate_checker_controller"
 application.register("duplicate-checker", DuplicateCheckerController)
+
+import TagsController from "./tags_controller"
+application.register("tags", TagsController)
+
+import TagFilterController from "./tag_filter_controller"
+application.register("tag-filter", TagFilterController)

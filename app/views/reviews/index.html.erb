@@ -31,6 +31,15 @@
         </div>
       </div>
 
+      <%# タグ絞り込み表示 %>
+      <% if @selected_tag.present? %>
+        <div class="mb-6 flex items-center gap-3 p-4 bg-primary/5 rounded-xl border border-primary/20">
+          <span class="text-sm text-neutral/80">絞り込み中:</span>
+          <span class="badge badge-primary"><%= @selected_tag %></span>
+          <%= link_to "絞り込みを解除", song_reviews_path(@song), class: "btn btn-ghost btn-sm rounded-full" %>
+        </div>
+      <% end %>
+
       <% if @reviews.any? %>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           <% @reviews.each do |review| %>

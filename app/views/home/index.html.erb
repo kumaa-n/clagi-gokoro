@@ -61,7 +61,7 @@
     <% if @most_reviewed_songs.any? %>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         <% @most_reviewed_songs.each do |song| %>
-          <%= render "shared/song_card", song: song %>
+          <%= render "shared/song_card", song: song, show_tags: false %>
         <% end %>
       </div>
     <% else %>
@@ -84,7 +84,7 @@
     <% if @recent_songs.any? %>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         <% @recent_songs.each do |song| %>
-          <%= render "shared/song_card", song: song %>
+          <%= render "shared/song_card", song: song, show_tags: false %>
         <% end %>
       </div>
     <% else %>
