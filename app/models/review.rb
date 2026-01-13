@@ -23,19 +23,19 @@ class Review < ApplicationRecord
 
   before_save :calc_overall_rating
 
-  # 指定したユーザーがお気に入りに追加したレビューを取得するスコープ
+  # 指定したユーザーがお気に入りに追加したレビューを取得
   scope :favorited_by, ->(user) {
     joins(:review_favorites)
       .where(review_favorites: { user_id: user.id })
       .order("review_favorites.created_at DESC")
   }
 
-  # いずれかのタグを含むレビューを取得（OR検索）
+  # いずれかのタグを含むレビューを取得
   scope :with_any_tags, ->(tags) {
     where("tags && ARRAY[?]::text[]", Array(tags))
   }
 
-  # すべてのタグを含むレビューを取得（AND検索）
+  # すべてのタグを含むレビューを取得
   scope :with_all_tags, ->(tags) {
     where("tags @> ARRAY[?]::text[]", Array(tags))
   }
