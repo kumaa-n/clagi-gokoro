@@ -302,21 +302,21 @@ RSpec.describe Song, type: :model do
 
     context "タイトルのオートコンプリート（スペースなし）" do
       it "スペースありの曲名が返されること" do
-        results = Song.autocomplete_by_field("title", "Loveme")
+        results = Song.autocomplete_by_field(field: "title", query: "Loveme")
         expect(results).to include("Love me")
       end
     end
 
     context "タイトルのオートコンプリート（スペースあり）" do
       it "正規化されて検索されること" do
-        results = Song.autocomplete_by_field("title", "Love me")
+        results = Song.autocomplete_by_field(field: "title", query: "Love me")
         expect(results).to include("Love me")
       end
     end
 
     context "タイトルのオートコンプリート（全角）" do
       it "半角の曲名が返されること" do
-        results = Song.autocomplete_by_field("title", "ＬＯＶＥ")
+        results = Song.autocomplete_by_field(field: "title", query: "ＬＯＶＥ")
         expect(results).to include("Love me", "Lovely Day")
         expect(results).not_to include("Yesterday")
       end
@@ -324,7 +324,7 @@ RSpec.describe Song, type: :model do
 
     context "作曲者のオートコンプリート" do
       it "正規化されて検索され、元の値が返されること" do
-        results = Song.autocomplete_by_field("composer", "johnsmith")
+        results = Song.autocomplete_by_field(field: "composer", query: "johnsmith")
         expect(results).to include("John Smith")
         expect(results).not_to include("Mary Johnson")
       end
@@ -332,7 +332,7 @@ RSpec.describe Song, type: :model do
 
     context "編曲者のオートコンプリート" do
       it "正規化されて検索され、元の値が返されること" do
-        results = Song.autocomplete_by_field("arranger", "janedoe")
+        results = Song.autocomplete_by_field(field: "arranger", query: "janedoe")
         expect(results).to include("Jane Doe")
         expect(results).not_to include("Bob Williams")
       end
@@ -340,14 +340,14 @@ RSpec.describe Song, type: :model do
 
     context "空のクエリ" do
       it "空の配列が返されること" do
-        results = Song.autocomplete_by_field("title", "")
+        results = Song.autocomplete_by_field(field: "title", query: "")
         expect(results).to be_empty
       end
     end
 
     context "不正なフィールド名" do
       it "空の配列が返されること" do
-        results = Song.autocomplete_by_field("invalid_field", "test")
+        results = Song.autocomplete_by_field(field: "invalid_field", query: "test")
         expect(results).to be_empty
       end
     end
@@ -357,7 +357,7 @@ RSpec.describe Song, type: :model do
         11.times do |i|
           create(:song, title: "Test Song #{i}", composer: "Composer #{i}", arranger: "Arranger #{i}")
         end
-        results = Song.autocomplete_by_field("title", "test")
+        results = Song.autocomplete_by_field(field: "title", query: "test")
         expect(results.size).to eq(10)
       end
     end

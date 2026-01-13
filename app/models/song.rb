@@ -15,12 +15,11 @@ class Song < ApplicationRecord
 
   before_validation :set_normalized_fields
 
-  # キーワード検索スコープ（複数フィールド対応、正規化カラムを使用）
+  # キーワード検索（複数フィールド対応、正規化カラムを使用）
   scope :search_by_keywords, ->(query) {
     keywords = query.to_s.strip.split(/[[:space:]]+/)
     return all if keywords.empty?
 
-    # Arelテーブルを使って柔軟に検索条件を組み立てる
     table = Song.arel_table
 
     # キーワードごとにOR条件を作り、
@@ -36,7 +35,7 @@ class Song < ApplicationRecord
     end
   }
 
-  # フィールド別検索スコープ（正規化カラムを使用）
+  # フィールド別検索（正規化カラムを使用）
   scope :search_by_fields, ->(title: nil, composer: nil, arranger: nil) {
     relation = all
     table = Song.arel_table
@@ -53,7 +52,7 @@ class Song < ApplicationRecord
   }
 
   # オートコンプリート用スコープ（正規化カラムで検索し、元の値を返す）
-  scope :autocomplete_by_field, ->(field, query) {
+  scope :autocomplete_by_field, ->(field:, query:) {
     return none if query.blank?
     return none unless %w[title composer arranger].include?(field)
 
@@ -76,19 +75,19 @@ class Song < ApplicationRecord
       .group("songs.uuid")
   }
 
-  # レビュー数が多い順のスコープ
-  scope :most_reviewed, ->(limit_count) {
+  # レビュー数が多い順
+  scope :most_reviewed, ->(limit:) {
     with_review_stats
       .having("COUNT(reviews.uuid) > 0")
       .order("COUNT(reviews.uuid) DESC, songs.created_at DESC")
-      .limit(limit_count)
+      .limit(limit)
   }
 
-  # 最近追加された順のスコープ
-  scope :recent_with_stats, ->(limit_count) {
+  # 最近追加された順
+  scope :recent_with_stats, ->(limit:) {
     with_review_stats
       .order(created_at: :desc)
-      .limit(limit_count)
+      .limit(limit)
   }
 
   # 重複チェック用の正規化メソッド

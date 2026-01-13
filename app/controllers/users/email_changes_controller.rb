@@ -22,8 +22,8 @@ class Users::EmailChangesController < ApplicationController
 
   private
 
+  # メールアドレス変更可能なユーザーか
   def check_user_eligibility
-    # SNS認証ユーザーはアクセス不可
     if current_user.oauth_user?
       redirect_to profile_path, alert: t("defaults.flash_message.forbidden")
     end
