@@ -7,21 +7,18 @@ class Users::PasswordsController < Devise::PasswordsController
     self.resource = resource_class.new
 
     if user_signed_in?
-      # ログイン中: マイページからのパスワードリセット
       render :new_authenticated
     else
-      # 未ログイン: パスワードを忘れた場合
       render :new_guest
     end
   end
 
   def create
     if user_signed_in?
-      # ログイン中: 自分のメールアドレスにリセットメール送信
+      # 自分のメールアドレスにリセットメール送信
       current_user.send_reset_password_instructions
       redirect_to profile_path, notice: t("devise.passwords.send_instructions")
     else
-      # 未ログイン: Deviseのデフォルト処理を使用
       super
     end
   end
@@ -37,22 +34,19 @@ class Users::PasswordsController < Devise::PasswordsController
 
   protected
 
-  # パスワードリセット後のリダイレクト先（ログイン状態を維持）
   def after_resetting_password_path_for(resource)
     profile_path
   end
 
   private
 
-  # パスワードリセット可能なユーザーかチェック（ログイン中のみ）
+  # パスワードリセット可能なユーザーか
   def check_user_eligibility
-    # SNS認証ユーザーはアクセス不可
     if current_user.oauth_user?
       redirect_to profile_path, alert: t("defaults.flash_message.forbidden")
       return
     end
 
-    # メールアドレス未登録の場合はメール登録画面へ
     unless current_user.email_registered?
       redirect_to edit_email_change_path, alert: t("users.passwords.email_registration_required")
     end
