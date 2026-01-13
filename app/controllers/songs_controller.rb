@@ -2,7 +2,7 @@ class SongsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create]
 
   def index
-    search = SongSearchQuery.new(params).call
+    search = Songs::SearchQuery.new(search_params).call
     @songs = Kaminari.paginate_array(search.songs).page(params[:page])
     @selected_tags = search.selected_tags
 
@@ -14,25 +14,18 @@ class SongsController < ApplicationController
   end
 
   def autocomplete
-    results = Song.autocomplete_by_field(params[:field], params[:query])
+    results = Song.autocomplete_by_field(field: params[:field], query: params[:query])
     render json: results
   end
 
   def check_duplicate
-    duplicate = Song.find_duplicate_by_input(
+    checker = Songs::DuplicateChecker.new(
       title: params[:title],
       composer: params[:composer],
       arranger: params[:arranger]
-    )
+    ).call
 
-    if duplicate
-      render json: {
-        duplicate: true,
-        url: build_filter_url(params[:title], params[:composer], params[:arranger])
-      }
-    else
-      render json: { duplicate: false }
-    end
+    render json: checker.to_json_response
   end
 
   def new
@@ -53,14 +46,11 @@ class SongsController < ApplicationController
 
   private
 
-  def song_params
-    params.require(:song).permit(:title, :composer, :arranger)
+  def search_params
+    params.permit(:query, :title, :composer, :arranger, :tag, :tags)
   end
 
-  def build_filter_url(title, composer, arranger)
-    filter_params = { title: title }
-    filter_params[:composer] = composer if composer.present?
-    filter_params[:arranger] = arranger if arranger.present?
-    songs_path(filter_params)
+  def song_params
+    params.require(:song).permit(:title, :composer, :arranger)
   end
 end
