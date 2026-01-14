@@ -13,8 +13,8 @@ module ApplicationHelper
       description: description,
       keywords: "クラシックギター,クラギ,難易度,レビュー,練習,レパートリー,テンポ,運指,表現力",
       icon: [
-        { href: "/favicon.ico", sizes: "32x32" },
-        { href: "/apple-touch-icon.png", rel: "apple-touch-icon", sizes: "180x180" }
+        { href: "/favicon.ico", rel: "icon", type: "image/x-icon" },
+        { href: "/apple-touch-icon.png", rel: "apple-touch-icon", type: "image/png", sizes: "180x180" }
       ],
       og: {
         site_name: base_title,
