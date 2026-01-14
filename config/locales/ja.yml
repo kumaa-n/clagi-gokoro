@@ -84,12 +84,6 @@ ja:
       edit:
         title: メールアドレス変更
     passwords:
-      new_guest:
-        title: パスワードを忘れた方
-      new_authenticated:
-        title: パスワードリセット
-      edit:
-        title: 新しいパスワードの設定
       email_registration_required: パスワードリセットにはメールアドレスの登録が必要です。
     nickname_changes:
       edit:
