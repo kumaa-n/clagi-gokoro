@@ -3,7 +3,7 @@ module ApplicationHelper
     base_title = "クラギごころ"
     title = content_for?(:title) ? content_for(:title) : ""
     description = "クラギごころはクラシックギター楽曲の難易度評価・演奏技術分析でギタリストの曲選びと練習をサポートするWebサービスです。テンポ、運指、表現力など詳細評価を共有できます。"
-    ogp_image = image_url("ogp.webp")
+    ogp_image = image_url("ogp.png")
 
     {
       site: base_title,
