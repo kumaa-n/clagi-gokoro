@@ -56,6 +56,13 @@
   align-self: center;
 }
 
+/* モバイルデザインで入力時にズームされるのを防ぐ調整 */
+@media (pointer: coarse) and (max-width: 768px) {
+  .tagify__input {
+    font-size: 1rem;
+  }
+}
+
 .tagify__tag {
   max-width: 100%;
 }
