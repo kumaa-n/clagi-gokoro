@@ -1,7 +1,9 @@
+<%= content_for(:title, t(".title")) %>
+
 <div class="flex-1 flex justify-center items-center px-4 py-8 md:py-12 lg:py-16 bg-base-200/50 xl:min-h-[calc(100vh-4rem)]">
   <div class="p-8 md:p-12 rounded-2xl w-full max-w-lg bg-white">
     <h2 class="text-3xl md:text-4xl font-serif font-medium text-center mb-8 md:mb-10 text-primary tracking-wide">
-      <%= t("devise.sessions.new.sign_in") %>
+      <%= t(".title") %>
     </h2>
 
     <%= form_with model: resource, as: resource_name, url: session_path(resource_name), class: "space-y-6" do |f| %>
@@ -25,13 +27,10 @@
       <% end %>
 
       <div class="pt-2">
-        <%= f.submit t("devise.sessions.new.sign_in"), class: "btn btn-primary w-full shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full" %>
+        <%= f.submit t(".sign_in"), class: "btn btn-primary w-full shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 rounded-full" %>
       </div>
     <% end %>
 
-    <div class="divider text-xs sm:text-sm text-base-content/60 my-4 md:my-6">または</div>
-
-    <%= render "devise/shared/oauth_buttons" %>
     <%= render "devise/shared/links" %>
   </div>
 </div>

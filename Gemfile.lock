@@ -76,9 +76,6 @@ GEM
       minitest (>= 5.1)
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
-    acts-as-taggable-on (13.0.0)
-      activerecord (>= 7.1, < 8.2)
-      zeitwerk (>= 2.4, < 3.0)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
     ast (2.4.3)
@@ -228,6 +225,8 @@ GEM
       net-smtp
     marcel (1.1.0)
     matrix (0.4.3)
+    meta-tags (2.22.3)
+      actionpack (>= 6.0.0)
     mini_mime (1.1.5)
     minitest (5.26.0)
     msgpack (1.8.0)
@@ -495,7 +494,6 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
-  acts-as-taggable-on
   bootsnap
   brakeman
   bullet
@@ -515,6 +513,7 @@ DEPENDENCIES
   jsbundling-rails
   kaminari
   letter_opener_web (~> 3.0)
+  meta-tags
   omniauth-google-oauth2
   omniauth-rails_csrf_protection (= 1.0.2)
   parallel_tests
