@@ -1,24 +1,25 @@
 <% breadcrumb :review, @review %>
 <%= content_for(:title, t(".title")) %>
-<%= content_for :head do %>
-  <% title = "レビュー：#{@song.title}" %>
-  <% description = truncate(@review.summary, length: 100) %>
-  <% image = image_url('ogp.webp') %>
 
-  <%# OGP %>
-  <meta property="og:title" content="<%= title %>" />
-  <meta property="og:description" content="<%= description %>" />
-  <meta property="og:image" content="<%= image %>" />
-  <meta property="og:url" content="<%= review_url(@review) %>" />
-  <meta property="og:type" content="article" />
-  <meta property="og:site_name" content="クラギごころ" />
+<%
+  # カスタムOGP設定（X共有用）
+  review_title = "レビュー：#{@song.title}"
+  review_description = @review.summary.present? ? truncate(@review.summary, length: 100) : "#{@song.title}のレビュー"
 
-  <%# X %>
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="<%= title %>" />
-  <meta name="twitter:description" content="<%= description %>" />
-  <meta name="twitter:image" content="<%= image %>" />
-<% end %>
+  set_meta_tags(
+    title: review_title,
+    og: {
+      title: review_title,
+      description: review_description,
+      type: "article",
+      url: review_url(@review)
+    },
+    twitter: {
+      title: review_title,
+      description: review_description
+    }
+  )
+%>
 
 <div class="flex-1 bg-base-200/50">
   <div class="pt-4 md:pt-6 mb-6">

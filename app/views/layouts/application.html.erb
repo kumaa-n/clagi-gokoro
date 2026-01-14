@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= page_title(yield(:title)) %></title>
+    <%= display_meta_tags(default_meta_tags) %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="description" content="クラギごころはクラシックギター楽曲の難易度評価・演奏技術分析でギタリストの曲選びと練習をサポートするWebサービスです。テンポ、運指、表現力など詳細評価を共有できます。">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -14,19 +12,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <link rel="icon" href="/classical-guitar.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="/classical-guitar.ico">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
   <body class="min-h-screen flex flex-col">
     <%= render "shared/header" %>
-
-    <%= render 'shared/flash_message' %>
-
+    <%= render "shared/flash_message" %>
     <%= yield %>
-
     <%= render "shared/footer" %>
   </body>
 </html>
