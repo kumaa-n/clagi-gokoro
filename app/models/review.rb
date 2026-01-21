@@ -70,6 +70,6 @@ class Review < ApplicationRecord
     return unless RATING_ATTRIBUTES.all? { |attr| self[attr].present? }
 
     ratings = RATING_ATTRIBUTES.map { |attr| self[attr] }
-    self.overall_rating = (ratings.sum.to_f / ratings.size).round
+    self.overall_rating = (ratings.sum.to_d / ratings.size).round(2)
   end
 end
