@@ -46,17 +46,28 @@ module ApplicationHelper
   end
 
   def star_rating_display(rating, size: "md", total_stars: 5)
-    size_class = size == "md" ? "rating" : "rating rating-#{size}"
+    # 0.5刻みで切り捨て
+    rounded_rating = (rating * 2).floor / 2.0
 
-    content_tag(:div, class: size_class) do
-      (1..total_stars).map do |star|
-        if star == rating
-          content_tag(:div, nil, class: "mask mask-star-2 bg-orange-400", aria: { label: "#{star} star", current: true })
-        else
-          content_tag(:div, nil, class: "mask mask-star-2 bg-orange-400", aria: { label: "#{star} star" })
-        end
+    content_tag(:div, class: "rating rating-half rating-#{size}") do
+      # 0.5刻みで星を生成
+      (1..(total_stars * 2)).map do |i|
+        star_value = i * 0.5
+        mask_class = i.odd? ? "mask-half-1" : "mask-half-2"
+
+        # 該当難易度の場合、aria-current属性を追加
+        aria_attrs = { label: "#{star_value} star" }
+        aria_attrs[:current] = true if star_value == rounded_rating
+
+        content_tag(:div, nil, class: "mask mask-star-2 #{mask_class} bg-orange-400", aria: aria_attrs)
       end.join.html_safe
     end
+  end
+
+  def format_overall_rating(rating)
+    return nil unless rating
+
+    format("%.2f", rating)
   end
 
   def header_user_name
