@@ -9,12 +9,7 @@ class SongDecorator < Draper::Decorator
   def average_overall_rating
     # 集約済みの属性があればそれを使用し、なければ動的に計算（N+1回避のため）
     # AVG関数はレビューが0件の場合nilを返す
-    val = object.has_attribute?(:average_overall_rating) ? object[:average_overall_rating] : object.reviews.average(:overall_rating)
-    val&.to_f
-  end
-
-  def rounded_average
-    average_overall_rating&.round
+    object.has_attribute?(:average_overall_rating) ? object[:average_overall_rating] : object.reviews.average(:overall_rating)
   end
 
   def has_average?
