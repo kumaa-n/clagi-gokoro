@@ -24,7 +24,7 @@
       <div class="flex items-center gap-2">
         <span class="text-xs text-neutral/60">総合難易度</span>
         <%= star_rating_display(review.overall_rating, size: "sm") %>
-        <span class="text-sm font-medium text-neutral"><%= review.overall_rating %></span>
+        <span class="text-sm font-medium text-neutral"><%= format_overall_rating(review.overall_rating) %></span>
       </div>
     </div>
 

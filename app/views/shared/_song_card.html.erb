@@ -22,10 +22,10 @@
 
     <div class="flex items-center mb-2">
       <div class="flex items-center gap-2">
-        <span class="text-xs text-neutral/60">総合難易度</span>
+        <span class="text-xs text-neutral/60">平均総合難易度</span>
         <% if song.decorate.has_average? %>
-          <%= star_rating_display(song.decorate.rounded_average, size: "sm") %>
-          <span class="text-sm font-medium text-neutral"><%= song.decorate.rounded_average %></span>
+          <%= star_rating_display(song.decorate.average_overall_rating, size: "sm") %>
+          <span class="text-sm font-medium text-neutral"><%= format_overall_rating(song.decorate.average_overall_rating) %></span>
         <% else %>
           <span class="text-sm text-neutral/40">ー</span>
         <% end %>
