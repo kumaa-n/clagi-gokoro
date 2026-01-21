@@ -78,11 +78,11 @@
               <p class="text-base text-neutral/80"><%= format_date(@review.created_at) %></p>
             </div>
 
-            <div class="bg-base-200/50 rounded-xl p-4 flex items-center gap-3 self-start">
+            <div class="bg-base-200/50 rounded-xl p-4 flex flex-col md:flex-row md:items-center md:text-align-center gap-3 self-start">
               <span class="text-primary font-serif font-medium text-lg">総合難易度</span>
               <div class="flex items-center gap-2">
                 <%= star_rating_display(@review.overall_rating, size: "md") %>
-                <span class="text-2xl font-bold text-primary"><%= @review.overall_rating %></span>
+                <span class="text-2xl font-bold text-primary"><%= format_overall_rating(@review.overall_rating) %></span>
               </div>
             </div>
           </div>
