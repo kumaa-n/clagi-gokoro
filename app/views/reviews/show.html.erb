@@ -144,13 +144,13 @@
               <div class="flex gap-3 justify-center">
                 <%= render "review_favorites/button", review: @review %>
 
-                <%= link_to "https://x.com/intent/post?text=#{CGI.escape("「#{@song.title}」のレビュー #クラギごころ")}&url=#{CGI.escape(review_url(@review))}",
-                            target: "_blank",
-                            rel: "noopener noreferrer",
-                            class: "btn gap-2 h-10 min-h-10 px-6 rounded-full shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300" do %>
+                <% share_text = "「#{@song.title}」のレビュー\n#クラギごころ" %>
+                <% share_url = "https://twitter.com/intent/tweet?text=#{CGI.escape(share_text)}&url=#{CGI.escape(review_url(@review))}" %>
+                <a href="<%= share_url %>" target="_blank" rel="noopener noreferrer"
+                   class="btn gap-2 h-10 min-h-10 px-6 rounded-full shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
                   <%= inline_svg_tag("x.svg", class: "w-5 h-5 fill-current") %>
                   <span class="whitespace-nowrap font-medium">Xで共有</span>
-                <% end %>
+                </a>
               </div>
             </div>
           </div>
