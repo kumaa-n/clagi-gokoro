@@ -21,19 +21,15 @@
             <div class="space-y-6">
               <div>
                 <%= f.label :name, "お名前", class: "font-serif font-medium text-primary text-base mb-2" %>
-                <span class="text-error">*</span>
                 <%= f.text_field :name,
                                  placeholder: "お名前を入力",
-                                 required: true,
                                  class: "input input-bordered w-full bg-base-50 focus:bg-white transition-colors" %>
               </div>
 
               <div>
                 <%= f.label :email, "メールアドレス", class: "font-serif font-medium text-primary text-base mb-2" %>
-                <span class="text-error">*</span>
                 <%= f.email_field :email,
                                   placeholder: "メールアドレスを入力",
-                                  required: true,
                                   class: "input input-bordered w-full bg-base-50 focus:bg-white transition-colors" %>
               </div>
 
@@ -59,6 +55,7 @@
                 送信に関する注意事項
               </h3>
               <ul class="text-sm text-neutral/70 space-y-2">
+                <li>• 回答をご希望の場合は、メールアドレスの入力が必要です</li>
                 <li>• お問い合わせ内容によっては、回答までにお時間をいただく場合がございます</li>
                 <li>• 個人情報の取り扱いについては、<%= link_to "プライバシーポリシー", privacy_path, class: "link link-primary" %>をご確認ください</li>
               </ul>
