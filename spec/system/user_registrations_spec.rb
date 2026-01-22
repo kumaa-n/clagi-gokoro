@@ -182,7 +182,8 @@ RSpec.describe "ユーザー登録", type: :system do
       it "登録が成功する" do
         visit new_user_registration_path
 
-        fifteen_chars = "u#{SecureRandom.hex(7)}"
+        # ナノ秒タイムスタンプを使って確実に一意性を保証
+        fifteen_chars = "test#{Time.current.to_f.to_s.delete('.')}"[0, 15]
         fill_in "user_name", with: fifteen_chars
         fill_in "user_password", with: "password123"
         fill_in "user_password_confirmation", with: "password123"
