@@ -101,4 +101,10 @@ module ReviewsHelper
       end
     end.join(" ").html_safe
   end
+
+  def x_share_url(review)
+    text = "「#{review.song.title}」のレビュー\n#クラギごころ"
+    url = review_url(review)
+    "https://twitter.com/intent/tweet?text=#{CGI.escape(text)}&url=#{CGI.escape(url)}"
+  end
 end
