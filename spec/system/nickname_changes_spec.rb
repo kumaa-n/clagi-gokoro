@@ -45,6 +45,7 @@ RSpec.describe "ニックネーム変更", type: :system do
 
     context "ニックネームが短すぎる場合" do
       it "エラーメッセージが表示される" do
+        expect(page).to have_current_path(edit_nickname_change_path)
         user = User.last
         original_name = user.name
 
@@ -62,6 +63,7 @@ RSpec.describe "ニックネーム変更", type: :system do
 
     context "ニックネームが長すぎる場合" do
       it "エラーメッセージが表示される" do
+        expect(page).to have_current_path(edit_nickname_change_path)
         user = User.last
         original_name = user.name
         too_long_name = "a" * (User::NAME_MAX_LENGTH + 1)
