@@ -55,7 +55,7 @@ RSpec.describe "ユーザー登録", type: :system do
         fill_in "user_password_confirmation", with: "password123"
 
         expect {
-          click_button registration_title
+          submit_form_without_html5_validation registration_title
         }.not_to change(User, :count)
 
         expect_registration_failure(specific_error: too_short_name_message)
@@ -121,7 +121,7 @@ RSpec.describe "ユーザー登録", type: :system do
         fill_in "user_password_confirmation", with: ""
 
         expect {
-          click_button registration_title
+          submit_form_without_html5_validation registration_title
         }.not_to change(User, :count)
 
         expect_registration_failure(specific_error: blank_message)
@@ -182,7 +182,8 @@ RSpec.describe "ユーザー登録", type: :system do
       it "登録が成功する" do
         visit new_user_registration_path
 
-        fifteen_chars = "a" * 15
+        # ナノ秒タイムスタンプを使って確実に一意性を保証
+        fifteen_chars = "test#{Time.current.to_f.to_s.delete('.')}"[0, 15]
         fill_in "user_name", with: fifteen_chars
         fill_in "user_password", with: "password123"
         fill_in "user_password_confirmation", with: "password123"
@@ -345,7 +346,7 @@ RSpec.describe "ユーザー登録", type: :system do
         fill_in "user_password_confirmation", with: ""
 
         expect {
-          click_button registration_title
+          submit_form_without_html5_validation registration_title
         }.not_to change(User, :count)
 
         expect_registration_failure(specific_error: confirmation_message)

@@ -44,9 +44,9 @@ RSpec.describe "AccountDeletion", type: :system do
 
       click_button "削除する"
 
-      # リダイレクト完了を待つ - フラッシュメッセージで確認
-      expect(page).to have_content("アカウントを削除しました", wait: 10)
-      expect(page).to have_current_path(root_path)
+      # リダイレクト完了を待つ（ページ遷移を先に待つ）
+      expect(page).to have_current_path(root_path, wait: 10)
+      expect(page).to have_content("アカウントを削除しました")
       expect(page).to have_link("ログイン") # ログアウト状態を確認
 
       # データベースの変更を確認
@@ -67,9 +67,9 @@ RSpec.describe "AccountDeletion", type: :system do
 
         click_button "削除する"
 
-        # リダイレクト完了を待つ
-        expect(page).to have_content("アカウントを削除しました", wait: 10)
-        expect(page).to have_current_path(root_path)
+        # リダイレクト完了を待つ（ページ遷移を先に待つ）
+        expect(page).to have_current_path(root_path, wait: 10)
+        expect(page).to have_content("アカウントを削除しました")
 
         # データベースの変更を確認
         expect(Review.count).to eq(0)
@@ -93,9 +93,9 @@ RSpec.describe "AccountDeletion", type: :system do
 
         click_button "削除する"
 
-        # リダイレクト完了を待つ
-        expect(page).to have_content("アカウントを削除しました", wait: 10)
-        expect(page).to have_current_path(root_path)
+        # リダイレクト完了を待つ（ページ遷移を先に待つ）
+        expect(page).to have_current_path(root_path, wait: 10)
+        expect(page).to have_content("アカウントを削除しました")
 
         # データベースの変更を確認
         expect(ReviewFavorite.count).to eq(0)
