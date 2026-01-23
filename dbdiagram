@@ -46,10 +46,10 @@ Table reviews {
   plucking_technique_rating integer [not null, note: '弾弦技巧評価']
   expression_rating integer [not null, note: '表現力評価']
   memorization_rating integer [not null, note: '暗譜・構成理解評価']
-  overall_rating integer [not null, note: '総合評価']
+  overall_rating decimal [not null, note: '総合評価']
 
   summary text [note: '総評コメント']
-  tags text [note: 'タグ（text配列）'] // Rails: text[] default []
+  tags text[] [note: 'タグ（text配列）'] // Rails: text[] default []
 
   created_at datetime [not null]
   updated_at datetime [not null]
