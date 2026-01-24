@@ -49,6 +49,7 @@ group :development, :test do
   gem "rspec-rails"
   gem "factory_bot_rails"
   gem "parallel_tests"
+  gem "dotenv-rails"
 end
 
 group :development do
@@ -74,7 +75,6 @@ gem "draper"
 gem "kaminari"
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection", "1.0.2"
-gem "dotenv-rails"
 gem "high_voltage"
 gem "gretel"
 gem "meta-tags"
