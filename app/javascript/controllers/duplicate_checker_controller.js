@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["title", "composer", "arranger", "warning"]
+  static targets = ["title", "composer", "arranger", "warning", "confirmation"]
   static values = {
     url: String,
     debounceDelay: { type: Number, default: 300 }
@@ -86,11 +86,24 @@ export default class extends Controller {
 
     this.warningTarget.innerHTML = message
     this.warningTarget.classList.remove("hidden")
+    this.confirmationTarget.classList.remove("hidden")
+
+    const checkbox = this.confirmationTarget.querySelector('input[type="checkbox"]')
+    if (checkbox) {
+      checkbox.required = true
+    }
   }
 
   hideWarning() {
     this.warningTarget.classList.add("hidden")
     this.warningTarget.innerHTML = ""
+    this.confirmationTarget.classList.add("hidden")
+
+    const checkbox = this.confirmationTarget.querySelector('input[type="checkbox"]')
+    if (checkbox) {
+      checkbox.checked = false
+      checkbox.required = false
+    }
   }
 
   escapeHtml(text) {

@@ -66,8 +66,8 @@
         </div>
       </div>
 
-      <div class="flex items-center gap-2 ml-1 my-2">
-        <%= f.check_box :confirmation, class: "checkbox checkbox-sm checkbox-primary mt-0.5 rounded-md", required: true %>
+      <div class="flex items-center gap-2 ml-1 my-2 hidden" data-duplicate-checker-target="confirmation">
+        <%= f.check_box :confirmation, class: "checkbox checkbox-sm checkbox-primary mt-0.5 rounded-md" %>
         <%= f.label :confirmation, "曲が登録されていないことを確認しました", class: "text-neutral/80 text-sm cursor-pointer select-none" %>
       </div>
 
