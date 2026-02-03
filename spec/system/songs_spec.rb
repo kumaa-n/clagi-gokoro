@@ -19,7 +19,8 @@ RSpec.describe "曲投稿", type: :system do
         fill_in "song_title", with: title
         fill_in "song_composer", with: "作曲者"
         fill_in "song_arranger", with: "編曲者"
-        find('input[type="checkbox"][required]').check
+        # チェックボックスは重複警告時のみ表示されるため、visible: false で探す
+        find('input#song_confirmation', visible: false).check
       end
 
       it "有効な情報を入力すると曲が登録でき、レビュー促進モーダルが表示される" do
@@ -71,7 +72,7 @@ RSpec.describe "曲投稿", type: :system do
 
       it "タイトルが空だと曲が登録できない" do
         fill_in "song_title", with: ""
-        find('input[type="checkbox"][required]').check
+        find('input#song_confirmation', visible: false).check
 
         expect {
           click_button "曲追加"
@@ -83,7 +84,7 @@ RSpec.describe "曲投稿", type: :system do
 
       it "タイトルが長すぎると曲が登録できない" do
         fill_in "song_title", with: "a" * 101
-        find('input[type="checkbox"][required]').check
+        find('input#song_confirmation', visible: false).check
 
         expect {
           click_button "曲追加"
@@ -95,7 +96,7 @@ RSpec.describe "曲投稿", type: :system do
       it "作曲者が長すぎると曲が登録できない" do
         fill_in "song_title", with: "テスト曲"
         fill_in "song_composer", with: "a" * 51
-        find('input[type="checkbox"][required]').check
+        find('input#song_confirmation', visible: false).check
 
         expect {
           click_button "曲追加"
@@ -107,7 +108,7 @@ RSpec.describe "曲投稿", type: :system do
       it "編曲者が長すぎると曲が登録できない" do
         fill_in "song_title", with: "テスト曲"
         fill_in "song_arranger", with: "a" * 51
-        find('input[type="checkbox"][required]').check
+        find('input#song_confirmation', visible: false).check
 
         expect {
           click_button "曲追加"
