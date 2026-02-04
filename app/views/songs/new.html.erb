@@ -23,44 +23,69 @@
       <%# 重複警告エリア %>
       <div data-duplicate-checker-target="warning" class="hidden mb-8"></div>
 
-      <div data-controller="char-counter" data-char-counter-min-value=1 data-char-counter-max-value=<%= Song::TITLE_MAX_LENGTH %>>
+      <div class="relative"
+           data-controller="char-counter autocomplete"
+           data-char-counter-min-value=1
+           data-char-counter-max-value=<%= Song::TITLE_MAX_LENGTH %>
+           data-autocomplete-url-value="<%= autocomplete_songs_path %>"
+           data-autocomplete-field-value="title">
         <%= f.label :title, class: "font-serif font-medium text-primary text-base mb-2" %>
         <span class="text-xs text-error font-medium">*</span>
         <%= f.text_field :title, placeholder: "曲名を入力",
               class: "input input-bordered w-full bg-base-100/50 focus:bg-white",
+              autocomplete: "off",
               data: {
                 char_counter_target: "input",
                 duplicate_checker_target: "title",
-                action: "input->char-counter#updateCount input->duplicate-checker#checkDuplicate focus->char-counter#markAsTouched"
+                autocomplete_target: "input",
+                action: "input->char-counter#updateCount input->duplicate-checker#checkDuplicate input->autocomplete#onInput blur->autocomplete#onBlur keydown->autocomplete#onKeydown focus->char-counter#markAsTouched"
               } %>
+        <ul class="absolute z-10 w-full bg-white border border-base-200 rounded-lg shadow-lg mt-1 max-h-60 overflow-y-auto hidden"
+            data-autocomplete-target="results"></ul>
         <div class="text-right text-sm text-neutral/60 mt-1">
           <span data-char-counter-target="counter">0</span> / <%= Song::TITLE_MAX_LENGTH %>文字
         </div>
       </div>
 
-      <div data-controller="char-counter" data-char-counter-max-value=<%= Song::COMPOSER_MAX_LENGTH %>>
+      <div class="relative"
+           data-controller="char-counter autocomplete"
+           data-char-counter-max-value=<%= Song::COMPOSER_MAX_LENGTH %>
+           data-autocomplete-url-value="<%= autocomplete_songs_path %>"
+           data-autocomplete-field-value="composer">
         <%= f.label :composer, class: "font-serif font-medium text-primary text-base mb-2" %>
         <%= f.text_field :composer, placeholder: "作曲者を入力",
               class: "input input-bordered w-full bg-base-100/50 focus:bg-white",
+              autocomplete: "off",
               data: {
                 char_counter_target: "input",
                 duplicate_checker_target: "composer",
-                action: "input->char-counter#updateCount input->duplicate-checker#checkDuplicate focus->char-counter#markAsTouched"
+                autocomplete_target: "input",
+                action: "input->char-counter#updateCount input->duplicate-checker#checkDuplicate input->autocomplete#onInput blur->autocomplete#onBlur keydown->autocomplete#onKeydown focus->char-counter#markAsTouched"
               } %>
+        <ul class="absolute z-10 w-full bg-white border border-base-200 rounded-lg shadow-lg mt-1 max-h-60 overflow-y-auto hidden"
+            data-autocomplete-target="results"></ul>
         <div class="text-right text-sm text-neutral/60 mt-1">
           <span data-char-counter-target="counter">0</span> / <%= Song::COMPOSER_MAX_LENGTH %>文字
         </div>
       </div>
 
-      <div data-controller="char-counter" data-char-counter-max-value=<%= Song::ARRANGER_MAX_LENGTH %>>
+      <div class="relative"
+           data-controller="char-counter autocomplete"
+           data-char-counter-max-value=<%= Song::ARRANGER_MAX_LENGTH %>
+           data-autocomplete-url-value="<%= autocomplete_songs_path %>"
+           data-autocomplete-field-value="arranger">
         <%= f.label :arranger, class: "font-serif font-medium text-primary text-base mb-2" %>
         <%= f.text_field :arranger, placeholder: "編曲者を入力",
               class: "input input-bordered w-full bg-base-100/50 focus:bg-white",
+              autocomplete: "off",
               data: {
                 char_counter_target: "input",
                 duplicate_checker_target: "arranger",
-                action: "input->char-counter#updateCount input->duplicate-checker#checkDuplicate focus->char-counter#markAsTouched"
+                autocomplete_target: "input",
+                action: "input->char-counter#updateCount input->duplicate-checker#checkDuplicate input->autocomplete#onInput blur->autocomplete#onBlur keydown->autocomplete#onKeydown focus->char-counter#markAsTouched"
               } %>
+        <ul class="absolute z-10 w-full bg-white border border-base-200 rounded-lg shadow-lg mt-1 max-h-60 overflow-y-auto hidden"
+            data-autocomplete-target="results"></ul>
         <div class="text-right text-sm text-neutral/60 mt-1">
           <span data-char-counter-target="counter">0</span> / <%= Song::ARRANGER_MAX_LENGTH %>文字
         </div>

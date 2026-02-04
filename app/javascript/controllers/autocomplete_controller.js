@@ -12,6 +12,7 @@ export default class extends Controller {
     this.debounceTimeout = null
     this.abortController = null
     this.selectedIndex = -1 // 選択中の候補のインデックス
+    this.programmaticChange = false // プログラムから値を変更したときに無限ループを防ぐためのフラグ
   }
 
   disconnect() {
@@ -21,6 +22,13 @@ export default class extends Controller {
 
   // 入力時の処理
   onInput(event) {
+    // プログラムから値を変更した場合は、オートコンプリートの検索処理をスキップ
+    // （候補選択時に再度検索が走るのを防ぐため）
+    if (this.programmaticChange) {
+      this.programmaticChange = false
+      return
+    }
+
     const query = event.target.value.trim()
 
     // 入力がない場合は候補を非表示
@@ -67,6 +75,10 @@ export default class extends Controller {
           const selectedItem = items[this.selectedIndex]
           this.inputTarget.value = selectedItem.dataset.value
           this.hideResults()
+
+          // オートコンプリートの無限ループを防ぐ
+          this.programmaticChange = true
+          this.inputTarget.dispatchEvent(new Event('input', { bubbles: true }))
         }
         break
       case "Escape":
@@ -157,6 +169,10 @@ export default class extends Controller {
     const value = event.currentTarget.dataset.value
     this.inputTarget.value = value
     this.hideResults()
+
+    // オートコンプリートの無限ループを防ぐ
+    this.programmaticChange = true
+    this.inputTarget.dispatchEvent(new Event('input', { bubbles: true }))
 
     // 入力フィールドにフォーカスを戻す
     this.inputTarget.focus()
