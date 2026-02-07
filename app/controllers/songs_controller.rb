@@ -47,7 +47,7 @@ class SongsController < ApplicationController
   private
 
   def search_params
-    params.permit(:query, :title, :composer, :arranger, :tag, :tags)
+    params.permit(:query, :title, :composer, :arranger, :tag, :tags, :min_difficulty, :max_difficulty)
   end
 
   def song_params

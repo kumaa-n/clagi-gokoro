@@ -12,6 +12,7 @@ module Songs
       @songs = search_songs
       @songs = filter_by_tags(@songs)
       @songs = apply_associations_and_order(@songs)
+      @songs = filter_by_difficulty_range(@songs)
       @songs = filter_by_top_tags(@songs)
       self
     end
@@ -46,6 +47,23 @@ module Songs
     # レビュー情報を含めて新しい順にソート
     def apply_associations_and_order(songs)
       songs.with_review_stats.includes(:reviews).order(created_at: :desc)
+    end
+
+    # 平均総合難易度で範囲フィルタリング
+    def filter_by_difficulty_range(songs)
+      min_val = @params[:min_difficulty].presence&.to_f
+      max_val = @params[:max_difficulty].presence&.to_f
+
+      return songs if min_val.nil? && max_val.nil?
+
+      # 未指定の場合は制限なしとして扱うため無限大で補完
+      min_val ||= -Float::INFINITY
+      max_val ||=  Float::INFINITY
+
+      songs.select do |song|
+        avg_rating = song.average_overall_rating.to_f
+        avg_rating.positive? && avg_rating.between?(min_val, max_val)
+      end
     end
 
     # 選択されたタグがトップタグに含まれている曲を抽出

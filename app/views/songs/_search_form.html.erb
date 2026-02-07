@@ -19,18 +19,33 @@
                placeholder_text: "編曲者名で検索" %>
   </div>
 
-  <div class="mb-4"
-       data-controller="tags"
-       data-tags-whitelist-value="<%= ReviewTags::AVAILABLE_TAGS.to_json %>"
-       data-tags-max-tags-value="<%= ReviewTags::MAX_TAGS_PER_REVIEW %>">
-    <%= f.label :tags, "タグ（最大#{ReviewTags::MAX_TAGS_PER_REVIEW}個）", class: "font-serif font-medium text-primary text-base mb-2" %>
-    <%= f.hidden_field :tags, value: @selected_tags.to_json %>
-    <input type="text"
-            name="tags_input"
-            value="<%= @selected_tags.join(',') %>"
-            placeholder="クリックしてタグを選択"
-            class="input input-bordered w-full bg-base-50 focus:bg-white transition-colors"
-            data-tags-target="input" />
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+    <div data-controller="tags"
+         data-tags-whitelist-value="<%= ReviewTags::AVAILABLE_TAGS.to_json %>"
+         data-tags-max-tags-value="<%= ReviewTags::MAX_TAGS_PER_REVIEW %>">
+      <%= f.label :tags, "タグ（最大#{ReviewTags::MAX_TAGS_PER_REVIEW}個）", class: "font-serif font-medium text-primary text-base mb-2 block" %>
+      <%= f.hidden_field :tags, value: @selected_tags.to_json %>
+      <input type="text"
+              name="tags_input"
+              value="<%= @selected_tags.join(',') %>"
+              placeholder="クリックしてタグを選択"
+              class="input input-bordered w-full bg-base-50 focus:bg-white transition-colors"
+              data-tags-target="input" />
+    </div>
+
+    <div>
+      <%= f.label :difficulty_range, "難易度", class: "font-serif font-medium text-primary text-base mb-2 block" %>
+      <div class="grid grid-cols-2 gap-2">
+        <%= f.select :min_difficulty,
+                     options_for_select([["最小: 指定なし", ""]] + (1.0..5.0).step(0.5).map { |v| ["最小: #{v}", v] }, params[:min_difficulty]),
+                     {},
+                     class: "select select-bordered w-full bg-base-50 focus:bg-white transition-colors" %>
+        <%= f.select :max_difficulty,
+                     options_for_select([["最大: 指定なし", ""]] + (1.0..5.0).step(0.5).map { |v| ["最大: #{v}", v] }, params[:max_difficulty]),
+                     {},
+                     class: "select select-bordered w-full bg-base-50 focus:bg-white transition-colors" %>
+      </div>
+    </div>
   </div>
 
   <div class="flex gap-3">
