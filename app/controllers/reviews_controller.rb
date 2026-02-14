@@ -73,6 +73,7 @@ class ReviewsController < ApplicationController
       :expression_rating,
       :memorization_rating,
       :summary,
+      :reference_url,
       :tags
     )
 
