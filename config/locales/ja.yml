@@ -16,6 +16,7 @@ ja:
         expression_rating: 表現力
         memorization_rating: 暗譜・構成
         overall_rating: 総合評価
+        reference_url: 参考動画URL
         summary: 投稿者コメント
     errors:
       models:

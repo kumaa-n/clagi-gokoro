@@ -53,20 +53,6 @@
                   description: description %>
               <% end %>
 
-              <%# タグ選択 %>
-              <div class="mt-2"
-                   data-controller="tags"
-                   data-tags-whitelist-value="<%= ReviewTags::AVAILABLE_TAGS.to_json %>"
-                   data-tags-max-tags-value="<%= ReviewTags::MAX_TAGS_PER_REVIEW %>">
-                <%= f.label :tags, "タグ（最大#{ReviewTags::MAX_TAGS_PER_REVIEW}個）", class: "font-serif font-medium text-primary text-base mb-2" %>
-                <%= f.hidden_field :tags, value: review.tags.to_json %>
-                <input type="text"
-                       value="<%= review.tags.join(',') %>"
-                       placeholder="クリックしてタグを選択"
-                       class="input input-bordered w-full bg-base-50 focus:bg-white transition-colors"
-                       data-tags-target="input" />
-              </div>
-
               <%# 投稿者コメント %>
               <div class="mt-4"
                    data-controller="char-counter"
@@ -84,6 +70,28 @@
                 <div class="text-right text-sm text-neutral/60 mt-1">
                   <span data-char-counter-target="counter">0</span> / <%= Review::SUMMARY_MAX_LENGTH %>文字
                 </div>
+              </div>
+
+              <%# 参考動画URL %>
+              <div class="mt-4">
+                <%= f.label :reference_url, class: "font-serif font-medium text-primary text-base mb-2" %>
+                <%= f.text_field :reference_url,
+                                placeholder: "https://www.youtube.com/watch?v=...",
+                                class: "input input-bordered w-full bg-base-50 focus:bg-white transition-colors" %>
+              </div>
+
+              <%# タグ選択 %>
+              <div class="mt-4"
+                   data-controller="tags"
+                   data-tags-whitelist-value="<%= ReviewTags::AVAILABLE_TAGS.to_json %>"
+                   data-tags-max-tags-value="<%= ReviewTags::MAX_TAGS_PER_REVIEW %>">
+                <%= f.label :tags, "タグ（最大#{ReviewTags::MAX_TAGS_PER_REVIEW}個）", class: "font-serif font-medium text-primary text-base mb-2" %>
+                <%= f.hidden_field :tags, value: review.tags.to_json %>
+                <input type="text"
+                       value="<%= review.tags.join(',') %>"
+                       placeholder="クリックしてタグを選択"
+                       class="input input-bordered w-full bg-base-50 focus:bg-white transition-colors"
+                       data-tags-target="input" />
               </div>
             </div>
           </div>
