@@ -98,6 +98,27 @@
               <% end %>
             </div>
 
+            <%# 投稿者コメント %>
+            <div class="mt-2">
+              <label class="block font-serif font-medium text-primary text-base mb-2">投稿者コメント</label>
+              <div class="textarea textarea-bordered w-full bg-base-50 break-words" style="height: 16rem; max-height: 16rem; overflow-y: auto; white-space: pre-wrap;"><%=
+                @review.summary.presence || "コメントはありません"
+              %></div>
+            </div>
+
+            <%# 参考動画URL %>
+            <% if @review.reference_url.present? %>
+              <% safe_url = URI.parse(@review.reference_url) rescue nil %>
+              <% if safe_url&.is_a?(URI::HTTP) %>
+                <div class="mt-2">
+                  <label class="block font-serif font-medium text-primary text-base mb-2">参考動画URL</label>
+                  <div class="flex items-center gap-2">
+                    <%= link_to safe_url.to_s, safe_url.to_s, target: "_blank", rel: "noopener noreferrer", class: "link link-primary truncate" %>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+
             <%# タグ %>
             <% if @review.tags.present? %>
               <div class="mt-2">
@@ -107,14 +128,6 @@
                 </div>
               </div>
             <% end %>
-
-            <%# 投稿者コメント %>
-            <div class="mt-2">
-              <label class="block font-serif font-medium text-primary text-base mb-2">投稿者コメント</label>
-              <div class="textarea textarea-bordered w-full bg-base-50 break-words" style="height: 16rem; max-height: 16rem; overflow-y: auto; white-space: pre-wrap;"><%=
-                @review.summary.presence || "コメントはありません"
-              %></div>
-            </div>
           </div>
         </div>
       </div>
