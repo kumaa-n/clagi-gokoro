@@ -108,12 +108,15 @@
 
             <%# 参考動画URL %>
             <% if @review.reference_url.present? %>
-              <div class="mt-2">
-                <label class="block font-serif font-medium text-primary text-base mb-2">参考動画URL</label>
-                <div class="flex items-center gap-2">
-                  <%= link_to @review.reference_url, @review.reference_url, target: "_blank", rel: "noopener noreferrer", class: "link link-primary truncate" %>
+              <% safe_url = URI.parse(@review.reference_url) rescue nil %>
+              <% if safe_url&.is_a?(URI::HTTP) %>
+                <div class="mt-2">
+                  <label class="block font-serif font-medium text-primary text-base mb-2">参考動画URL</label>
+                  <div class="flex items-center gap-2">
+                    <%= link_to safe_url.to_s, safe_url.to_s, target: "_blank", rel: "noopener noreferrer", class: "link link-primary truncate" %>
+                  </div>
                 </div>
-              </div>
+              <% end %>
             <% end %>
 
             <%# タグ %>
