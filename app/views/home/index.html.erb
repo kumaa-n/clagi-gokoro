@@ -35,19 +35,21 @@
   </div>
 </section>
 
-<section class="py-16 md:py-24 bg-base-200 px-4 relative overflow-hidden">
-  <div class="container mx-auto max-w-4xl text-center">
-    <h3 class="text-3xl md:text-4xl font-serif font-medium text-primary mb-10 md:mb-14 tracking-wide">
-      クラギごころとは？
-    </h3>
-
-    <div class="text-neutral text-lg md:text-xl leading-relaxed space-y-6 font-light">
-      <p>クラギごころは、クラシックギターの曲を「テンポ」「運指技巧」「弾弦技巧」「表現力」「暗譜・構成理解」の5つの項目で評価し、レーダーチャートとして可視化できるWebサービスです。</p>
-      <p>「この曲、自分にも弾けるかな？」という悩みを他の演奏者の評価と比較することで解決します。</p>
-      <p>まだ知られていない曲との出会いや自分に合ったレパートリーの発見をサポートします。</p>
+<% unless user_signed_in? %>
+  <section class="py-16 md:py-24 bg-base-200 px-4 relative overflow-hidden">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h3 class="text-3xl md:text-4xl font-serif font-medium text-primary mb-10 md:mb-14 tracking-wide">
+        クラギごころとは？
+      </h3>
+  
+      <div class="text-neutral text-lg md:text-xl leading-relaxed space-y-6 font-light">
+        <p>クラギごころは、クラシックギターの曲を「テンポ」「運指技巧」「弾弦技巧」「表現力」「暗譜・構成理解」の5つの項目で評価し、レーダーチャートとして可視化できるWebサービスです。</p>
+        <p>「この曲、自分にも弾けるかな？」という悩みを他の演奏者の評価と比較することで解決します。</p>
+        <p>まだ知られていない曲との出会いや自分に合ったレパートリーの発見をサポートします。</p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+<% end %>
 
 <section class="py-16 md:py-24 bg-base-100">
   <div class="container mx-auto px-4">
